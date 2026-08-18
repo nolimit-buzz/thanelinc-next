@@ -1,36 +1,35 @@
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
-import { Hero } from "@/components/sections/Hero";
-import { Problem } from "@/components/sections/Problem";
-import { SelfCheckBand } from "@/components/sections/SelfCheckBand";
-import { Proof } from "@/components/sections/Proof";
-import { SectorDoors } from "@/components/sections/SectorDoors";
-import { Process } from "@/components/sections/Process";
-import { Services } from "@/components/sections/Services";
-import { Resources } from "@/components/sections/Resources";
-import { Secondary } from "@/components/sections/Secondary";
+import { Hero } from "@/components/v5/Hero";
+import { Problem } from "@/components/v5/Problem";
+import { SelfCheck } from "@/components/v5/SelfCheck";
+import { SectorAccordion } from "@/components/v5/SectorAccordion";
+import { TrackRecord } from "@/components/v5/TrackRecord";
+import { Process } from "@/components/v5/Process";
+import { Services } from "@/components/v5/Services";
+import { Resources } from "@/components/v5/Resources";
+import { PreFooter } from "@/components/v5/PreFooter";
+import { SiteFooter } from "@/components/v5/SiteFooter";
+import { ScrollReveals } from "@/components/v5/ScrollReveals";
 
 /**
- * Homepage section order follows the approved copy doc, which derives it from
- * the shared-question analysis in the Audience-Journey Matrix. Do not reorder
- * without going through that document.
+ * Homepage — v5 `view-home`, ported section for section (W-026).
+ * Order and content are v5's. Do not reorder, restyle, or reword.
  */
 export default function Home() {
   return (
     <>
-      <Nav />
-      <main>
+      <main id="view-home">
         <Hero />
         <Problem />
-        <SelfCheckBand />
-        <Proof />
-        <SectorDoors />
+        <SelfCheck />
+        <SectorAccordion />
+        <TrackRecord />
         <Process />
         <Services />
         <Resources />
-        <Secondary />
+        <PreFooter />
       </main>
-      <Footer />
+      <SiteFooter />
+      <ScrollReveals />
     </>
   );
 }

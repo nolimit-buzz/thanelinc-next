@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import { Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import "./v5.css";
 
 // Self-hosted via next/font — no external font CDN request.
 // Deliberate: a data protection firm's site should not hand visitor IPs to a
 // third party for a typeface.
 const outfit = Outfit({
-  variable: "--font-outfit",
+  variable: "--nf-outfit",
   subsets: ["latin"],
   display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+  variable: "--nf-mono",
   subsets: ["latin"],
   display: "swap",
 });
