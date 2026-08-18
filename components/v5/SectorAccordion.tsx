@@ -36,7 +36,7 @@ export function SectorAccordion() {
                 <div className="sector-accordion-track reveal delay-1" id="sectorAccordionTrack">
                   
                   {/* Card 1: Tertiary Institutions (Default Active) */}
-                  <div className={`sector-accordion-card${active === 0 ? " active" : ""}`} onClick={() => setActive(0)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(0); } }} role="button" tabIndex={0}>
+                  <div className={`sector-accordion-card${active === 0 ? " active" : ""}`} onMouseEnter={() => setActive(0)} onClick={() => setActive(0)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(0); } }} role="button" tabIndex={0}>
                     <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80" alt="Tertiary Institutions Compliance" className="sector-card-bg-img" />
                     <div className="sector-card-overlay"></div>
                     
@@ -57,7 +57,7 @@ export function SectorAccordion() {
                         <a href="#check" className="sector-sublink-item">• Polytechnics ↗</a>
                         <a href="#check" className="sector-sublink-item">• Colleges of Education ↗</a>
                       </div>
-                      <a href="#tertiary" className="sector-drawer-cta">
+                      <a href="/sectors/tertiary-institutions" className="sector-drawer-cta">
                         <span>Explore for Universities</span>
                         <span>→</span>
                       </a>
@@ -65,7 +65,7 @@ export function SectorAccordion() {
                   </div>
       
                   {/* Card 2: Private Sector & SME's */}
-                  <div className={`sector-accordion-card${active === 1 ? " active" : ""}`} onClick={() => setActive(1)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(1); } }} role="button" tabIndex={0}>
+                  <div className={`sector-accordion-card${active === 1 ? " active" : ""}`} onMouseEnter={() => setActive(1)} onClick={() => setActive(1)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(1); } }} role="button" tabIndex={0}>
                     <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" alt="Private Sector and SMEs Compliance" className="sector-card-bg-img" />
                     <div className="sector-card-overlay"></div>
                     
@@ -95,7 +95,7 @@ export function SectorAccordion() {
                   </div>
       
                   {/* Card 3: Hospitality Industry */}
-                  <div className={`sector-accordion-card${active === 2 ? " active" : ""}`} onClick={() => setActive(2)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(2); } }} role="button" tabIndex={0}>
+                  <div className={`sector-accordion-card${active === 2 ? " active" : ""}`} onMouseEnter={() => setActive(2)} onClick={() => setActive(2)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(2); } }} role="button" tabIndex={0}>
                     <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80" alt="Hospitality Industry Compliance" className="sector-card-bg-img" />
                     <div className="sector-card-overlay"></div>
                     
@@ -125,7 +125,7 @@ export function SectorAccordion() {
                   </div>
       
                   {/* Card 4: Healthcare & Public Sector */}
-                  <div className={`sector-accordion-card${active === 3 ? " active" : ""}`} onClick={() => setActive(3)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(3); } }} role="button" tabIndex={0}>
+                  <div className={`sector-accordion-card${active === 3 ? " active" : ""}`} onMouseEnter={() => setActive(3)} onClick={() => setActive(3)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(3); } }} role="button" tabIndex={0}>
                     <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1200&q=80" alt="Healthcare & Public Sector Compliance" className="sector-card-bg-img" />
                     <div className="sector-card-overlay"></div>
                     

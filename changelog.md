@@ -6,6 +6,35 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-19 · Fixed the port: hydration crash, dropped handlers
+
+Six issues, all traceable to two flaws in the HTML→JSX conversion.
+
+**Hydration crash — hero and nav appeared not to render.** The converter's
+attribute map missed SVG presentation attributes, so 146 instances of
+`font-family`, `font-weight`, `font-size`, `letter-spacing`, `text-anchor` and
+`font-style` reached React unconverted. Each threw "Invalid DOM property",
+crashing client render and blanking sections that were present in the server HTML
+all along. All 146 converted; `aria-*` correctly left hyphenated.
+
+**Dropped event handlers.** The converter stripped every inline `on*` attribute,
+and only some were re-wired. Recovered by auditing v5 for all of them:
+
+- `onmouseenter` on the four sector cards — v5 activates on hover *and* click.
+  This was the reported bug where the first Mandate card would not collapse when
+  hovering another.
+- `onsubmit` on the newsletter form.
+- `switchPage()` calls, which were v5's display:none toggle — now real routes.
+
+**Also:** inline SVG logo lockups set `font-family="'Outfit', sans-serif"` as a
+presentation attribute, which no longer matches next/font's hashed family name. A
+CSS rule in v5.css restores the intended face without editing ported markup.
+
+Verified: zero hydration errors, both routes 200, all five nav items and the hero
+rendering, lint and build clean.
+
+---
+
 ## 2026-08-19 · Re-ported v5 exactly; previous port discarded
 
 The first port was rejected on review — 7 of 9 sections wrong, 1 missing. It

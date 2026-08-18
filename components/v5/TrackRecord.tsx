@@ -38,8 +38,8 @@ export function TrackRecord() {
                         <rect x="7" y="30" width="10" height="3.5" rx="1" />
                         <rect x="9" y="36.5" width="5" height="3.5" rx="1" />
                       </g>
-                      <text x="36" y="21" font-family="'Outfit', sans-serif" font-weight="800" font-size="15" fill="#1E293B" letter-spacing="1.5">AFRILAND</text>
-                      <text x="36" y="36" font-family="'Outfit', sans-serif" font-weight="700" font-size="12" fill="#D32F2F" letter-spacing="2">PROPERTIES</text>
+                      <text x="36" y="21" fontFamily="'Outfit', sans-serif" fontWeight="800" fontSize="15" fill="#1E293B" letterSpacing="1.5">AFRILAND</text>
+                      <text x="36" y="36" fontFamily="'Outfit', sans-serif" fontWeight="700" fontSize="12" fill="#D32F2F" letterSpacing="2">PROPERTIES</text>
                     </svg>
                   </div>
       
@@ -49,8 +49,8 @@ export function TrackRecord() {
                       <circle cx="18" cy="22" r="15" fill="#0284C7" />
                       <path d="M10 22 C12 16, 24 14, 26 18 C28 22, 24 30, 16 30 Z" fill="#65A30D" />
                       <path d="M20 10 C24 13, 30 16, 28 22 C26 26, 30 32, 32 30" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />
-                      <text x="42" y="20" font-family="'Outfit', sans-serif" font-weight="800" font-size="13.5" fill="#0284C7" letter-spacing="2.5">AQUA<tspan fill="#65A30D">EARTH</tspan></text>
-                      <text x="42" y="34" font-family="'Outfit', sans-serif" font-weight="600" font-size="9.5" fill="#64748B" letter-spacing="3.5">CONSULTING</text>
+                      <text x="42" y="20" fontFamily="'Outfit', sans-serif" fontWeight="800" fontSize="13.5" fill="#0284C7" letterSpacing="2.5">AQUA<tspan fill="#65A30D">EARTH</tspan></text>
+                      <text x="42" y="34" fontFamily="'Outfit', sans-serif" fontWeight="600" fontSize="9.5" fill="#64748B" letterSpacing="3.5">CONSULTING</text>
                     </svg>
                   </div>
       
@@ -60,8 +60,8 @@ export function TrackRecord() {
                       <rect x="0" y="6" width="30" height="30" rx="2" fill="#1E6B37" />
                       <circle cx="15" cy="21" r="7.5" fill="#FFFFFF" />
                       <circle cx="15" cy="21" r="3.5" fill="#1E6B37" />
-                      <text x="38" y="20" font-family="'Outfit', sans-serif" font-weight="800" font-size="12.5" fill="#1E6B37" letter-spacing="0.5">BANK OF INDUSTRY</text>
-                      <text x="38" y="33" font-family="'Playfair Display', serif" font-style="italic" font-weight="600" font-size="8.5" fill="#DC2626">...transforming Nigeria's industrial sector</text>
+                      <text x="38" y="20" fontFamily="'Outfit', sans-serif" fontWeight="800" fontSize="12.5" fill="#1E6B37" letterSpacing="0.5">BANK OF INDUSTRY</text>
+                      <text x="38" y="33" fontFamily="'Playfair Display', serif" fontStyle="italic" fontWeight="600" fontSize="8.5" fill="#DC2626">...transforming Nigeria's industrial sector</text>
                     </svg>
                   </div>
       
@@ -69,7 +69,7 @@ export function TrackRecord() {
                   <div className="logo-item" title="Bokku!">
                     <svg height="38" viewBox="0 0 130 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <rect x="0" y="4" width="120" height="36" rx="3" fill="#0022C6" />
-                      <text x="60" y="29" font-family="'Outfit', sans-serif" font-weight="900" font-size="22" fill="#FACC15" text-anchor="middle" letter-spacing="0.5">bokku!</text>
+                      <text x="60" y="29" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="22" fill="#FACC15" textAnchor="middle" letterSpacing="0.5">bokku!</text>
                     </svg>
                   </div>
       
@@ -101,8 +101,8 @@ export function TrackRecord() {
                       <circle cx="20" cy="22" r="16" stroke="#15803D" strokeWidth="1.8" fill="#F0FDF4" />
                       <path d="M20 10 L20 32 M12 16 L28 16" stroke="#15803D" strokeWidth="1.6" strokeLinecap="round" />
                       <path d="M10 24 L14 24 L12 16 Z M26 24 L30 24 L28 16 Z" fill="#15803D" />
-                      <text x="44" y="21" font-family="'Outfit', sans-serif" font-weight="900" font-size="14.5" fill="#14532D" letter-spacing="1">NBA</text>
-                      <text x="44" y="33" font-family="'Outfit', sans-serif" font-weight="700" font-size="7.5" fill="#166534" letter-spacing="0.5">NIGERIAN BAR ASSOCIATION</text>
+                      <text x="44" y="21" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="14.5" fill="#14532D" letterSpacing="1">NBA</text>
+                      <text x="44" y="33" fontFamily="'Outfit', sans-serif" fontWeight="700" fontSize="7.5" fill="#166534" letterSpacing="0.5">NIGERIAN BAR ASSOCIATION</text>
                     </svg>
                   </div>
       
@@ -113,10 +113,10 @@ export function TrackRecord() {
                       <path d="M18 4 L18 40 M2 22 L34 22" stroke="#4CAF50" strokeWidth="1.2" />
                       <circle cx="18" cy="18" r="2.8" fill="#4CAF50" />
                       <path d="M13.5 26.5 C13.5 23, 22.5 23, 22.5 26.5" stroke="#4CAF50" strokeWidth="1.8" strokeLinecap="round" />
-                      <text x="44" y="25" font-family="'Outfit', sans-serif" font-weight="900" font-size="19" fill="#0284C7" letter-spacing="1">PH<tspan fill="#0284C7">E</tspan>D</text>
+                      <text x="44" y="25" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="19" fill="#0284C7" letterSpacing="1">PH<tspan fill="#0284C7">E</tspan>D</text>
                       <rect x="90" y="15" width="6" height="2.5" fill="#0284C7" rx="0.5" />
                       <rect x="90" y="21.5" width="6" height="2.5" fill="#0284C7" rx="0.5" />
-                      <text x="44" y="35" font-family="'Outfit', sans-serif" font-weight="700" font-size="6" fill="#475569" letter-spacing="0.2">PORT HARCOURT ELECTRICITY DISTRIBUTION COMPANY</text>
+                      <text x="44" y="35" fontFamily="'Outfit', sans-serif" fontWeight="700" fontSize="6" fill="#475569" letterSpacing="0.2">PORT HARCOURT ELECTRICITY DISTRIBUTION COMPANY</text>
                     </svg>
                   </div>
       
@@ -125,19 +125,19 @@ export function TrackRecord() {
                     <svg height="38" viewBox="0 0 195 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 9 C5 15, 5 29, 17 35 C23 31, 27 21, 19 13 Z" fill="#059669" />
                       <path d="M17 11 C23 17, 25 24, 21 31" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" />
-                      <text x="32" y="23" font-family="'Outfit', sans-serif" font-weight="900" font-size="15.5" fill="#065F46" letter-spacing="1">PROMASIDOR</text>
-                      <text x="33" y="34" font-family="'Outfit', sans-serif" font-weight="600" font-size="7.5" fill="#D97706" letter-spacing="1.2">Quality Food Products</text>
+                      <text x="32" y="23" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="15.5" fill="#065F46" letterSpacing="1">PROMASIDOR</text>
+                      <text x="33" y="34" fontFamily="'Outfit', sans-serif" fontWeight="600" fontSize="7.5" fill="#D97706" letterSpacing="1.2">Quality Food Products</text>
                     </svg>
                   </div>
       
                   {/* 9. Twelve 23 Projects */}
                   <div className="logo-item" title="Twelve 23 Projects">
                     <svg height="38" viewBox="0 0 160 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <text x="0" y="25" font-family="'Outfit', sans-serif" font-weight="900" font-size="20" fill="#EAB308">τ</text>
-                      <text x="11" y="25" font-family="'Outfit', sans-serif" font-weight="900" font-size="18" fill="#0F172A">welve</text>
-                      <text x="69" y="25" font-family="'Outfit', sans-serif" font-weight="800" font-size="18" fill="#EAB308">23</text>
+                      <text x="0" y="25" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="20" fill="#EAB308">τ</text>
+                      <text x="11" y="25" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="18" fill="#0F172A">welve</text>
+                      <text x="69" y="25" fontFamily="'Outfit', sans-serif" fontWeight="800" fontSize="18" fill="#EAB308">23</text>
                       <line x1="11" y1="31" x2="38" y2="31" stroke="#94A3B8" strokeWidth="1.2" />
-                      <text x="66" y="35" font-family="'Outfit', sans-serif" font-weight="700" font-size="8" fill="#0F172A" text-anchor="middle" letter-spacing="2.5">PROJECTS</text>
+                      <text x="66" y="35" fontFamily="'Outfit', sans-serif" fontWeight="700" fontSize="8" fill="#0F172A" textAnchor="middle" letterSpacing="2.5">PROJECTS</text>
                       <line x1="94" y1="31" x2="121" y2="31" stroke="#94A3B8" strokeWidth="1.2" />
                     </svg>
                   </div>
@@ -154,8 +154,8 @@ export function TrackRecord() {
                         <rect x="7" y="30" width="10" height="3.5" rx="1" />
                         <rect x="9" y="36.5" width="5" height="3.5" rx="1" />
                       </g>
-                      <text x="36" y="21" font-family="'Outfit', sans-serif" font-weight="800" font-size="15" fill="#1E293B" letter-spacing="1.5">AFRILAND</text>
-                      <text x="36" y="36" font-family="'Outfit', sans-serif" font-weight="700" font-size="12" fill="#D32F2F" letter-spacing="2">PROPERTIES</text>
+                      <text x="36" y="21" fontFamily="'Outfit', sans-serif" fontWeight="800" fontSize="15" fill="#1E293B" letterSpacing="1.5">AFRILAND</text>
+                      <text x="36" y="36" fontFamily="'Outfit', sans-serif" fontWeight="700" fontSize="12" fill="#D32F2F" letterSpacing="2">PROPERTIES</text>
                     </svg>
                   </div>
       
@@ -165,8 +165,8 @@ export function TrackRecord() {
                       <circle cx="18" cy="22" r="15" fill="#0284C7" />
                       <path d="M10 22 C12 16, 24 14, 26 18 C28 22, 24 30, 16 30 Z" fill="#65A30D" />
                       <path d="M20 10 C24 13, 30 16, 28 22 C26 26, 30 32, 32 30" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />
-                      <text x="42" y="20" font-family="'Outfit', sans-serif" font-weight="800" font-size="13.5" fill="#0284C7" letter-spacing="2.5">AQUA<tspan fill="#65A30D">EARTH</tspan></text>
-                      <text x="42" y="34" font-family="'Outfit', sans-serif" font-weight="600" font-size="9.5" fill="#64748B" letter-spacing="3.5">CONSULTING</text>
+                      <text x="42" y="20" fontFamily="'Outfit', sans-serif" fontWeight="800" fontSize="13.5" fill="#0284C7" letterSpacing="2.5">AQUA<tspan fill="#65A30D">EARTH</tspan></text>
+                      <text x="42" y="34" fontFamily="'Outfit', sans-serif" fontWeight="600" fontSize="9.5" fill="#64748B" letterSpacing="3.5">CONSULTING</text>
                     </svg>
                   </div>
       
@@ -176,8 +176,8 @@ export function TrackRecord() {
                       <rect x="0" y="6" width="30" height="30" rx="2" fill="#1E6B37" />
                       <circle cx="15" cy="21" r="7.5" fill="#FFFFFF" />
                       <circle cx="15" cy="21" r="3.5" fill="#1E6B37" />
-                      <text x="38" y="20" font-family="'Outfit', sans-serif" font-weight="800" font-size="12.5" fill="#1E6B37" letter-spacing="0.5">BANK OF INDUSTRY</text>
-                      <text x="38" y="33" font-family="'Playfair Display', serif" font-style="italic" font-weight="600" font-size="8.5" fill="#DC2626">...transforming Nigeria's industrial sector</text>
+                      <text x="38" y="20" fontFamily="'Outfit', sans-serif" fontWeight="800" fontSize="12.5" fill="#1E6B37" letterSpacing="0.5">BANK OF INDUSTRY</text>
+                      <text x="38" y="33" fontFamily="'Playfair Display', serif" fontStyle="italic" fontWeight="600" fontSize="8.5" fill="#DC2626">...transforming Nigeria's industrial sector</text>
                     </svg>
                   </div>
       
@@ -185,7 +185,7 @@ export function TrackRecord() {
                   <div className="logo-item" title="Bokku!">
                     <svg height="38" viewBox="0 0 130 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <rect x="0" y="4" width="120" height="36" rx="3" fill="#0022C6" />
-                      <text x="60" y="29" font-family="'Outfit', sans-serif" font-weight="900" font-size="22" fill="#FACC15" text-anchor="middle" letter-spacing="0.5">bokku!</text>
+                      <text x="60" y="29" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="22" fill="#FACC15" textAnchor="middle" letterSpacing="0.5">bokku!</text>
                     </svg>
                   </div>
       
@@ -217,8 +217,8 @@ export function TrackRecord() {
                       <circle cx="20" cy="22" r="16" stroke="#15803D" strokeWidth="1.8" fill="#F0FDF4" />
                       <path d="M20 10 L20 32 M12 16 L28 16" stroke="#15803D" strokeWidth="1.6" strokeLinecap="round" />
                       <path d="M10 24 L14 24 L12 16 Z M26 24 L30 24 L28 16 Z" fill="#15803D" />
-                      <text x="44" y="21" font-family="'Outfit', sans-serif" font-weight="900" font-size="14.5" fill="#14532D" letter-spacing="1">NBA</text>
-                      <text x="44" y="33" font-family="'Outfit', sans-serif" font-weight="700" font-size="7.5" fill="#166534" letter-spacing="0.5">NIGERIAN BAR ASSOCIATION</text>
+                      <text x="44" y="21" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="14.5" fill="#14532D" letterSpacing="1">NBA</text>
+                      <text x="44" y="33" fontFamily="'Outfit', sans-serif" fontWeight="700" fontSize="7.5" fill="#166534" letterSpacing="0.5">NIGERIAN BAR ASSOCIATION</text>
                     </svg>
                   </div>
       
@@ -229,10 +229,10 @@ export function TrackRecord() {
                       <path d="M18 4 L18 40 M2 22 L34 22" stroke="#4CAF50" strokeWidth="1.2" />
                       <circle cx="18" cy="18" r="2.8" fill="#4CAF50" />
                       <path d="M13.5 26.5 C13.5 23, 22.5 23, 22.5 26.5" stroke="#4CAF50" strokeWidth="1.8" strokeLinecap="round" />
-                      <text x="44" y="25" font-family="'Outfit', sans-serif" font-weight="900" font-size="19" fill="#0284C7" letter-spacing="1">PH<tspan fill="#0284C7">E</tspan>D</text>
+                      <text x="44" y="25" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="19" fill="#0284C7" letterSpacing="1">PH<tspan fill="#0284C7">E</tspan>D</text>
                       <rect x="90" y="15" width="6" height="2.5" fill="#0284C7" rx="0.5" />
                       <rect x="90" y="21.5" width="6" height="2.5" fill="#0284C7" rx="0.5" />
-                      <text x="44" y="35" font-family="'Outfit', sans-serif" font-weight="700" font-size="6" fill="#475569" letter-spacing="0.2">PORT HARCOURT ELECTRICITY DISTRIBUTION COMPANY</text>
+                      <text x="44" y="35" fontFamily="'Outfit', sans-serif" fontWeight="700" fontSize="6" fill="#475569" letterSpacing="0.2">PORT HARCOURT ELECTRICITY DISTRIBUTION COMPANY</text>
                     </svg>
                   </div>
       
@@ -241,19 +241,19 @@ export function TrackRecord() {
                     <svg height="38" viewBox="0 0 195 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 9 C5 15, 5 29, 17 35 C23 31, 27 21, 19 13 Z" fill="#059669" />
                       <path d="M17 11 C23 17, 25 24, 21 31" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" />
-                      <text x="32" y="23" font-family="'Outfit', sans-serif" font-weight="900" font-size="15.5" fill="#065F46" letter-spacing="1">PROMASIDOR</text>
-                      <text x="33" y="34" font-family="'Outfit', sans-serif" font-weight="600" font-size="7.5" fill="#D97706" letter-spacing="1.2">Quality Food Products</text>
+                      <text x="32" y="23" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="15.5" fill="#065F46" letterSpacing="1">PROMASIDOR</text>
+                      <text x="33" y="34" fontFamily="'Outfit', sans-serif" fontWeight="600" fontSize="7.5" fill="#D97706" letterSpacing="1.2">Quality Food Products</text>
                     </svg>
                   </div>
       
                   {/* 9. Twelve 23 Projects */}
                   <div className="logo-item" title="Twelve 23 Projects">
                     <svg height="38" viewBox="0 0 160 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <text x="0" y="25" font-family="'Outfit', sans-serif" font-weight="900" font-size="20" fill="#EAB308">τ</text>
-                      <text x="11" y="25" font-family="'Outfit', sans-serif" font-weight="900" font-size="18" fill="#0F172A">welve</text>
-                      <text x="69" y="25" font-family="'Outfit', sans-serif" font-weight="800" font-size="18" fill="#EAB308">23</text>
+                      <text x="0" y="25" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="20" fill="#EAB308">τ</text>
+                      <text x="11" y="25" fontFamily="'Outfit', sans-serif" fontWeight="900" fontSize="18" fill="#0F172A">welve</text>
+                      <text x="69" y="25" fontFamily="'Outfit', sans-serif" fontWeight="800" fontSize="18" fill="#EAB308">23</text>
                       <line x1="11" y1="31" x2="38" y2="31" stroke="#94A3B8" strokeWidth="1.2" />
-                      <text x="66" y="35" font-family="'Outfit', sans-serif" font-weight="700" font-size="8" fill="#0F172A" text-anchor="middle" letter-spacing="2.5">PROJECTS</text>
+                      <text x="66" y="35" fontFamily="'Outfit', sans-serif" fontWeight="700" fontSize="8" fill="#0F172A" textAnchor="middle" letterSpacing="2.5">PROJECTS</text>
                       <line x1="94" y1="31" x2="121" y2="31" stroke="#94A3B8" strokeWidth="1.2" />
                     </svg>
                   </div>

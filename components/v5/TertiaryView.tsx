@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 // Ported verbatim from registration-marks-v5.html lines 4560–4580.
 // Class names and copy are v5's. Do not restyle or reword (W-026).
 
@@ -18,10 +20,10 @@ export function TertiaryView() {
                 Under the NDPC's own schedule, every higher institution — university, polytechnic, or college — is classed Enhanced High Level, regardless of student numbers. That means an annual filing obligation, and a legal requirement to file through a licensed Data Protection Compliance Organization.
               </p>
               <div style={{"display": "flex", "justifyContent": "center"}}>
-                <button className="btn-architectural-cta">
+                <Link href="/" className="btn-architectural-cta">
                   <span className="btn-arch-label">Check Exact Filing Deadline</span>
                   <span className="btn-arch-arrow">→</span>
-                </button>
+                </Link>
               </div>
             </div>
           </section>

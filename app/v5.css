@@ -3323,3 +3323,8 @@
       .services-grid-8 { grid-template-columns: 1fr 1fr; }
     }
   
+/* PORT: v5's inline SVG logo lockups set font-family="'Outfit', sans-serif" as a
+   presentation attribute. next/font generates a hashed family name, so that
+   literal no longer matches. A CSS rule outranks a presentation attribute, so
+   this restores the intended face without editing the ported markup. */
+svg text { font-family: var(--font-outfit); }

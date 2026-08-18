@@ -1,3 +1,5 @@
+"use client";
+
 // Ported verbatim from registration-marks-v5.html lines 4364–4527.
 // Class names and copy are v5's. Do not restyle or reword (W-026).
 
@@ -65,14 +67,14 @@ export function Resources() {
                         {/* Teal Active Nodes with Pulse */}
                         <circle cx="130" cy="70" r="14" className="datamap-pulse-ring datamap-ring-1" />
                         <circle cx="130" cy="70" r="6" fill="#1CB0B8" />
-                        <text x="130" y="52" fill="#1CB0B8" font-size="9" font-family="monospace" font-weight="700" text-anchor="middle">ROPA</text>
+                        <text x="130" y="52" fill="#1CB0B8" fontSize="9" fontFamily="monospace" fontWeight="700" textAnchor="middle">ROPA</text>
       
                         <circle cx="220" cy="120" r="14" className="datamap-pulse-ring datamap-ring-2" />
                         <circle cx="220" cy="120" r="6" fill="#1CB0B8" />
-                        <text x="220" y="142" fill="#1CB0B8" font-size="9" font-family="monospace" font-weight="700" text-anchor="middle">DPIA</text>
+                        <text x="220" y="142" fill="#1CB0B8" fontSize="9" fontFamily="monospace" fontWeight="700" textAnchor="middle">DPIA</text>
       
                         <circle cx="310" cy="60" r="6" fill="#1CB0B8" />
-                        <text x="310" y="44" fill="#1CB0B8" font-size="9" font-family="monospace" font-weight="700" text-anchor="middle">LIA</text>
+                        <text x="310" y="44" fill="#1CB0B8" fontSize="9" fontFamily="monospace" fontWeight="700" textAnchor="middle">LIA</text>
                       </svg>
                     </div>
                   </div>
@@ -149,7 +151,7 @@ export function Resources() {
                     </p>
                   </div>
                   <div className="newsletter-right-col">
-                    <form className="newsletter-form">
+                    <form className="newsletter-form" onSubmit={(e) => { e.preventDefault(); alert("Subscribed to Thanelinc compliance notes."); }}>
                       <div className="newsletter-input-group">
                         <input type="email" placeholder="Enter your email" required className="newsletter-email-input" aria-label="Email for compliance updates" />
                         <button type="submit" className="btn-architectural-cta btn-architectural-cta-light" style={{"border": "none", "background": "transparent", "cursor": "pointer", "padding": "0"}}>

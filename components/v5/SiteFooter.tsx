@@ -71,7 +71,7 @@ export function SiteFooter() {
                 <div>
                   <div className="footer-col-title-clean">Priority Sectors</div>
                   <ul className="footer-links-clean">
-                    <li><a href="javascript:switchPage('tertiary')" className="footer-link-clean">Higher Institutions (EHL)</a></li>
+                    <li><a href="/sectors/tertiary-institutions" className="footer-link-clean">Higher Institutions (EHL)</a></li>
                     <li><a href="/sectors/regulated-businesses" className="footer-link-clean">Regulated Businesses (UHL)</a></li>
                     <li><a href="/sectors/public-sector" className="footer-link-clean">Public Sector & MDAs</a></li>
                   </ul>
