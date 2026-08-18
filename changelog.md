@@ -6,6 +6,32 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-19 · Hero and nav made visible — initHeroMotion was never ported
+
+The hero and nav were in the server HTML the whole time but rendered invisible.
+v5 sets `.hero-motion-item`, `.hero-nav-motion` and `.hero-visual-motion` to
+`opacity: 0`, and only reveals them once the wrapper gains `.hero-entered`. That
+class is added by `initHeroMotion()`, which the first pass did not port. Markup
+without its activating script is markup you cannot see.
+
+Ported faithfully, including the details the earlier simplified version got wrong:
+the 80ms rAF-delayed entrance, the sticky-nav threshold of 40px (not 30), and
+`.hero-exiting`, which fades the hero past 35% of its own height and reverses on
+the way back up.
+
+**Audited every opacity-gated class in v5.css rather than fixing only the reported
+one.** Eight exist; all now have their activator confirmed: three hero motion
+classes via `.hero-entered`, `.reveal` via ScrollReveals, `.carousel-slide-item`
+via state, and the sector drawer, service drawer and service chips via CSS
+`:hover` — those need no JS.
+
+Also added `suppressHydrationWarning` to `<body>`. The reported mismatch was
+`cz-shortcut-listen`, injected by the ColorZilla browser extension before React
+loads — not an application bug. Scoped to `<body>` so genuine mismatches inside
+the tree still surface.
+
+---
+
 ## 2026-08-19 · Fixed the port: hydration crash, dropped handlers
 
 Six issues, all traceable to two flaws in the HTML→JSX conversion.

@@ -4,11 +4,14 @@
 // Class names and copy are v5's. Do not restyle or reword (W-026).
 // Client component: the hero carousel and sticky-nav state need state.
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function Hero() {
   const [slide, setSlide] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const [entered, setEntered] = useState(false);
+  const [exiting, setExiting] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   // v5: auto-advance every 6s, paused on hover over the chamfer card.
   const [paused, setPaused] = useState(false);
@@ -18,9 +21,26 @@ export function Hero() {
     return () => clearInterval(t);
   }, [paused]);
 
-  // v5: nav gains .scrolled past 30px.
+  // v5 initHeroMotion(): everything inside the hero is opacity:0 until the
+  // wrapper gains .hero-entered. Without this the hero and nav render but stay
+  // invisible.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
+    const id = requestAnimationFrame(() => {
+      const t = setTimeout(() => setEntered(true), 80);
+      return () => clearTimeout(t);
+    });
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  // v5: nav gains .scrolled past 40px; hero gains .hero-exiting past 35% of its
+  // own height, and loses it again on the way back up.
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.pageYOffset || document.documentElement.scrollTop;
+      setScrolled(y > 40);
+      const h = wrapRef.current?.offsetHeight || window.innerHeight;
+      setExiting(y > h * 0.35);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -29,7 +49,7 @@ export function Hero() {
   return (
     <>
           {/* SECTION 1: ARCHITECTURAL SPLIT HERO (HERO + NAV = EXACT 100VH) */}
-          <div className="hero-split-wrapper">
+          <div ref={wrapRef} className={`hero-split-wrapper${entered ? " hero-entered" : ""}${exiting ? " hero-exiting" : ""}`}>
             
             {/* Right Side Dark Forest Slate Block Backdrop (Flows All The Way From Top Of Nav) */}
             <div className="hero-right-dark-backdrop"></div>
