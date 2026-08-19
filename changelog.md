@@ -6,6 +6,72 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-19 · Global nav added for sub-pages — v5 never designed one
+
+Caught while previewing: `/sectors/tertiary-institutions` and the new
+`/sectors/regulated-businesses` rendered with **no navigation at all**. v5's
+`<header class="site-nav-clean">` is inside `Hero.tsx`, welded to the homepage's
+100vh hero block (v5's own comment: "NAV = EXACT 100VH"). v5 was built as a
+single page with anchor links — a second page's nav was never in scope for the
+original concept, so this wasn't caught in review.
+
+Added `components/SiteNav.tsx`: same v5 markup and classes, permanently in the
+"scrolled" (solid dark, fixed) variant, since that's the one that doesn't
+depend on the hero's split backdrop behind it. Homepage's own nav is untouched.
+Non-homepage routes link back to `/#services`, `/#sectors`, etc. — real routes
+don't exist yet for those sections. Also pointed the sector-accordion's card 2
+CTA at `/sectors/regulated-businesses` instead of the placeholder `#check`.
+
+Used `next/image` for the nav logo rather than `<img>` — this component isn't a
+v5 port, so it doesn't inherit the `components/v5/**` ESLint carve-out.
+
+Verified: both sub-pages 200, nav present and every link resolves; lint/build
+clean.
+
+---
+
+## 2026-08-19 · `/sectors/regulated-businesses` built, docs/BUILD_STATE.md re-synced
+
+Phase 3 continuation, per `PLAN-2026-08-19-status-sync-and-phase3-continuation.md`
+(handover workspace).
+
+**No v5 source for this page.** v5 only ever built the homepage and the
+tertiary-institutions drawer — the sector-accordion's other three cards, and the
+footer's `/sectors/regulated-businesses` and `/sectors/public-sector` links, were
+always forward references to pages that didn't exist yet. Built this one from
+`Content/04-Page-Copy/sectors-regulated-businesses.md` verbatim instead of a v5
+port: hero, credential block (R10), turnaround table (6 steps), four reason
+cards, category-or-volume explainer, outsourced-DPO section, filing section,
+Levitate proof block (cleared), closing CTA.
+
+**Styling approach differs from the homepage port on purpose.** Reused v5's
+shared primitives (`container`, `micro-cred-badge`, `hero-h1-clean`,
+`btn-architectural-cta`, `section-h2-title`, `mandate-link-check`) for brand
+consistency, then Tailwind utilities plus the `:root` CSS custom properties from
+`v5.css` for everything v5 never defined (table, reason-card grid, credential
+panel). `v5.css` itself is untouched — this isn't a port, so the "copy
+verbatim, don't reinterpret" rule (W-026) doesn't apply here; the copy source
+does the equivalent job.
+
+Content lives in `lib/content/sectorsRegulatedBusinesses.ts`, typed against the
+existing `SectorPage` shape in `lib/content/types.ts`.
+
+Several CTAs point at routes not yet built (`/contact`, `/services/*`,
+`/about/credentials`) — expected at this stage of the build, consistent with
+how the homepage already links forward to `/sectors/tertiary-institutions`
+before it existed.
+
+Verified: `/sectors/regulated-businesses` returns 200; only "Levitate" appears
+among client/case-evidence names (cleared, per `client-permissions.md`); penalty
+wording confirmed "section 49" not 48; no "24/7" language. `npm run lint` and
+`npm run build` pass.
+
+**Also updated `docs/BUILD_STATE.md`**, which had gone stale — three prior
+commits (homepage port + two fix sessions) were never reflected there. Re-synced
+against this changelog; see the audit and plan referenced above for why.
+
+---
+
 ## 2026-08-19 · Hero and nav made visible — initHeroMotion was never ported
 
 The hero and nav were in the server HTML the whole time but rendered invisible.

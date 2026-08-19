@@ -87,13 +87,13 @@ export function SectorAccordion() {
                         <a href="#check" className="sector-sublink-item">• Professional Services ↗</a>
                         <a href="#check" className="sector-sublink-item">• Logistics & Distribution ↗</a>
                       </div>
-                      <a href="#check" className="sector-drawer-cta">
+                      <a href="/sectors/regulated-businesses" className="sector-drawer-cta">
                         <span>Explore for Businesses</span>
                         <span>→</span>
                       </a>
                     </div>
                   </div>
-      
+
                   {/* Card 3: Hospitality Industry */}
                   <div className={`sector-accordion-card${active === 2 ? " active" : ""}`} onMouseEnter={() => setActive(2)} onClick={() => setActive(2)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(2); } }} role="button" tabIndex={0}>
                     <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80" alt="Hospitality Industry Compliance" className="sector-card-bg-img" />
