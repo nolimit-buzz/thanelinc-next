@@ -52,6 +52,9 @@ export const credentialBlock = {
   cta: { label: "View the credential", href: "/about/credentials" },
 };
 
+export const turnaroundsIntro =
+  "Every stage below comes with a stated deliverable and a confirmed turnaround, so you know exactly what to expect and when.";
+
 export const turnarounds = [
   { step: "Scoping", deliverable: "Agreed scope of work", turnaround: "48 hours" },
   { step: "NDPC registration", deliverable: "Certificate of registration", turnaround: "3 working days" },

@@ -54,7 +54,7 @@ export function SelfCheck() {
       
                 {/* Massive Primary CTA + Secondary Button Cluster */}
                 <div className="micro-btn-cluster" style={{"display": "flex", "gap": "24px", "justifyContent": "center", "alignItems": "center", "flexWrap": "wrap"}}>
-                  <a href="#contact" className="btn-architectural-cta btn-architectural-cta-filled">
+                  <a href="/am-i-covered" className="btn-architectural-cta btn-architectural-cta-filled">
                     <span className="btn-arch-label">Start the Check</span>
                     <span className="btn-arch-arrow">→</span>
                   </a>

@@ -277,13 +277,14 @@
 
     .brand-img-logo {
       height: 38px;
-      width: auto;
+      width: 156.75px;
       display: block;
       transition: var(--transition-base);
     }
 
     .site-nav-clean.scrolled .brand-img-logo {
       height: 32px;
+      width: 132px;
     }
 
     .site-nav-clean .logo-scrolled {
@@ -3328,3 +3329,7 @@
    literal no longer matches. A CSS rule outranks a presentation attribute, so
    this restores the intended face without editing the ported markup. */
 svg text { font-family: var(--font-outfit); }
+
+/* TwoToneSplitHero (/services) — subtle hover-scale on the photo cascade,
+   same treatment as .sector-card-bg-img/.hero-chamfer-img elsewhere. */
+.hero-split-strip-img:hover { transform: scale(1.05); }

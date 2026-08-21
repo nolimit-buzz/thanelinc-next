@@ -28,18 +28,21 @@ export type Audience =
   | "compliance-owner"
   | "public-sector";
 
-/** Maps 1:1 onto Thanelinc's 10-step client journey, so the content model and
- *  the delivery model stay in sync. */
+/**
+ * Maps 1:1 onto Thanelinc's 6-stage client journey (2026-08-20, DECISIONS.md
+ * W-029 — supersedes the earlier 9-step granular set below). Not currently
+ * consumed anywhere — `Service`/`Explainer` below are unused; the pages that
+ * actually ship use their own simpler content shapes
+ * (`ServicePageContent`/`SectorPageContent`). Kept in sync as documentation
+ * rather than wired up, since fixing that drift is a separate piece of work.
+ */
 export type ComplianceStage =
-  | "scoping"
-  | "registration"
-  | "data-mapping"
-  | "assessment"
-  | "remediation"
-  | "dpo"
-  | "training"
-  | "audit-filing"
-  | "monitoring";
+  | "engage-register-assess"
+  | "discover"
+  | "build-remediate"
+  | "train-embed"
+  | "audit-demonstrate"
+  | "ongoing-compliance";
 
 export type Sector =
   | "education"

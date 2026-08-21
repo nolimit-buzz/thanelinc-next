@@ -1,6 +1,120 @@
 @import "tailwindcss";
 
+/* The navigation drawer and fixed header use viewport-sized layers. Clip those
+   layers at the root so a non-overlay desktop scrollbar cannot add its width
+   to an otherwise mobile-sized document; local table/nav scroll regions keep
+   their own explicit overflow behaviour. */
+html {
+  overflow-x: clip;
+}
+
 /* v5.css carries the entire visual system, extracted verbatim from the approved
    concept, and governs everything below it. Do not add competing base styles or
    design tokens here — that is how the first port drifted. Tailwind remains
    available for future work that sits outside the ported design. */
+
+/* On-mount staggered entrance, used outside the ported design (e.g. the
+   regulated-businesses reason cards) — deliberately not tied to
+   IntersectionObserver/.reveal, which has twice left elements stuck
+   invisible when added to the DOM after ScrollReveals' one-time scan. */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.active {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  @keyframes fade-in-up {
+    from { opacity: 1; transform: none; }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+/* Idle float, once entrance is done — used on the /services hero's floating
+   chips (ServicesHeroCutout.tsx). Two different waveforms so chips using
+   float-a vs float-b never look synchronised even at matching durations;
+   actual desync comes from each chip getting its own animation-duration and
+   animation-delay inline. */
+@keyframes float-a {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-9px) rotate(-0.6deg); }
+}
+
+@keyframes float-b {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(7px) rotate(0.5deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes float-a {
+    from { transform: none; }
+    to { transform: none; }
+  }
+  @keyframes float-b {
+    from { transform: none; }
+    to { transform: none; }
+  }
+}
+
+/* MegaMenu (W-030) — column stagger on open, plus the panel's own
+   transform+opacity transition (inline, MegaMenu.tsx). Kept to one
+   composited property pair per AC6; disabled outright under reduced motion
+   rather than shortened, matching the pattern above. */
+@keyframes mega-menu-stagger {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes mega-menu-stagger {
+    from { opacity: 1; transform: none; }
+    to { opacity: 1; transform: none; }
+  }
+  .mega-menu-panel {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.mega-menu-item:hover,
+.mega-menu-item:focus-visible {
+  background: rgba(28, 176, 184, 0.08);
+}
+
+.mega-menu-item:focus-visible {
+  outline: 2px solid var(--color-teal-accent);
+  outline-offset: 2px;
+}
+
+/* Nav mobile breakpoint (W-030) — same 900px cutoff already used elsewhere
+   in v5.css for other layout collapses. The dropdown/mega-menu links and the
+   "Contact Us" bar give way to the hamburger trigger; MobileNavDrawer covers
+   everything they contained. */
+@media (max-width: 900px) {
+  .nav-links-clean,
+  .nav-right-utility > a {
+    display: none !important;
+  }
+  .nav-mobile-toggle {
+    display: inline-flex !important;
+  }
+  /* The closed mega-menu panel is opacity:0 but NOT display:none, so its full
+     multi-column grid still occupies layout space and was widening the page
+     past the viewport at mobile widths — real horizontal overflow, not a
+     visual artifact. The mega menu is desktop-only (MobileNavDrawer replaces
+     it below this breakpoint), so it can be removed from layout entirely. */
+  .mega-menu-panel {
+    display: none !important;
+  }
+}

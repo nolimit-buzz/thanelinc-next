@@ -1,20 +1,24 @@
-import { TertiaryView } from "@/components/v5/TertiaryView";
 import { SiteFooter } from "@/components/v5/SiteFooter";
-import { ScrollReveals } from "@/components/v5/ScrollReveals";
 import { SiteNav } from "@/components/SiteNav";
+import { GuidedSectorPageTemplate } from "@/components/sectors/GuidedSectorPageTemplate";
+import { tertiaryInstitutionsPage, sectorsTertiaryInstitutionsContent } from "@/lib/content/sectorsTertiaryInstitutions";
+
+export const metadata = {
+  title: sectorsTertiaryInstitutionsContent.title,
+  description: sectorsTertiaryInstitutionsContent.summary,
+};
 
 /**
- * v5 toggled this with display:none as `view-tertiary`. It becomes a real route.
+ * Rebuilt on the shared sector template 2026-08-20 (W-028), superseding the
+ * ported v5 tertiary drawer for this route only. `components/v5/TertiaryView.tsx`
+ * is deliberately left in the repository so the port stays recoverable.
  */
 export default function TertiaryInstitutions() {
   return (
     <>
-      <SiteNav />
-      <main id="view-tertiary" style={{ paddingTop: "64px" }}>
-        <TertiaryView />
-      </main>
+      <SiteNav variant="light" />
+      <GuidedSectorPageTemplate content={tertiaryInstitutionsPage} />
       <SiteFooter />
-      <ScrollReveals />
     </>
   );
 }

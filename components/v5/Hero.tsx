@@ -1,14 +1,19 @@
 "use client";
 
 // Ported verbatim from registration-marks-v5.html lines 3354–3478.
-// Class names and copy are v5's. Do not restyle or reword (W-026).
+// Class names and copy are v5's. Do not restyle or reword (W-026), EXCEPT the
+// nav bar itself: W-030 replaces the ported `<header id="stickyNav">` below
+// with the site's consolidated `SiteNav`, so the homepage stops running a
+// second, divergent navigation. Everything else in this file — the split
+// backdrop, headline, carousel, scroll-down affordance, and all of
+// `.hero-entered`/`.hero-exiting` state — is untouched.
 // Client component: the hero carousel and sticky-nav state need state.
 
 import { useEffect, useRef, useState } from "react";
+import { SiteNav } from "@/components/SiteNav";
 
 export function Hero() {
   const [slide, setSlide] = useState(0);
-  const [scrolled, setScrolled] = useState(false);
   const [entered, setEntered] = useState(false);
   const [exiting, setExiting] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -32,12 +37,13 @@ export function Hero() {
     return () => cancelAnimationFrame(id);
   }, []);
 
-  // v5: nav gains .scrolled past 40px; hero gains .hero-exiting past 35% of its
-  // own height, and loses it again on the way back up.
+  // v5: hero gains .hero-exiting past 35% of its own height, and loses it
+  // again on the way back up. Nav scroll state (.scrolled) is now owned by
+  // SiteNav itself (W-030) — same 40px threshold, just no longer computed
+  // here.
   useEffect(() => {
     const onScroll = () => {
       const y = window.pageYOffset || document.documentElement.scrollTop;
-      setScrolled(y > 40);
       const h = wrapRef.current?.offsetHeight || window.innerHeight;
       setExiting(y > h * 0.35);
     };
@@ -54,34 +60,8 @@ export function Hero() {
             {/* Right Side Dark Forest Slate Block Backdrop (Flows All The Way From Top Of Nav) */}
             <div className="hero-right-dark-backdrop"></div>
       
-            {/* Clean Sticky Site Navigation with Subtle Blur */}
-            <header className={`site-nav-clean hero-nav-motion${scrolled ? " scrolled" : ""}`} id="stickyNav">
-              <div className="container nav-inner-split">
-                
-                <a href="#" className="brand-logo-dark" aria-label="Thanelinc Home">
-                  <img src="/thanelinc-brand-logo.svg" alt="Thanelinc" className="brand-img-logo logo-default" />
-                  <img src="/thanelinc-brand-logo-white.svg" alt="Thanelinc" className="brand-img-logo logo-scrolled" />
-                </a>
-      
-                {/* Menu Items Kept Within Light Theme */}
-                <ul className="nav-links-clean">
-                  <li><a href="#services" className="nav-item-clean">Services <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg></a></li>
-                  <li><a href="#sectors" className="nav-item-clean">Sectors <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg></a></li>
-                  <li><a href="#process" className="nav-item-clean">How We Work</a></li>
-                  <li><a href="#resources" className="nav-item-clean">Resources <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg></a></li>
-                  <li><a href="#credentials" className="nav-item-clean">About & Credentials</a></li>
-                </ul>
-      
-                {/* Right Utility Elements Transcending Into Dark Forest Block (Clean White & Teal) */}
-                <div className="nav-right-utility">
-                  <a href="#contact" className="nav-contact-btn">Contact Us →</a>
-                  <button className="nav-search-btn" aria-label="Search">
-                    <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>
-                  </button>
-                </div>
-      
-              </div>
-            </header>
+            {/* Consolidated nav (W-030) — see the file header comment. */}
+            <SiteNav variant="light" heroMotion />
       
             {/* Main Split Content Grid (3-Column Layout: Left Scroll Track | Center Copy | Right Image) */}
             <div className="container hero-main-layout">
