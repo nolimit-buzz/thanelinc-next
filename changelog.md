@@ -24,7 +24,8 @@ Verification: TypeScript, lint, and isolated production build all exit 0 with
 no warnings. Hydrated checks at 390/768/1440 show zero overflow, one H1, no
 failed images, all eight unique service links, two keyboard-focusable sector
 links, H2 at or below 42px, and the banner at or below 420px. No push or
-deployment was performed.
+deployment was performed. The complete approved local website state was
+committed as `d7e3c3b`.
 
 ---
 

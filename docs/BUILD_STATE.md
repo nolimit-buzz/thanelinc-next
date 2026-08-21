@@ -12,9 +12,11 @@ Delivery state for the **implementation repository**. Update at every handoff.
 
 ## All Services — Service Journey Directory (2026-08-21)
 
-**Delivery state:** `verified_local`; owner-authorised commit pending
+**Delivery state:** `committed`
 **Scope:** approved follow-on to Gate 2 (W-035), limited to `/services` and its
 supporting content/component seam.
+
+Implementation commit: `d7e3c3b` (`feat: complete inner-page rollout and services directory`).
 
 | Item | State |
 |---|---|
