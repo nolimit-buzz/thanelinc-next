@@ -105,6 +105,7 @@
   padding: 28px 30px;
   color: #fff;
   background: rgba(8, 23, 25, 0.94);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
   box-shadow: 0 20px 50px rgba(8, 23, 25, 0.24);
 }
 

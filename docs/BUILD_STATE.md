@@ -2,11 +2,35 @@
 
 Delivery state for the **implementation repository**. Update at every handoff.
 
-**Last updated:** 2026-08-21
+**Last updated:** 2026-08-23
 
 > The content-phase state — framework artefacts, page copy, claims register,
 > decisions — lives in the `ThanelInc-Handover/` workspace and is not duplicated
 > here. This file covers the build only.
+
+---
+
+## Decision record and re-verification pass (2026-08-23, post-handoff)
+
+**Delivery state:** `implemented_local` for the legal/resources/contact slice; decision record now `approved` (W-040).
+
+The legal-page drafts, resources brand refinement, and contact/footer polish
+that shipped 2026-08-23 (see changelog) are now backed by an explicit decision
+entry, `W-040`, in the canonical `DECISIONS.md`. `npx tsc --noEmit`, `npm run
+lint`, and `git diff --check` were re-run independently and pass clean.
+`npm run build` remains unverified in this pass — a pre-existing `next-build`
+process held `.next/lock`; it was not force-terminated. Re-run the build once
+that process clears and record the result here.
+
+---
+
+## Launch-readiness handoff (2026-08-23)
+
+**Delivery state:** `implemented_local / verified_local`; **production launch state:** `not ready`.
+
+The build now includes the completed core page family, eight services, sector routes, Contact, resource library and three explainer routes, legal-document drafts, and the shared visual system. The final polish pass applies Outfit globally, resource/article chamfers and hierarchy, 1000px centred article reading frames, 420px article media, sticky desktop article tools, a detailed neutral Contact map, and justified article/legal reading copy.
+
+The definitive handoff is `docs/LAUNCH_READINESS_REPORT-2026-08-23.md`; next-agent instructions are in `docs/NEXT_LLM_HANDOVER.md`. The launch blockers are concentrated in approved backend submission, legal/CDPO approval, technical SEO/AI discovery, analytics, final deployment/domain setup, and production acceptance—not a new page-design phase. The existing Vercel deployment is older than this worktree and must not be represented as containing the latest local delivery.
 
 ---
 
@@ -31,6 +55,59 @@ professional-body proof only; no proposal-stage MDA work or uncleared team
 material is published. The completed work is committed locally as `53efa49`
 and deployed manually to Vercel production at `thanelinc-next.vercel.app`.
 GitHub push remains pending because this repository has no configured remote.
+
+---
+
+## Editorial legal-page drafts (2026-08-23)
+
+**Delivery state:** `implemented_local` — CDPO/legal approval required before production publication.
+
+Added `/privacy`, `/cookie-policy`, and `/terms` with an editorial document
+layout: a fixed left-hand section rail on desktop, semantic numbered sections,
+and a compact legal-page switcher. The footer now places the requested
+copyright plus a linked `Website` credit on the left, and Privacy Policy,
+Cookie Policy, and Terms on the far right.
+
+The three documents are operational drafts for the intended production flow:
+contact and follow-up requests will be submitted through an approved backend,
+not handled only in-browser. Thanelinc must still implement and confirm that
+backend, retention, named privacy-request ownership, processor arrangements,
+and any future tracking tools before the pages are presented as final legal
+notices.
+TypeScript, lint, diff checks, local HTTP 200/single-H1 checks, and an
+isolated production build (29 static routes) pass.
+
+---
+
+## Resources library and editorial article template (2026-08-23)
+
+**Delivery state:** `implemented_local`.
+
+Rebuilt the landing-page Resources & Explainers section as an image-led
+editorial library. Each of the three approved explainers now has a content-
+appropriate photography card, explicit `Explainer` category, review date and
+audience tags. The category rail also establishes Blog, News and Training as
+future content types without publishing unsupported entries.
+
+Added `/resources` and three statically generated explainer routes. Each uses
+the approved source copy through `lib/content/resources.ts`, a full editorial
+reading page, sticky table of contents, newsletter sidebar, related reading and
+next-action CTA. The newsletter box states that delivery awaits the approved
+backend rather than falsely confirming a subscription.
+
+TypeScript, lint, diff checks, local route and single-H1 checks, and isolated
+production build all pass (33 routes, including 3 SSG explainers).
+
+**Polish follow-up:** Outfit is now the sole rendered typeface, including
+tracked metadata labels. The homepage resources title treatment, category rail,
+action, and photographs all use the shared chamfered edge system; titles have
+an explicit bold hierarchy. Single-resource reading pages now use a centred
+1000px maximum frame, centred full-width title, matching-width hero image
+capped at 420px high, and an independently scrollable sticky desktop sidebar.
+Article and legal-document reading copy is justified.
+The Contact map has a more detailed neutral street-map treatment and retains
+the shared top-right cut on both the visual and callout. The three remote
+resource photographs returned HTTP 200 after the final changes.
 
 ---
 

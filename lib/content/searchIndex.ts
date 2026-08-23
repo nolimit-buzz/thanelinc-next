@@ -8,6 +8,7 @@ import { credentialsPageContent } from "@/lib/content/credentials";
 import { teamPageContent } from "@/lib/content/team";
 import { howWeWorkContent } from "@/lib/content/howWeWork";
 import { sectorsPublicSectorContent, publicSectorPage } from "@/lib/content/sectorsPublicSector";
+import { legalDocuments } from "@/lib/content/legal";
 import type { NavStatus } from "@/lib/content/navigation";
 
 export interface SearchEntry {
@@ -97,5 +98,6 @@ export const searchIndex: SearchEntry[] = [
   { id: "/about", label: "About Thanelinc", description: aboutPageContent.summary, href: "/about", status: "live", group: "Pages" },
   { id: "/about/credentials", label: "Credentials", description: credentialsPageContent.summary, href: "/about/credentials", status: "live", group: "Pages" },
   { id: "/about/team", label: "Team", description: teamPageContent.summary, href: "/about/team", status: "live", group: "Pages" },
+  ...legalDocuments.map((document) => ({ id: `/${document.slug}`, label: document.navLabel, description: document.summary, href: `/${document.slug}`, status: "live" as const, group: "Legal" })),
   { id: contactNavItem.href, label: contactNavItem.label, description: "Request a scoped proposal or call the general company line.", href: contactNavItem.href, status: contactNavItem.status, group: "Pages" },
 ];

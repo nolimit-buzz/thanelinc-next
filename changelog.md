@@ -6,6 +6,103 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-23 · Strapi backend handover documentation
+
+Added `docs/STRAPI_BACKEND_HANDOVER.md` for the team that will build the
+Strapi CMS (W-025). Documents that `lib/content/types.ts`'s canonical schema
+has drifted from the per-template shapes actually rendered (`ServicePageContent`,
+`SectorPageContent`, etc.), gives a content-inventory-to-collection-type
+mapping, and lists the enforcement rules (required deliverable/turnaround,
+`disclosureStatus` gating, claims-register traceability) that must survive
+the move to a CMS. No Strapi work started; this is planning documentation
+only.
+
+---
+
+## 2026-08-23 · Decision record for legal/resources/contact refinement; build re-verification blocked
+
+Recorded W-040 in `DECISIONS.md` (canonical workspace), covering the legal-page
+drafts, image-led resources overhaul, and contact/footer brand-system
+refinement shipped locally earlier the same day and previously held
+uncommitted without a matching decision entry.
+
+Re-ran `npx tsc --noEmit`, `npm run lint`, and `git diff --check` — all pass
+clean. `npm run build` could not be independently re-verified: a `next-build`
+process (PID 67762, started 16:59) already held `.next/lock` at the time of
+this pass and had not exited. It was left running rather than terminated
+without authorisation. The prior isolated production build result recorded in
+the "Resources and Contact brand-system refinement" and "Image-led Resources
+library" entries below stands as the last confirmed build evidence; a fresh
+build result is still owed once the lock clears.
+
+---
+
+## 2026-08-23 · Launch-readiness reporting and next-agent handoff
+
+Added a repository-grounded launch-readiness report covering delivered scope, explicit launch gates, audience-first assessment, SEO/AI readiness, production limitations, and a prioritised implementation backlog. Added a concise next LLM handoff with source-of-truth paths, constraints, verification commands, and the first safe follow-on task. `BUILD_STATE.md` and `README.md` now point to that handoff.
+
+---
+
+## 2026-08-23 · Resources and Contact brand-system refinement
+
+Made Outfit the sole rendered typeface across the site, including the small
+tracked labels that previously used an alternate token. The landing-page
+Resources & Explainers title block, category rail, action, and photography
+cards now use the same chamfered corner language as the service and sector
+templates; resource and article titles have a deliberate bold hierarchy.
+
+The explainer reading frame is now centred and capped at 1000px: its title is
+centred across the full frame, the chamfered hero image sits beneath at the
+same width and no more than 420px tall, and its summary/review metadata follows
+the image. Article and legal-document reading copy is justified. The desktop
+sidebar remains sticky and independently scrollable. The contact banner map
+has been redrawn as a more detailed neutral map composition, and both its
+outer visual and enquiry callout use the branded top-right cut.
+
+Verification: `npx tsc --noEmit`, `npm run lint`, and `git diff --check` pass.
+All three remote article-photo URLs returned HTTP 200.
+
+---
+
+## 2026-08-23 · Image-led Resources library and explainer reading template
+
+Replaced the homepage's three abstract resource panels with image-led editorial
+cards. Published explainers now show their content type, review date and
+audience tags; the landing-page category rail establishes Explainers, Blog,
+News and Training without inventing unapproved future entries.
+
+Added the `/resources` library and pre-rendered pages for the three approved
+explainers. The shared single-article layout has a full hero image, structured
+article body, responsive sticky table of contents, newsletter sidebar, related
+reading and appropriate next action. Newsletter delivery is deliberately not
+claimed as live until the approved backend is connected.
+
+Verification: TypeScript, lint, diff checks, local 200/single-H1 checks and an
+isolated production build pass. The build generates 33 routes, including the
+three explainer SSG pages.
+
+---
+
+## 2026-08-23 · Editorial legal-page drafts and footer legal row
+
+Added operational drafts for Privacy Policy, Cookie Policy, and Website Terms.
+Each uses an editorial reading layout with a sticky section rail, responsive
+mobile contents list, and clear draft status. The copy describes the intended
+production flow: contact and follow-up requests will submit to an approved
+backend, while self-check answers stay in-browser unless a collection purpose
+is explicitly shown. No optional analytics or advertising cookie is configured
+in the public codebase.
+
+The footer now reads `© 2026 Thanelinc Nigeria Limited. All rights reserved.
+Licensed DPCO. | Website`, with Website linked to `nolimitbuzz.net`; Privacy
+Policy, Cookie Policy, and Terms sit in the far-right legal navigation.
+
+Verification: `npx tsc --noEmit`, `npm run lint`, `git diff --check`, local
+HTTP 200 and single-H1 checks, and isolated production build (29 static routes)
+pass. The legal drafts require CDPO/legal approval before production publication.
+
+---
+
 ## 2026-08-23 · Remaining core-page family implemented locally
 
 Added the `/how-we-work` six-stage journey, a credential-led About hub, the

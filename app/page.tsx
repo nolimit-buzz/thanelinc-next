@@ -9,6 +9,7 @@ import { Resources } from "@/components/v5/Resources";
 import { PreFooter } from "@/components/v5/PreFooter";
 import { SiteFooter } from "@/components/v5/SiteFooter";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
+import { resources } from "@/lib/content/resources";
 
 /**
  * Homepage — v5 `view-home`, ported section for section (W-026).
@@ -25,7 +26,7 @@ export default function Home() {
         <TrackRecord />
         <Process />
         <Services />
-        <Resources />
+        <Resources content={resources} />
         <PreFooter />
       </main>
       <SiteFooter />

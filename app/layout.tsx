@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, JetBrains_Mono } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import "./v5.css";
 
@@ -8,12 +8,6 @@ import "./v5.css";
 // third party for a typeface.
 const outfit = Outfit({
   variable: "--nf-outfit",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--nf-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -34,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-NG"
-      className={`${outfit.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${outfit.variable} h-full antialiased`}
     >
       {/* Browser extensions (e.g. ColorZilla's cz-shortcut-listen) add attributes to
           <body> before React hydrates, which React reports as a mismatch. This

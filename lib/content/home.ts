@@ -10,6 +10,7 @@
  */
 
 import type { CtaLink } from "./types";
+export { resources } from "./resources";
 
 // ---------------------------------------------------------------------------
 // Homepage hero mandate carousel
@@ -288,38 +289,6 @@ export const services = {
 // badly with a publish date; lastReviewed is a maintenance signal (W-023).
 // ---------------------------------------------------------------------------
 
-export const resources = {
-  eyebrow: "Resources",
-  heading: "Latest from the compliance desk",
-  items: [
-    {
-      id: "categories",
-      panel: "strata" as const,
-      title: "UHL, EHL, OHL — Nigeria's NDPC Compliance Categories Explained",
-      body: "The two ways an organisation lands in a category, and what each tier requires.",
-      lastReviewed: "2026-08-15",
-      href: "/resources/ndpc-compliance-categories-explained",
-    },
-    {
-      id: "ropa",
-      panel: "map" as const,
-      title: "ROPA, DPIA, and LIA — What They Are and When You Need One",
-      body: "Three acronyms every accidental DPO runs into fast.",
-      lastReviewed: "2026-08-15",
-      href: "/resources/ropa-dpia-lia-explained",
-    },
-    {
-      id: "vendor",
-      panel: "redaction" as const,
-      title: 'Vendor Due Diligence: What "Compliant Enough" Actually Means',
-      body: "A practical checklist for vetting vendors and cloud providers.",
-      lastReviewed: "2026-08-15",
-      href: "/resources/vendor-due-diligence",
-    },
-  ],
-  cta: { label: "See all resources", href: "/resources", variant: "ghost" } satisfies CtaLink,
-} as const;
-
 // ---------------------------------------------------------------------------
 // Secondary lines
 // ---------------------------------------------------------------------------
@@ -399,6 +368,6 @@ export const footer = {
   legal: {
     copyright: "© 2026 Thanelinc Nigeria Limited. All rights reserved. Licensed DPCO.",
     domain: "Canonical domain: thanelinc.ng",
-    credit: "Designed & Built by NoLimitBuzz",
+    credit: "Website",
   },
 } as const;

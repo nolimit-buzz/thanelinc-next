@@ -65,14 +65,10 @@ export function SiteFooter() {
                   <p className="footer-brand-text">
                     Thanelinc Nigeria Limited is a licensed Data Protection Compliance Organization (DPCO) registered with the Nigeria Data Protection Commission (NDPC).
                   </p>
-                  {/* W-030: /about/credentials is `planned` — no live target
-                      exists for this yet (the homepage has no #credentials
-                      section either), so the pill is non-interactive rather
-                      than pointing at a 404 or an anchor that isn't there. */}
-                  <span className="footer-status-pill" style={{ opacity: 0.7, cursor: "default" }}>
+                  <Link href="/about/credentials" className="footer-status-pill">
                     <span className="footer-status-dot"></span>
-                    <span>Licensed DPCO — View Certificate (soon)</span>
-                  </span>
+                    <span>Licensed DPCO — View Certificate</span>
+                  </Link>
                 </div>
 
                 {/* Column 1: Compliance Services (ALL 8 SERVICES) */}
@@ -124,7 +120,10 @@ export function SiteFooter() {
             <div className="container">
               <div className="footer-band-3-grid">
                 <div>
-                  © 2026 Thanelinc Nigeria Limited. All rights reserved. Licensed DPCO. ·{" "}
+                  © 2026 Thanelinc Nigeria Limited. All rights reserved. Licensed DPCO. |{" "}
+                  <a href="https://nolimitbuzz.net" target="_blank" rel="noreferrer" className="footer-legal-link">Website</a>
+                </div>
+                <nav aria-label="Legal links">
                   {footerLegal.map((item, i) => (
                     <span key={item.href}>
                       {i > 0 ? " | " : ""}
@@ -135,8 +134,7 @@ export function SiteFooter() {
                       )}
                     </span>
                   ))}
-                </div>
-                <div>Designed & Built by NoLimitBuzz</div>
+                </nav>
               </div>
             </div>
           </div>

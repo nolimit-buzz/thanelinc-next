@@ -170,7 +170,7 @@ export const sectorsMenu: MegaMenu = {
 
 function resourceItem(id: string, icon: string): NavItem {
   const r = resources.items.find((i) => i.id === id)!;
-  return { label: r.title, href: r.href, status: "planned", description: r.body, icon };
+  return { label: r.title, href: r.href, status: "live", description: r.body, icon };
 }
 
 export const resourcesMenu: MegaMenu = {
@@ -178,7 +178,11 @@ export const resourcesMenu: MegaMenu = {
   columns: [
     {
       eyebrow: "Explainers",
-      items: [resourceItem("categories", "layers"), resourceItem("ropa", "map"), resourceItem("vendor", "search")],
+      items: [
+        resourceItem("ndpc-compliance-categories-explained", "layers"),
+        resourceItem("ropa-dpia-lia-explained", "map"),
+        resourceItem("vendor-due-diligence", "search"),
+      ],
     },
     {
       eyebrow: "The Process",
@@ -216,7 +220,7 @@ export const resourcesMenu: MegaMenu = {
           description: "DPO certification, Privacy Champion, and staff awareness.",
           icon: "graduation-cap",
         },
-        { label: "Privacy Policy", href: "/privacy", status: "planned", icon: "lock" },
+        { label: "Privacy Policy", href: "/privacy", status: "live", icon: "lock" },
       ],
     },
   ],
@@ -228,7 +232,7 @@ export const resourcesMenu: MegaMenu = {
     status: "planned",
     ctaLabel: "Read more",
   },
-  viewAll: { label: "See all resources", href: "/resources", status: "planned" },
+  viewAll: { label: "See all resources", href: "/resources", status: "live" },
 };
 
 // ---------------------------------------------------------------------------
@@ -287,6 +291,7 @@ export const footerColumns: { title: string; items: NavItem[] }[] = [
 ];
 
 export const footerLegal: NavItem[] = [
-  { label: "Privacy Policy", href: "/privacy", status: "planned" },
-  { label: "Terms", href: "/terms", status: "planned" },
+  { label: "Privacy Policy", href: "/privacy", status: "live" },
+  { label: "Cookie Policy", href: "/cookie-policy", status: "live" },
+  { label: "Terms", href: "/terms", status: "live" },
 ];

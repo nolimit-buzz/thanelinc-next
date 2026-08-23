@@ -38,7 +38,10 @@
       --color-text-white: #FFFFFF;
 
       --font-outfit: var(--nf-outfit), -apple-system, BlinkMacSystemFont, sans-serif; /* PORT: was 'Outfit' from the Google CDN; now self-hosted via next/font */
-      --font-mono: var(--nf-mono), monospace; /* PORT: was 'JetBrains Mono' from the Google CDN; now self-hosted via next/font */
+      /* Outfit is the sole site typeface. These aliases retain the established
+         tracking styles without introducing a second family. */
+      --font-mono: var(--font-outfit);
+      --font-inter: var(--font-outfit);
 
       /* Radii & Architectural Shapes (Capped at 4px - 12px) */
       --radius-sm: 4px;

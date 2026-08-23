@@ -40,3 +40,11 @@ npm run build
 ```
 
 Both must pass before any commit.
+
+## Launch handoff
+
+For the current delivery status, explicit launch gates, audience-first score, SEO/AI readiness, and next-agent instructions, read:
+
+- [`docs/LAUNCH_READINESS_REPORT-2026-08-23.md`](docs/LAUNCH_READINESS_REPORT-2026-08-23.md)
+- [`docs/NEXT_LLM_HANDOVER.md`](docs/NEXT_LLM_HANDOVER.md)
+- [`docs/BUILD_STATE.md`](docs/BUILD_STATE.md)
