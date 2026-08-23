@@ -28,7 +28,9 @@ Delivery state for the **implementation repository**. Update at every handoff.
 checks, rendered single-H1 checks, and an isolated production Webpack build
 (26 static routes) pass. The owner-authorised NBA proof is labelled as
 professional-body proof only; no proposal-stage MDA work or uncleared team
-material is published. No push or deployment occurred.
+material is published. The completed work is committed locally as `53efa49`
+and deployed manually to Vercel production at `thanelinc-next.vercel.app`.
+GitHub push remains pending because this repository has no configured remote.
 
 ---
 

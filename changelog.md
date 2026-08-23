@@ -22,8 +22,10 @@ footer, and search now expose the finished routes.
 
 Verification: `npx tsc --noEmit`, `npm run lint`, `git diff --check`,
 route/asset HTTP 200 checks, rendered single-H1 checks, and an isolated
-production Webpack build covering all 26 static routes pass. No commit, push,
-or deployment was performed.
+production Webpack build covering all 26 static routes pass. Committed locally
+as `53efa49` and deployed manually to Vercel production at
+`https://thanelinc-next.vercel.app`. GitHub push remains pending because no
+remote is configured for this repository.
 
 ---
 
