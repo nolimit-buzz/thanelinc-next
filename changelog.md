@@ -6,6 +6,59 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-23 · Remaining core-page family implemented locally
+
+Added the `/how-we-work` six-stage journey, a credential-led About hub, the
+Credentials and clearance-safe Team pages, and `/sectors/public-sector` with a
+single `#ministries-agencies` destination. The new pages reuse the approved
+editorial hero and Guided Sector templates, retain the 420px header-media cap,
+and are powered by typed content modules for the Strapi handoff seam.
+
+The credentials page now previews and links to the two owner-supplied public
+certificate PDFs. The only named team record is Ahmed Goni, CDPO. NBA Election
+2026 is presented only as a professional-body engagement; no Delta State MDA
+proposal or uncleared team material is shown. Navigation, mobile navigation,
+footer, and search now expose the finished routes.
+
+Verification: `npx tsc --noEmit`, `npm run lint`, `git diff --check`,
+route/asset HTTP 200 checks, rendered single-H1 checks, and an isolated
+production Webpack build covering all 26 static routes pass. No commit, push,
+or deployment was performed.
+
+---
+
+## 2026-08-21 · Two-tone index heroes, All Sectors directory, and sticky sector nav
+
+Replaced only `/services`'s opening with a new index-level split hero inspired
+by the supplied portrait/product-panel references. The homepage's light/dark
+field language now frames a left proposition, two actions and three compact
+metrics against a portrait-led visual stage with small information panels.
+Service-detail and sector-detail pages keep their existing 420px banner system,
+so index and inner pages no longer feel like the same template.
+
+Added the sitemap-approved `/sectors` index using the same hero family and a
+two-card directory for the two approved live audiences: Tertiary Institutions
+and Regulated Businesses. Its content is typed in `lib/content/sectorsIndex.ts`;
+the Sectors mega-menu now sends “View all sectors” to the real route. Public
+Sector remains blocked and no proposal-stage MDA material was promoted.
+
+Rebuilt the sector internal section bar as a measured fixed state after browser
+testing proved native `position: sticky` was defeated by the existing root
+overflow treatment. The bar keeps a layout slot, fixes 64px below the global
+nav, releases before `main` ends, and uses 132px anchor offsets. Regulated
+Businesses' link order now matches its rendered section order. Also corrected
+search state for six already-live service pages and added `/sectors` to search.
+
+Verification: hydrated 390/768/1440 checks show zero overflow, one H1, no
+failed images, correct action/link counts and no heading above 64/42px. Both
+sector bars pin at 64px at 390 and 1440px and their question anchors clear the
+bar. TypeScript, lint and diff checks pass without warnings. Production build
+is unverified for this revision because the network escalation required by the
+existing `next/font` setup was denied when the tool service reached its usage
+limit. No commit, push, or deployment was performed.
+
+---
+
 ## 2026-08-21 · All Services rebuilt as a compact Service Journey Directory
 
 Replaced `/services`'s alternating archive rows with the approved inner-page
@@ -1343,3 +1396,25 @@ Phase 1 of `PLAN-2026-08-18-nextjs-conversion.md` (approved, W-025).
 **Strapi:** out of agency scope. The client's team connects it on Strapi Cloud, taking the project up from GitHub. Content therefore lives in typed modules under `lib/content/` and reaches components as props, so the CMS swap touches only the data-fetch layer.
 
 **Not yet done:** design tokens from the approved v5 concept, component conversion, routes, GitHub remote, Vercel.
+# 2026-08-23 — pale index palette and mandate-linked homepage carousel
+
+- Kept the All Services/All Sectors index-hero design intact while replacing
+  the dark forest background split with the approved pale mineral/slate pair.
+- Made every service and sector directory title explicitly bold.
+- Reworked the homepage carousel artwork into three layered cutout/editorial
+  collages sourced from the existing “The Mandate” content, with live CTAs for
+  Tertiary Institutions and Regulated Businesses.
+- Preserved the carousel's existing timing, pause, navigation controls, hero
+  copy, and surrounding homepage sections.
+- Fixed a duplicate React key in the mobile Sectors drawer found during the
+  focused browser pass.
+- Verified TypeScript, lint, local routes, and hydrated 390/1440px browser
+  states with zero overflow, one H1, and no failed images.
+
+# 2026-08-23 — homepage carousel aligned to shared index hero
+
+- Replaced the rejected custom collage slides with the exact shared
+  `IndexHeroVisual` used on All Services and All Sectors.
+- Kept three sector-specific carousel messages and live destinations, while
+  moving their visual construction into the common component.
+- Added the same subtle grid/radial field to the homepage's light hero side.

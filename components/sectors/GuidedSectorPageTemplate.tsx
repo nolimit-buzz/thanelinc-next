@@ -4,7 +4,7 @@ import { QuestionAccordion } from "@/components/sectors/QuestionAccordion";
 import type { SectorPageContent } from "@/components/sectors/SectorPageTemplate";
 import { SectionNav } from "@/components/sectors/SectionNav";
 import { TurnaroundTracker } from "@/components/sectors/TurnaroundTracker";
-import { ServiceBannerHero } from "@/components/services/ServiceBannerHero";
+import { EditorialBannerHero } from "@/components/inner/EditorialBannerHero";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
 import styles from "@/components/sectors/guided-sector.module.css";
 
@@ -19,7 +19,7 @@ export function GuidedSectorPageTemplate({ content }: { content: SectorPageConte
   return (
     <main className={styles.page}>
       <div id="overview">
-        <ServiceBannerHero
+        <EditorialBannerHero
           eyebrow={content.badge}
           h1={title.lead}
           h1Accent={title.accent}
@@ -35,7 +35,7 @@ export function GuidedSectorPageTemplate({ content }: { content: SectorPageConte
       <SectionNav sections={content.sectionNav} />
 
       {content.reasons ? (
-        <section id="why-it-matters" className={styles.journeySection}>
+        <section id={content.reasonsId ?? "why-it-matters"} className={styles.journeySection}>
           <div className={`container ${styles.journeyGrid}`}>
             <div className={styles.reasonPanel}>
               <h2 className={`${styles.sectionTitle} reveal`}>{content.reasonsHeading ? `${content.reasonsHeading.lead} ${content.reasonsHeading.accent}` : content.guidedLabels.reasonsFallback}</h2>

@@ -9,9 +9,27 @@
 export const servicesIndexHero = {
   eyebrow: "Compliance Services",
   h1: "Compliance services",
+  title: "Every compliance need.",
+  titleAccent: "One clear route forward.",
   subhead:
     "Every service ships with a stated deliverable and a confirmed turnaround, so you always know exactly what to expect.",
   primaryCta: { label: "Find your category", href: "/am-i-covered" },
+  secondaryCta: { label: "Explore all services", href: "#service-directory" },
+  metrics: [
+    { value: "8", label: "defined compliance services" },
+    { value: "3", label: "clear service groups" },
+    { value: "2 min", label: "category self-check" },
+  ],
+  floatingPanel: {
+    eyebrow: "Service map",
+    title: "From exposure to standing",
+    body: "Start, build governance, then sustain compliance.",
+  },
+  credentialPanel: {
+    eyebrow: "Licensed DPCO",
+    title: "The firm that can file",
+    body: "For UHL and EHL organisations, subject to the Commission's requirements.",
+  },
 };
 
 export const servicesIndexProblem = {

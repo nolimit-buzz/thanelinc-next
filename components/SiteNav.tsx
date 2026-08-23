@@ -6,7 +6,7 @@ import Image from "next/image";
 import { MegaMenuPanel, MegaMenuScrim, MegaMenuTrigger, useMenuId } from "@/components/MegaMenu";
 import { MobileNavDrawer } from "@/components/MobileNavDrawer";
 import { SiteSearch } from "@/components/search/SiteSearch";
-import { servicesMenu, sectorsMenu, resourcesMenu, howWeWorkNavItem, aboutNavItem, contactNavItem, type NavItem } from "@/lib/content/navigation";
+import { aboutMenu, servicesMenu, sectorsMenu, resourcesMenu, howWeWorkNavItem, contactNavItem, type NavItem } from "@/lib/content/navigation";
 
 /**
  * Consolidated nav (W-030) — the single implementation for every route,
@@ -26,7 +26,7 @@ import { servicesMenu, sectorsMenu, resourcesMenu, howWeWorkNavItem, aboutNavIte
  *     exactly what v5's own CSS already produces natively. Restored here
  *     after an earlier pass wrongly flattened it to the painted-bar
  *     treatment below; see W-030's amendment in DECISIONS.md.
- *   - every other light-hero page (`/services`, `/services/ndpc-registration`)
+ *   - other light-hero pages without their own split backdrop
  *     gets a solid two-tone `#B1BFC0`/`#819293` painted bar instead, since
  *     those pages don't have a matching split hero for a transparent nav to
  *     sit over.
@@ -73,6 +73,7 @@ function SimpleNavLink({ item, paintedBar }: { item: NavItem; paintedBar: boolea
 export function SiteNav({
   variant = "dark",
   heroMotion = false,
+  splitHero = false,
 }: {
   variant?: "light" | "dark";
   /** W-030: true only on the homepage. Adds v5's own `hero-nav-motion` class
@@ -82,6 +83,9 @@ export function SiteNav({
    *  component to render inside `Hero.tsx`'s `.hero-entered` wrapper (it
    *  does; see `Hero.tsx`). Every other page ignores this prop. */
   heroMotion?: boolean;
+  /** Index pages whose hero paints the same light/dark split as the homepage.
+   *  The nav stays transparent until scroll so the split remains continuous. */
+  splitHero?: boolean;
 }) {
   const isLight = variant === "light";
   const [scrolled, setScrolled] = useState(false);
@@ -114,7 +118,7 @@ export function SiteNav({
   const isLightNow = isLight && !scrolled;
   // Only non-homepage light pages get the painted bar; the homepage stays
   // transparent, using v5's own CSS colours (see file header comment).
-  const paintedBar = isLightNow && !heroMotion;
+  const paintedBar = isLightNow && !heroMotion && !splitHero;
 
   const cancelClose = useCallback(() => {
     if (closeTimer.current) {
@@ -146,17 +150,19 @@ export function SiteNav({
   const servicesId = useMenuId("services");
   const sectorsId = useMenuId("sectors");
   const resourcesId = useMenuId("resources");
+  const aboutId = useMenuId("about");
 
   const menus = [
     { key: "services", data: servicesMenu, id: servicesId },
     { key: "sectors", data: sectorsMenu, id: sectorsId },
     { key: "resources", data: resourcesMenu, id: resourcesId },
+    { key: "about", data: aboutMenu, id: aboutId },
   ];
 
   return (
     <>
       <header
-        className={`site-nav-clean${heroMotion ? " hero-nav-motion" : ""} ${isLightNow ? "" : "scrolled"}`}
+        className={`site-nav-clean${heroMotion ? " hero-nav-motion" : ""}${splitHero ? " split-hero-index-nav" : ""} ${isLightNow ? "" : "scrolled"}`}
         style={{
           position: "fixed",
           top: 0,
@@ -188,10 +194,10 @@ export function SiteNav({
           </Link>
 
           <ul className="nav-links-clean" style={{ display: "flex" }}>
-            {menus.map(({ key, id }) => (
+            {menus.map(({ key, id, data }) => (
               <MegaMenuTrigger
                 key={key}
-                label={key === "services" ? "Services" : key === "sectors" ? "Sectors" : "Resources"}
+                label={data.label}
                 panelId={id}
                 isOpen={openMenu === key}
                 isLight={paintedBar}
@@ -204,7 +210,6 @@ export function SiteNav({
               />
             ))}
             <SimpleNavLink item={howWeWorkNavItem} paintedBar={paintedBar} />
-            <SimpleNavLink item={aboutNavItem} paintedBar={paintedBar} />
           </ul>
 
           <div className="nav-right-utility">
@@ -281,8 +286,9 @@ export function SiteNav({
           { key: "services", data: servicesMenu },
           { key: "sectors", data: sectorsMenu },
           { key: "resources", data: resourcesMenu },
+          { key: "about", data: aboutMenu },
         ]}
-        simpleLinks={[howWeWorkNavItem, aboutNavItem]}
+        simpleLinks={[howWeWorkNavItem]}
         contact={contactNavItem}
       />
 

@@ -403,6 +403,21 @@
       box-sizing: border-box;
     }
 
+    /* Mirrors the quiet technical grid used by the shared Services/Sectors
+       index hero, limited to the homepage's light field. */
+    .hero-split-wrapper::before {
+      position: absolute;
+      inset: 0 32% 0 0;
+      z-index: 2;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(28, 176, 184, 0.1), transparent 29%),
+        linear-gradient(rgba(10, 28, 30, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(10, 28, 30, 0.035) 1px, transparent 1px);
+      background-size: auto, 72px 72px, 72px 72px;
+      content: "";
+      pointer-events: none;
+    }
+
     /* Right Vertical Dark Forest Slate Block Backdrop */
     .hero-right-dark-backdrop {
       position: absolute;
@@ -838,6 +853,47 @@
 
     .carousel-arrow-prev { left: 16px; }
     .carousel-arrow-next { right: 16px; }
+
+    /* W-038 — carousel slides render the exact shared index-hero visual
+       component so Services, Sectors, and the homepage cannot drift. */
+    .hero-chamfer-card {
+      border: 0;
+      border-radius: 0;
+      background: #AEBDBC;
+      box-shadow: none;
+      clip-path: none;
+      overflow: visible;
+    }
+
+    .hero-index-slide-link {
+      display: block;
+      height: 100%;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .hero-chamfer-card > .carousel-nav-dots .carousel-dot {
+      background: rgba(10, 28, 30, 0.2);
+    }
+
+    .hero-chamfer-card > .carousel-nav-dots .carousel-dot.active {
+      background: var(--color-forest-dark);
+    }
+
+    .hero-chamfer-card > .carousel-arrow-btn {
+      color: var(--color-forest-dark);
+      border-color: rgba(10, 28, 30, 0.14);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 8px 22px rgba(8, 23, 25, 0.1);
+    }
+
+    @media (max-width: 1100px) {
+      .hero-right-visual-wrapper {
+        width: min(100%, 440px);
+        margin: 34px auto 50px;
+        justify-self: center;
+      }
+    }
 
     /* ==========================================================================
        SECTION 2: THE PROBLEM (EXACT DESIGN SCREENSHOT 1 ARCHITECTURE)

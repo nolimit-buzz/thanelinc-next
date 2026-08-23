@@ -8,6 +8,18 @@ html {
   overflow-x: clip;
 }
 
+/* The services/sectors index heroes now use the approved pale mineral/slate
+   split. Keep utility controls dark enough to meet contrast on that field. */
+.split-hero-index-nav:not(.scrolled) .nav-search-btn {
+  color: var(--color-forest-dark);
+}
+
+.split-hero-index-nav:not(.scrolled) .nav-contact-btn {
+  color: #fff;
+  border-color: var(--color-forest-dark);
+  background: var(--color-forest-dark);
+}
+
 /* v5.css carries the entire visual system, extracted verbatim from the approved
    concept, and governs everything below it. Do not add competing base styles or
    design tokens here — that is how the first port drifted. Tailwind remains
@@ -108,6 +120,12 @@ html {
   }
   .nav-mobile-toggle {
     display: inline-flex !important;
+  }
+  /* Index heroes split vertically on mobile, so the nav sits entirely over
+     the light field rather than over the desktop hero's dark right rail. */
+  .split-hero-index-nav:not(.scrolled) .nav-search-btn,
+  .split-hero-index-nav:not(.scrolled) .nav-mobile-toggle {
+    color: var(--color-forest-dark) !important;
   }
   /* The closed mega-menu panel is opacity:0 but NOT display:none, so its full
      multi-column grid still occupies layout space and was widening the page

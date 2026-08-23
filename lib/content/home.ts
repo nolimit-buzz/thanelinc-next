@@ -12,6 +12,94 @@
 import type { CtaLink } from "./types";
 
 // ---------------------------------------------------------------------------
+// Homepage hero mandate carousel
+// ---------------------------------------------------------------------------
+
+/**
+ * W-037: the homepage hero carousel now previews three entries already
+ * approved in the homepage's "The Mandate" section. The two business-sector
+ * entries intentionally share the live regulated-businesses destination;
+ * no unsupported sector route or new regulatory claim is introduced here.
+ */
+export const homeMandateSlides = [
+  {
+    id: "tertiary-institutions",
+    eyebrow: "The Mandate",
+    title: "Tertiary Institutions",
+    visual: {
+      variant: "services" as const,
+      image: {
+        src: "/services-hero-cutout.png",
+        alt: "Thanelinc compliance adviser for tertiary institutions",
+        width: 640,
+        height: 1074,
+      },
+      floatingPanel: {
+        eyebrow: "Tertiary institutions",
+        title: "EHL by statutory name",
+        body: "Universities, polytechnics, and colleges of education.",
+      },
+      credentialPanel: {
+        eyebrow: "Sector route",
+        title: "Explore tertiary institutions",
+        body: "The filing and governance route written for higher institutions.",
+      },
+    },
+    cta: { label: "Explore tertiary institutions", href: "/sectors/tertiary-institutions" },
+  },
+  {
+    id: "private-sector",
+    eyebrow: "The Mandate",
+    title: "Private Sector & SMEs",
+    visual: {
+      variant: "sectors" as const,
+      image: {
+        src: "/regulated-businesses-cutout.png",
+        alt: "Thanelinc compliance adviser for regulated businesses",
+        width: 500,
+        height: 810,
+      },
+      floatingPanel: {
+        eyebrow: "Private sector & SMEs",
+        title: "Data that creates exposure",
+        body: "Customer, employee, payment, and partner records.",
+      },
+      credentialPanel: {
+        eyebrow: "Sector route",
+        title: "Explore regulated businesses",
+        body: "A practical route for high-exposure private organisations.",
+      },
+    },
+    cta: { label: "Explore regulated businesses", href: "/sectors/regulated-businesses" },
+  },
+  {
+    id: "hospitality",
+    eyebrow: "The Mandate",
+    title: "Hospitality Industry",
+    visual: {
+      variant: "services" as const,
+      image: {
+        src: "/services-hero-cutout-bust.png",
+        alt: "Thanelinc compliance adviser for hospitality businesses",
+        width: 640,
+        height: 640,
+      },
+      floatingPanel: {
+        eyebrow: "Hospitality industry",
+        title: "Guest records need care",
+        body: "Hotels, venues, and booking platforms handling personal data.",
+      },
+      credentialPanel: {
+        eyebrow: "Sector route",
+        title: "Explore business compliance",
+        body: "Start with the regulated-businesses route for your sector.",
+      },
+    },
+    cta: { label: "Explore business compliance", href: "/sectors/regulated-businesses" },
+  },
+] as const;
+
+// ---------------------------------------------------------------------------
 // Hero — transformation framing, credential in the next breath
 // ---------------------------------------------------------------------------
 

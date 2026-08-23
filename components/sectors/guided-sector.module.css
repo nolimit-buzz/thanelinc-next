@@ -2,6 +2,15 @@
   background: var(--color-bg-light);
 }
 
+.page :global(#overview),
+.page :global(#why-it-matters),
+.page :global(#ministries-agencies),
+.page :global(#timeline),
+.page :global(#questions),
+.page :global(#get-started) {
+  scroll-margin-top: 132px;
+}
+
 .journeySection {
   padding: 44px 0 104px;
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Clock3, FileCheck } from "lucide-react";
 import { InnerPageCta } from "@/components/inner/InnerPageCta";
-import { ServiceBannerHero } from "@/components/services/ServiceBannerHero";
+import { IndexSplitHero } from "@/components/inner/IndexSplitHero";
 import { ServiceRowIcon } from "@/components/services/ServiceRowIcon";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
 import {
@@ -79,14 +79,18 @@ export function ServicesDirectory({ services }: { services: ServiceRow[] }) {
 
   return (
     <main>
-      <ServiceBannerHero
+      <IndexSplitHero
         eyebrow={servicesIndexHero.eyebrow}
-        h1="Compliance"
-        h1Accent="services"
+        title={servicesIndexHero.title}
+        titleAccent={servicesIndexHero.titleAccent}
         summary={servicesIndexHero.subhead}
         primaryCta={servicesIndexHero.primaryCta}
-        bannerImage="/services-banner-glass-architecture.jpg"
-        bannerAlt="Modern glass office building"
+        secondaryCta={servicesIndexHero.secondaryCta}
+        metrics={servicesIndexHero.metrics}
+        image={{ src: "/services-hero-cutout.png", alt: "Thanelinc compliance adviser", width: 640, height: 1074 }}
+        floatingPanel={servicesIndexHero.floatingPanel}
+        credentialPanel={servicesIndexHero.credentialPanel}
+        variant="services"
       />
 
       <section className={styles.problemSection}>
@@ -110,7 +114,7 @@ export function ServicesDirectory({ services }: { services: ServiceRow[] }) {
         </div>
       </section>
 
-      <section className={styles.directorySection}>
+      <section className={styles.directorySection} id="service-directory">
         <div className="container">
           <div className={styles.directoryIntro}>
             <div className={`${styles.sectionEyebrow} reveal`}>{servicesIndexDirectory.eyebrow}</div>

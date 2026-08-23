@@ -1,11 +1,24 @@
+.sectionNavSlot {
+  position: relative;
+  min-height: 57px;
+}
+
 .sectionNav {
-  position: sticky;
-  top: 64px;
-  z-index: 40;
-  overflow: hidden;
+  position: relative;
+  z-index: 900;
+  width: 100%;
   border-bottom: 1px solid rgba(10, 28, 30, 0.08);
-  background: rgba(231, 236, 233, 0.92);
-  backdrop-filter: blur(10px);
+  background: rgba(231, 236, 233, 0.97);
+  box-shadow: 0 8px 26px rgba(10, 28, 30, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.sectionNavPinned {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  z-index: 900;
 }
 
 .sectionNavScroller {

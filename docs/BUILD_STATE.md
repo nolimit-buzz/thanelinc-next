@@ -10,6 +10,55 @@ Delivery state for the **implementation repository**. Update at every handoff.
 
 ---
 
+## Remaining core pages (2026-08-23)
+
+**Delivery state:** `verified_local`.
+**Scope:** W-039 / `PLAN-2026-08-23-remaining-core-pages.md`.
+
+| Item | State |
+|---|---|
+| `/how-we-work` six-stage journey | ✅ `implemented_local` |
+| About, Credentials and Team routes | ✅ `implemented_local` |
+| Certificate preview and PDF download assets | ✅ local asset responses verified |
+| Public Sector page + Ministries & Agencies anchor | ✅ `implemented_local` |
+| About navigation, mobile navigation, footer and search | ✅ `implemented_local` |
+| Existing service/sector hero compatibility | ✅ local route + single-H1 checks passed |
+
+`npx tsc --noEmit`, `npm run lint`, `git diff --check`, route/asset HTTP 200
+checks, rendered single-H1 checks, and an isolated production Webpack build
+(26 static routes) pass. The owner-authorised NBA proof is labelled as
+professional-body proof only; no proposal-stage MDA work or uncleared team
+material is published. No push or deployment occurred.
+
+---
+
+## Index split heroes + All Sectors directory (2026-08-21)
+
+**Delivery state:** `implemented_local`
+**Scope:** W-036 / `PLAN-2026-08-21-index-heroes-and-sectors-directory.md`.
+
+| Item | State |
+|---|---|
+| Distinct two-tone index hero on `/services` | ✅ focused browser verification passed |
+| Sitemap-approved `/sectors` index with two sourced live routes | ✅ focused browser verification passed |
+| Sectors mega-menu “View all” points to `/sectors` | ✅ local route returns 200 |
+| Robust fixed-state internal nav on both sector detail pages | ✅ 64px measured top at mobile/desktop |
+| Anchor offsets clear global + section nav | ✅ measured on `#questions` |
+| Public Sector page | ⛔ still blocked; no approved copy inferred |
+| Stale planned states for six live services in search | ✅ corrected |
+
+Hydrated Chrome at 390/768/1440 confirms zero overflow, one H1, no failed
+images, the intended two-tone background, and correct live link counts on both
+indexes. H1 caps at 64px and H2 at 42px. TypeScript, lint, and `git diff
+--check` exit 0; lint has no warnings. The final isolated production build is
+unverified because the required network escalation was denied when the tool
+service reached its usage limit. Full evidence:
+`docs/INDEX_HERO_AND_SECTORS_EVIDENCE-2026-08-21.md`.
+
+No commit, push, or deployment was performed.
+
+---
+
 ## All Services — Service Journey Directory (2026-08-21)
 
 **Delivery state:** `committed`
@@ -442,3 +491,27 @@ The Phase 2 rollout is complete locally. Highest-value next steps, in order:
 5. Publish `/privacy` before any production launch that captures email.
 
 Update this file after each route rather than at phase end.
+
+## Verified locally — index palette and homepage mandate carousel (2026-08-23)
+
+W-037 is implemented locally. `/services` and `/sectors` retain their shared
+W-036 hero design but now use the approved pale mineral/slate split; directory
+card titles are explicitly bold. The homepage carousel alone is visually
+superseded from W-026: three existing Mandate audiences now use layered
+cutout/editorial collages and route to the matching live sector pages. No
+Public Sector page or new regulatory claim was introduced.
+
+Hydrated Chrome checks at 390px and 1440px passed on `/`, `/services`, and
+`/sectors`: zero overflow, one H1, and no failed images. TypeScript and lint are
+clean. The production build was not run alongside the live development server,
+following the operational warning above. Evidence:
+`docs/INDEX_PALETTE_AND_HOME_MANDATE_EVIDENCE-2026-08-23.md`.
+
+## Revision — homepage carousel uses the shared index visual (2026-08-23)
+
+W-038 replaces the rejected custom collages. `IndexHeroVisual` is now shared
+verbatim by All Services, All Sectors, and all three homepage slides, so the
+portrait panel, frame, orbit, and information-card construction cannot diverge.
+The slide panel copy and live sector destination remain specific to each mandate
+entry. The light half of the homepage hero now also carries the same fine grid
+used by the index heroes.

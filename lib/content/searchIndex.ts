@@ -2,6 +2,12 @@ import { services, servicesIndexProblem } from "@/lib/content/servicesIndex";
 import { resourcesMenu, contactNavItem } from "@/lib/content/navigation";
 import { hero as regulatedBusinessesHero, reasons as regulatedBusinessesReasons } from "@/lib/content/sectorsRegulatedBusinesses";
 import { tertiaryInstitutionsPage } from "@/lib/content/sectorsTertiaryInstitutions";
+import { sectorsIndexHero } from "@/lib/content/sectorsIndex";
+import { aboutPageContent } from "@/lib/content/about";
+import { credentialsPageContent } from "@/lib/content/credentials";
+import { teamPageContent } from "@/lib/content/team";
+import { howWeWorkContent } from "@/lib/content/howWeWork";
+import { sectorsPublicSectorContent, publicSectorPage } from "@/lib/content/sectorsPublicSector";
 import type { NavStatus } from "@/lib/content/navigation";
 
 export interface SearchEntry {
@@ -21,14 +27,12 @@ export interface SearchEntry {
  * and "why you're here" reasons, resources their existing explainer lines.
  * All already published elsewhere on the site.
  */
-const LIVE_SERVICE_SLUGS = new Set(["ndpc-registration", "breach-response"]);
-
 const serviceEntries: SearchEntry[] = services.map((s) => ({
   id: `/services/${s.slug}`,
   label: s.name,
   description: `${s.summary} ${s.bullets.join(" ")}`,
   href: `/services/${s.slug}`,
-  status: LIVE_SERVICE_SLUGS.has(s.slug) ? "live" : "planned",
+  status: "live",
   group: "Services",
 }));
 
@@ -65,9 +69,9 @@ const sectorEntries: SearchEntry[] = [
   {
     id: "/sectors/public-sector",
     label: "Public Sector & MDAs",
-    description: "Ministries, departments and agencies.",
+    description: `${sectorsPublicSectorContent.summary} ${publicSectorPage.hero.subhead}`,
     href: "/sectors/public-sector",
-    status: "planned",
+    status: "live",
     group: "Sectors",
   },
 ];
@@ -88,5 +92,10 @@ export const searchIndex: SearchEntry[] = [
   ...resourceEntries,
   { id: "/", label: "Home", description: "Thanelinc — NDPC-licensed Data Protection Compliance Organization, handling end-to-end NDPC regulatory filings.", href: "/", status: "live", group: "Pages" },
   { id: "/am-i-covered", label: "Am I Covered?", description: "Confirm your exact NDPA category, obligation and deadline in under two minutes.", href: "/am-i-covered", status: "live", group: "Pages" },
+  { id: "/sectors", label: "Who We Serve", description: `${sectorsIndexHero.title} ${sectorsIndexHero.titleAccent} ${sectorsIndexHero.summary}`, href: "/sectors", status: "live", group: "Pages" },
+  { id: "/how-we-work", label: "How We Work", description: howWeWorkContent.summary, href: "/how-we-work", status: "live", group: "Pages" },
+  { id: "/about", label: "About Thanelinc", description: aboutPageContent.summary, href: "/about", status: "live", group: "Pages" },
+  { id: "/about/credentials", label: "Credentials", description: credentialsPageContent.summary, href: "/about/credentials", status: "live", group: "Pages" },
+  { id: "/about/team", label: "Team", description: teamPageContent.summary, href: "/about/team", status: "live", group: "Pages" },
   { id: contactNavItem.href, label: contactNavItem.label, description: "Request a scoped proposal or call the general company line.", href: contactNavItem.href, status: contactNavItem.status, group: "Pages" },
 ];

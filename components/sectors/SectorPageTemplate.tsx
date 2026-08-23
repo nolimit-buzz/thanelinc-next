@@ -33,6 +33,8 @@ export interface SectorPageContent {
   turnarounds?: { intro: string; steps: { step: string; deliverable: string; turnaround: string }[] };
   /** Omitted where the approved copy has no four-reason set. */
   reasons?: { title: string; body: string; cta?: { label: string; href: string } }[];
+  /** Allows an audience-specific reasons target without forking the template. */
+  reasonsId?: string;
   reasonsHeading?: { lead: string; accent: string };
   accordion: AccordionItem[];
   /** Widens the accordion's container beyond the default 780px reading width

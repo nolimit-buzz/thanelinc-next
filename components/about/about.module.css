@@ -1,0 +1,135 @@
+.page { background: var(--color-bg-light); }
+
+.eyebrow {
+  color: var(--color-teal-accent);
+  font-size: 0.76rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.readingWidth { max-width: 1020px; }
+
+.positioningSection,
+.pathwaysSection,
+.credentialsSection,
+.teamSection { padding: 76px 0; }
+
+.positioning {
+  max-width: 800px;
+  padding: clamp(34px, 5vw, 58px);
+  background: #e1e8e6;
+}
+
+.positioning h2,
+.pathway h2,
+.processCard h2,
+.sectionHeader h2,
+.proofCard h2,
+.credentialCopy h2,
+.memberCard h2 {
+  margin: 10px 0 14px;
+  color: var(--color-forest-dark);
+  font-size: clamp(1.8rem, 3vw, 2.625rem);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1.14;
+}
+
+.positioning p,
+.pathway p,
+.processCard p,
+.sectionHeader p,
+.proofCard p,
+.credentialCopy p,
+.memberCard p { color: var(--color-text-body); line-height: 1.7; }
+
+.positioning p { margin: 0; }
+
+.pathways {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.pathway {
+  min-height: 310px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(30px, 4vw, 48px);
+  background: #fff;
+  border: 1px solid rgba(10, 28, 30, 0.09);
+  box-shadow: 0 10px 34px rgba(10, 28, 30, 0.045);
+}
+
+.pathway .mandate-link-check { margin-top: auto; }
+
+.processSection { padding: 0 0 104px; }
+
+.processCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: clamp(34px, 5vw, 58px);
+  color: #fff;
+  background: var(--color-forest-dark);
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%);
+}
+
+.processCard h2 { max-width: 600px; color: #fff; }
+.processCard p { max-width: 700px; margin: 0; color: #d7e1e0; }
+
+.sectionHeader { max-width: 750px; margin-bottom: 38px; }
+.sectionHeader p { margin: 0; }
+
+.credentialGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+
+.credentialCard {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(10, 28, 30, 0.09);
+  box-shadow: 0 10px 34px rgba(10, 28, 30, 0.045);
+}
+
+.credentialPreview {
+  position: relative;
+  aspect-ratio: 1.5;
+  overflow: hidden;
+  background: #e7ece9;
+  border-bottom: 1px solid rgba(10, 28, 30, 0.09);
+}
+
+.credentialPreview :global(img) { object-fit: contain; padding: 16px; }
+.credentialCopy { padding: clamp(26px, 3vw, 38px); }
+.credentialCopy h2 { font-size: clamp(1.35rem, 2.1vw, 1.72rem); }
+.credentialCopy p { margin: 0 0 14px; }
+.issuer { color: var(--color-text-muted) !important; font-size: 0.9rem; }
+
+.documentLinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 24px; }
+.downloadLink { color: var(--color-forest-dark); font-size: 0.86rem; font-weight: 700; text-decoration: underline; text-decoration-color: var(--color-teal-accent); text-underline-offset: 4px; }
+
+.proofSection { padding: 0 0 104px; }
+.proofCard { display: flex; align-items: end; justify-content: space-between; gap: 30px; padding: clamp(34px, 5vw, 58px); color: #fff; background: var(--color-forest-dark); }
+.proofCard h2 { max-width: 620px; color: #fff; }
+.proofCard p { max-width: 720px; margin: 0; color: #d7e1e0; }
+
+.memberGrid { display: grid; grid-template-columns: minmax(0, 520px); }
+.memberCard { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 26px; padding: clamp(30px, 4vw, 48px); background: #fff; border: 1px solid rgba(10, 28, 30, 0.09); box-shadow: 0 10px 34px rgba(10, 28, 30, 0.045); }
+.memberMonogram { width: 88px; height: 88px; display: grid; place-items: center; color: var(--color-forest-dark); background: #e1e8e6; border: 1px solid rgba(28, 176, 184, 0.28); border-radius: 50%; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.04em; }
+.memberCard h2 { margin-top: 0; font-size: 1.7rem; }
+.memberRole { margin: -5px 0 16px !important; color: var(--color-text-muted) !important; }
+.credentialList { display: flex; flex-wrap: wrap; gap: 8px; }
+.credentialList span { padding: 6px 10px; color: var(--color-forest-dark); background: rgba(28, 176, 184, 0.12); font-size: 0.78rem; font-weight: 750; }
+
+@media (max-width: 760px) {
+  .positioningSection, .pathwaysSection, .credentialsSection, .teamSection { padding: 58px 0; }
+  .pathways, .credentialGrid { grid-template-columns: 1fr; }
+  .processCard, .proofCard { display: grid; align-items: start; }
+}
+
+@media (max-width: 500px) {
+  .memberCard { grid-template-columns: 1fr; }
+  .memberMonogram { width: 72px; height: 72px; }
+}

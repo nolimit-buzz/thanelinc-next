@@ -11,7 +11,7 @@ export const metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <SiteNav variant="light" />
+      <SiteNav variant="light" splitHero />
       <ServicesDirectory services={services} />
       <SiteFooter />
     </>

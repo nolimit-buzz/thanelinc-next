@@ -46,6 +46,13 @@ export const regulatedBusinessesPageContent: SectorPageContent = {
     secondary: closingCta.secondary,
     cutoutImage: "/regulated-businesses-cutout.png",
   },
+  sectionNav: [
+    { id: "overview", label: "Overview" },
+    { id: "why-it-matters", label: "Why It Matters" },
+    { id: "timeline", label: "Timeline" },
+    { id: "questions", label: "Common Questions" },
+    { id: "get-started", label: "Get Started" },
+  ],
 };
 
 /**

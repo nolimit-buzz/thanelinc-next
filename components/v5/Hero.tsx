@@ -1,16 +1,15 @@
 "use client";
 
-// Ported verbatim from registration-marks-v5.html lines 3354–3478.
-// Class names and copy are v5's. Do not restyle or reword (W-026), EXCEPT the
-// nav bar itself: W-030 replaces the ported `<header id="stickyNav">` below
-// with the site's consolidated `SiteNav`, so the homepage stops running a
-// second, divergent navigation. Everything else in this file — the split
-// backdrop, headline, carousel, scroll-down affordance, and all of
-// `.hero-entered`/`.hero-exiting` state — is untouched.
+// Ported from registration-marks-v5.html lines 3354–3478. W-030 replaces the
+// duplicated nav with SiteNav. W-037 narrowly supersedes W-026 for the visual
+// treatment and destinations inside the carousel only; the hero architecture,
+// copy, motion states, and timing remain unchanged.
 // Client component: the hero carousel and sticky-nav state need state.
 
 import { useEffect, useRef, useState } from "react";
+import { IndexHeroVisual } from "@/components/inner/IndexSplitHero";
 import { SiteNav } from "@/components/SiteNav";
+import { homeMandateSlides } from "@/lib/content/home";
 
 export function Hero() {
   const [slide, setSlide] = useState(0);
@@ -22,7 +21,7 @@ export function Hero() {
   const [paused, setPaused] = useState(false);
   useEffect(() => {
     if (paused) return;
-    const t = setInterval(() => setSlide((s) => (s + 1) % 3), 6000);
+    const t = setInterval(() => setSlide((s) => (s + 1) % homeMandateSlides.length), 6000);
     return () => clearInterval(t);
   }, [paused]);
 
@@ -108,43 +107,41 @@ export function Hero() {
               <div className="hero-right-visual-wrapper hero-visual-motion">
                 <div className="hero-chamfer-card" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
                   
-                  {/* Slide 1: Holographic Compliance Interface */}
-                  <div className={`carousel-slide-item${slide === 0 ? " active" : ""}`} id="heroSlide1">
-                    <img src="/hero-hologram.jpg" alt="Thanelinc NDPC Regulatory Compliance Oversight" className="hero-chamfer-img" />
-                    <a href="#credentials" className="hero-floating-glass-badge">
-                      <span className="glass-badge-title">Our DPCO Licence</span>
-                      <span className="glass-badge-icon">▶</span>
-                    </a>
-                  </div>
-      
-                  {/* Slide 2: Regulatory Audit Execution & Timeline */}
-                  <div className={`carousel-slide-item${slide === 1 ? " active" : ""}`} id="heroSlide2">
-                    <img src="/hero-portrait-audit.jpg" alt="NDPC Compliance Audit Filing Management" className="hero-chamfer-img" />
-                    <a href="#process" className="hero-floating-glass-badge">
-                      <span className="glass-badge-title">6-Step Process Timeline</span>
-                      <span className="glass-badge-icon">⏱</span>
-                    </a>
-                  </div>
-      
-                  {/* Slide 3: High-Risk Sector Compliance */}
-                  <div className={`carousel-slide-item${slide === 2 ? " active" : ""}`} id="heroSlide3">
-                    <img src="/hero-portrait-sectors.jpg" alt="Higher Institutions & Regulated Enterprise Sectors" className="hero-chamfer-img" />
-                    <a href="#sectors" className="hero-floating-glass-badge">
-                      <span className="glass-badge-title">Explore Sector Doors</span>
-                      <span className="glass-badge-icon">🏛</span>
-                    </a>
-                  </div>
+                  {homeMandateSlides.map((item, index) => (
+                    <div
+                      key={item.id}
+                      className={`carousel-slide-item hero-index-slide${slide === index ? " active" : ""}`}
+                      id={`heroSlide${index + 1}`}
+                      aria-hidden={slide !== index}
+                    >
+                      <a
+                        href={item.cta.href}
+                        className="hero-index-slide-link"
+                        tabIndex={slide === index ? 0 : -1}
+                        aria-label={item.cta.label}
+                      >
+                        <IndexHeroVisual eyebrow={item.eyebrow} {...item.visual} carousel />
+                      </a>
+                    </div>
+                  ))}
       
                   {/* Carousel Navigation Dots */}
                   <div className="carousel-nav-dots">
-                    <button type="button" className={`carousel-dot${slide === 0 ? " active" : ""}`} onClick={() => setSlide(0)} aria-label={"Go to slide 1"} />
-                    <button type="button" className={`carousel-dot${slide === 1 ? " active" : ""}`} onClick={() => setSlide(1)} aria-label={"Go to slide 2"} />
-                    <button type="button" className={`carousel-dot${slide === 2 ? " active" : ""}`} onClick={() => setSlide(2)} aria-label={"Go to slide 3"} />
+                    {homeMandateSlides.map((item, index) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        className={`carousel-dot${slide === index ? " active" : ""}`}
+                        onClick={() => setSlide(index)}
+                        aria-label={`Show ${item.title}`}
+                        aria-current={slide === index ? "true" : undefined}
+                      />
+                    ))}
                   </div>
       
                   {/* Carousel Arrow Controls */}
-                  <button type="button" onClick={() => setSlide((s) => (s + 2) % 3)} className="carousel-arrow-btn carousel-arrow-prev" aria-label="Previous Slide">‹</button>
-                  <button type="button" onClick={() => setSlide((s) => (s + 1) % 3)} className="carousel-arrow-btn carousel-arrow-next" aria-label="Next Slide">›</button>
+                  <button type="button" onClick={() => setSlide((s) => (s + homeMandateSlides.length - 1) % homeMandateSlides.length)} className="carousel-arrow-btn carousel-arrow-prev" aria-label="Previous Slide">‹</button>
+                  <button type="button" onClick={() => setSlide((s) => (s + 1) % homeMandateSlides.length)} className="carousel-arrow-btn carousel-arrow-next" aria-label="Next Slide">›</button>
       
                 </div>
               </div>

@@ -183,7 +183,7 @@ export function MobileNavDrawer({
         ))}
         <div style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
           {simpleLinks.map((item) => (
-            <div key={item.href} style={{ padding: "18px 4px" }}>
+            <div key={item.href + item.label} style={{ padding: "18px 4px" }}>
               <DrawerLink item={item} onNavigate={onClose} />
             </div>
           ))}

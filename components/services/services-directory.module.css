@@ -211,6 +211,7 @@
   margin: 0 0 14px;
   color: var(--color-forest-dark);
   font-size: clamp(1.4rem, 2vw, 1.8rem);
+  font-weight: 800;
   letter-spacing: -0.025em;
   line-height: 1.16;
 }

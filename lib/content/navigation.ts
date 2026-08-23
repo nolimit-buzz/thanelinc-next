@@ -127,7 +127,7 @@ export const sectorsMenu: MegaMenu = {
         {
           label: "Public Sector & MDAs",
           href: "/sectors/public-sector",
-          status: "planned",
+          status: "live",
           description: "Ministries, departments and agencies.",
           icon: "landmark",
         },
@@ -149,7 +149,7 @@ export const sectorsMenu: MegaMenu = {
         { label: "Telecoms, Fintech & Payments", href: "/sectors/regulated-businesses", status: "live" },
         { label: "Insurers & Oil and Gas", href: "/sectors/regulated-businesses", status: "live" },
         { label: "Retail, Health & Logistics", href: "/sectors/regulated-businesses", status: "live" },
-        { label: "Ministries & Agencies", href: "/sectors/public-sector", status: "planned" },
+        { label: "Ministries & Agencies", href: "/sectors/public-sector#ministries-agencies", status: "live" },
       ],
     },
   ],
@@ -161,9 +161,7 @@ export const sectorsMenu: MegaMenu = {
     status: "live",
     ctaLabel: "Run the check",
   },
-  // D4: no /sectors index exists yet — keep the homepage anchor rather than
-  // link a second 404, and flag it (see changelog).
-  viewAll: { label: "View all sectors", href: "/#sectors", status: "live" },
+  viewAll: { label: "View all sectors", href: "/sectors", status: "live" },
 };
 
 // ---------------------------------------------------------------------------
@@ -188,7 +186,7 @@ export const resourcesMenu: MegaMenu = {
         {
           label: "How We Work",
           href: "/how-we-work",
-          status: "planned",
+          status: "live",
           description: "The full 6-stage compliance journey.",
           icon: "compass",
         },
@@ -207,7 +205,7 @@ export const resourcesMenu: MegaMenu = {
         {
           label: "Credentials",
           href: "/about/credentials",
-          status: "planned",
+          status: "live",
           description: "Our NDPC Data Protection Compliance Organization licence.",
           icon: "seal",
         },
@@ -237,8 +235,31 @@ export const resourcesMenu: MegaMenu = {
 // Simple (non-mega) nav items and the primary CTA
 // ---------------------------------------------------------------------------
 
-export const howWeWorkNavItem: NavItem = { label: "How We Work", href: "/how-we-work", status: "planned" };
-export const aboutNavItem: NavItem = { label: "About & Credentials", href: "/about/credentials", status: "planned" };
+export const howWeWorkNavItem: NavItem = { label: "How We Work", href: "/how-we-work", status: "live" };
+
+export const aboutMenu: MegaMenu = {
+  label: "About",
+  columns: [
+    {
+      eyebrow: "Thanelinc",
+      items: [
+        { label: "About Thanelinc", href: "/about", status: "live", description: "Our credential-led compliance position.", icon: "building" },
+        { label: "Credentials", href: "/about/credentials", status: "live", description: "View the DPCO licence and separate registration.", icon: "seal" },
+        { label: "Team", href: "/about/team", status: "live", description: "The practitioner approved for public listing.", icon: "shield" },
+      ],
+    },
+  ],
+  featured: {
+    eyebrow: "Due diligence",
+    title: "Inspect our DPCO licence",
+    description: "The certificate is viewable, not merely described.",
+    href: "/about/credentials",
+    status: "live",
+    ctaLabel: "View credentials",
+  },
+  viewAll: { label: "About Thanelinc", href: "/about", status: "live" },
+};
+
 export const contactNavItem: NavItem = { label: "Contact Us", href: "/contact", status: "live" };
 
 // ---------------------------------------------------------------------------
@@ -255,7 +276,10 @@ export const footerColumns: { title: string; items: NavItem[] }[] = [
   {
     title: "Company",
     items: [
-      { label: "Credentials", href: "/about/credentials", status: "planned" },
+      { label: "About Thanelinc", href: "/about", status: "live" },
+      { label: "Credentials", href: "/about/credentials", status: "live" },
+      { label: "Team", href: "/about/team", status: "live" },
+      { label: "How We Work", href: "/how-we-work", status: "live" },
       { label: "Training", href: "/training", status: "planned" },
       { label: "Contact", href: "/contact", status: "live" },
     ],

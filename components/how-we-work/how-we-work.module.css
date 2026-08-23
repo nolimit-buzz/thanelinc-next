@@ -1,0 +1,189 @@
+.page {
+  background: var(--color-bg-light);
+}
+
+.page :global(#overview),
+.page :global(#six-stages),
+.page :global(#what-we-need),
+.page :global(#breach-response),
+.page :global(#get-started) {
+  scroll-margin-top: 132px;
+}
+
+.stagesSection {
+  padding: 68px 0 104px;
+}
+
+.readingWidth {
+  max-width: 1020px;
+}
+
+.sectionIntro {
+  max-width: 700px;
+  margin-bottom: 48px;
+}
+
+.eyebrow,
+.stageLabel {
+  color: var(--color-teal-accent);
+  font-size: 0.76rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sectionIntro h2,
+.supportCopy h2,
+.breachCard h2 {
+  max-width: 720px;
+  margin: 10px 0 14px;
+  color: var(--color-forest-dark);
+  font-size: clamp(1.85rem, 3vw, 2.625rem);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+.sectionIntro p,
+.supportCopy p,
+.breachCard p {
+  margin: 0;
+  color: var(--color-text-body);
+  line-height: 1.72;
+}
+
+.stages {
+  display: grid;
+  gap: 18px;
+}
+
+.stage {
+  padding: clamp(26px, 4vw, 40px);
+  background: #fff;
+  border: 1px solid rgba(10, 28, 30, 0.09);
+  box-shadow: 0 10px 34px rgba(10, 28, 30, 0.045);
+}
+
+.stageHeader {
+  display: grid;
+  grid-template-columns: 50px minmax(0, 1fr);
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.stageNumber,
+.rowStep {
+  color: var(--color-teal-accent);
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+}
+
+.stageNumber {
+  padding-top: 2px;
+  font-size: 0.92rem;
+}
+
+.stageHeader h3 {
+  margin: 8px 0 8px;
+  color: var(--color-forest-dark);
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  line-height: 1.2;
+}
+
+.stageHeader p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--color-text-body);
+  line-height: 1.65;
+}
+
+.tableRegion {
+  overflow-x: auto;
+  border-top: 1px solid rgba(10, 28, 30, 0.1);
+}
+
+.tableRegion table {
+  width: 100%;
+  min-width: 610px;
+  border-collapse: collapse;
+}
+
+.tableRegion th,
+.tableRegion td {
+  padding: 16px 14px;
+  border-bottom: 1px solid rgba(10, 28, 30, 0.09);
+  color: var(--color-text-body);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  text-align: left;
+  vertical-align: top;
+}
+
+.tableRegion th {
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.tableRegion td:first-child {
+  width: 39%;
+  color: var(--color-forest-dark);
+  font-weight: 650;
+}
+
+.rowStep {
+  display: inline-block;
+  min-width: 32px;
+  margin-right: 8px;
+  font-size: 0.76rem;
+}
+
+.tableRegion a {
+  color: inherit;
+  text-decoration-color: var(--color-teal-accent);
+  text-underline-offset: 4px;
+}
+
+.supportSection {
+  padding: 0 0 104px;
+}
+
+.supportGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(290px, 0.85fr);
+  align-items: stretch;
+}
+
+.supportCopy {
+  padding: clamp(36px, 6vw, 66px);
+  background: #e1e8e6;
+}
+
+.breachCard {
+  padding: clamp(36px, 5vw, 58px);
+  color: #fff;
+  background: var(--color-forest-dark);
+}
+
+.breachCard h2 {
+  color: #fff;
+}
+
+.breachCard p {
+  margin-bottom: 24px;
+  color: #d7e1e0;
+}
+
+@media (max-width: 760px) {
+  .stagesSection { padding-top: 52px; }
+  .supportGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .stage { padding: 26px 20px; }
+  .stageHeader { grid-template-columns: 1fr; gap: 8px; }
+  .tableRegion { margin-inline: -20px; }
+  .tableRegion th, .tableRegion td { padding: 14px 12px; }
+}
