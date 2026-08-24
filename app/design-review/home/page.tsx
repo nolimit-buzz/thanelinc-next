@@ -1,21 +1,26 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { HomeHeroArtworkReview } from "@/components/design-review/HomeHeroArtworkReview";
 import { Problem } from "@/components/v5/Problem";
-import { SelfCheck } from "@/components/v5/SelfCheck";
-import { SectorAccordion } from "@/components/v5/SectorAccordion";
-import { TrackRecord } from "@/components/v5/TrackRecord";
-import { Process } from "@/components/v5/Process";
-import { Services } from "@/components/v5/Services";
-import { Resources } from "@/components/v5/Resources";
 import { PreFooter } from "@/components/v5/PreFooter";
-import { SiteFooter } from "@/components/v5/SiteFooter";
+import { Process } from "@/components/v5/Process";
+import { Resources } from "@/components/v5/Resources";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
+import { SectorAccordion } from "@/components/v5/SectorAccordion";
+import { SelfCheck } from "@/components/v5/SelfCheck";
+import { Services } from "@/components/v5/Services";
+import { SiteFooter } from "@/components/v5/SiteFooter";
+import { TrackRecord } from "@/components/v5/TrackRecord";
 import { resources } from "@/lib/content/resources";
 
-/**
- * Homepage — v5 `view-home`, ported section for section (W-026).
- * Order and content are v5's. Do not reorder, restyle, or reword.
- */
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Homepage Artwork Review",
+  robots: { index: false, follow: false },
+};
+
+export default function HomepageArtworkReviewPage() {
+  if (process.env.NODE_ENV === "production") notFound();
+
   return (
     <>
       <main id="view-home">
