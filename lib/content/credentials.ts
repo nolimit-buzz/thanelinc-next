@@ -4,10 +4,6 @@ export interface CredentialEntry {
   eyebrow: string;
   issuer: string;
   description: string;
-  meaning: string;
-  preview: string;
-  pdf: string;
-  previewAlt: string;
 }
 
 export interface CredentialsPageContent {
@@ -28,12 +24,12 @@ export interface CredentialsPageContent {
 
 export const credentialsPageContent: CredentialsPageContent = {
   title: "Credentials — Thanelinc's NDPC Licensing",
-  summary: "Thanelinc's DPCO licence and data controller/processor registration, viewable, not just described.",
+  summary: "Thanelinc's DPCO licence and data controller/processor registration, clearly explained.",
   hero: {
     eyebrow: "Credentials",
-    h1: "Not a claim —",
-    h1Accent: "a licence you can inspect.",
-    summary: "Here is exactly what Thanelinc holds, what each credential means, and the documents behind both statements.",
+    h1: "Clear credentials —",
+    h1Accent: "plainly explained.",
+    summary: "Here is exactly what Thanelinc holds and what each credential means.",
     primaryCta: { label: "Get in touch", href: "/contact" },
     secondaryCta: { label: "How we work", href: "/how-we-work" },
   },
@@ -44,10 +40,6 @@ export const credentialsPageContent: CredentialsPageContent = {
       eyebrow: "Primary credential",
       issuer: "Nigeria Data Protection Commission (NDPC)",
       description: "Thanelinc is licensed by the NDPC as a Data Protection Compliance Organization (DPCO). This is the licence category the NDPC requires UHL and EHL organisations to file their annual Compliance Audit Returns through.",
-      meaning: "If you're a university, MDA, bank, telecom, fintech, insurer, or another UHL/EHL organisation, using a firm of Thanelinc's licensed category isn't a preference — it's what the regulation requires.",
-      preview: "/credentials/thanelinc-dpco-registration-certificate.png",
-      pdf: "/credentials/thanelinc-dpco-registration-certificate.pdf",
-      previewAlt: "Preview of Thanelinc Nigeria Limited's NDPC Data Protection Compliance Organization certificate.",
     },
     {
       id: "dpdc",
@@ -55,10 +47,6 @@ export const credentialsPageContent: CredentialsPageContent = {
       eyebrow: "Separate registration",
       issuer: "Nigeria Data Protection Commission (NDPC)",
       description: "Thanelinc is separately registered as a Data Controller/Processor — the same registration status our clients hold, held here as evidence Thanelinc practises what it files for others.",
-      meaning: "This registration is not the same as the DPCO licence above. One is what our clients need; the other is what lets Thanelinc file for them.",
-      preview: "/credentials/thanelinc-dpdc-registration-certificate.png",
-      pdf: "/credentials/thanelinc-dpdc-registration-certificate.pdf",
-      previewAlt: "Preview of Thanelinc Nigeria Limited's NDPC Data Controller and Processor registration certificate.",
     },
   ],
   proof: {

@@ -18,7 +18,7 @@ export const hero = {
   subhead:
     "Six questions. No jargon, no guessing. Find out your compliance category, whether you're required to file through a licensed DPCO, and your deadline — free, right now.",
   trustLine: "Thanelinc is a licensed Data Protection Compliance Organization.",
-  trustLineCta: { label: "What that means", href: "/about/credentials" },
+  trustLineCta: { label: "What that means", href: "/about#credentials" },
   primaryCta: "Start the check",
 };
 

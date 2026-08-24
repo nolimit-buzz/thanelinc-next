@@ -96,8 +96,8 @@ export const searchIndex: SearchEntry[] = [
   { id: "/sectors", label: "Who We Serve", description: `${sectorsIndexHero.title} ${sectorsIndexHero.titleAccent} ${sectorsIndexHero.summary}`, href: "/sectors", status: "live", group: "Pages" },
   { id: "/how-we-work", label: "How We Work", description: howWeWorkContent.summary, href: "/how-we-work", status: "live", group: "Pages" },
   { id: "/about", label: "About Thanelinc", description: aboutPageContent.summary, href: "/about", status: "live", group: "Pages" },
-  { id: "/about/credentials", label: "Credentials", description: credentialsPageContent.summary, href: "/about/credentials", status: "live", group: "Pages" },
-  { id: "/about/team", label: "Team", description: teamPageContent.summary, href: "/about/team", status: "live", group: "Pages" },
+  { id: "/about#credentials", label: "Credentials", description: credentialsPageContent.summary, href: "/about#credentials", status: "live", group: "Pages" },
+  { id: "/about#team", label: "Team", description: teamPageContent.summary, href: "/about#team", status: "live", group: "Pages" },
   ...legalDocuments.map((document) => ({ id: `/${document.slug}`, label: document.navLabel, description: document.summary, href: `/${document.slug}`, status: "live" as const, group: "Legal" })),
   { id: contactNavItem.href, label: contactNavItem.label, description: "Request a scoped proposal or call the general company line.", href: contactNavItem.href, status: contactNavItem.status, group: "Pages" },
 ];

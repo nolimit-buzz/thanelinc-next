@@ -49,7 +49,7 @@ export const hero = {
 
 export const credentialBlock = {
   body: "Thanelinc is licensed by the NDPC as a Data Protection Compliance Organization (DPCO) — the licence category the NDPC requires UHL organisations to file through. Not a consultancy offering an opinion: the firm that files on your behalf.",
-  cta: { label: "View the credential", href: "/about/credentials" },
+  cta: { label: "See the credential details", href: "/about#credentials" },
 };
 
 export const turnaroundsIntro =

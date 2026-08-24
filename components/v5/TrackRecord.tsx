@@ -1,11 +1,11 @@
 // Ported verbatim from registration-marks-v5.html lines 3800–4059.
 // Class names and copy are v5's. Do not restyle or reword (W-026).
 
-export function TrackRecord() {
+export function TrackRecord({ className }: { className?: string }) {
   return (
     <>
           {/* SECTION 5: PROVEN TRACK RECORD / CLIENT LOGOS CAROUSEL */}
-          <section className="section-light" id="proof" style={{"padding": "90px 0 100px"}}>
+          <section className={`section-light${className ? ` ${className}` : ""}`} id="proof" style={{"padding": "90px 0 100px"}}>
             <div className="container">
               
               <div style={{"textAlign": "center", "maxWidth": "760px", "margin": "0 auto 10px"}} className="reveal">

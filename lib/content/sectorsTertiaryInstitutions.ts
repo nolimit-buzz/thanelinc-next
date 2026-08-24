@@ -62,7 +62,7 @@ export const tertiaryInstitutionsPage: SectorPageContent = {
   },
   credentialBlock: {
     body: "Thanelinc is licensed by the NDPC as a Data Protection Compliance Organization (DPCO) — the licence category the NDPC requires EHL organisations to file through.",
-    cta: { label: "View the credential", href: "/about/credentials" },
+    cta: { label: "See the credential details", href: "/about#credentials" },
     backgroundImage: "/hero-portrait-sectors.jpg",
   },
   // No dedicated "why you're here" section exists in the approved copy doc for
@@ -172,8 +172,8 @@ export const tertiaryInstitutionsPage: SectorPageContent = {
     {
       number: "05",
       heading: "Will this survive procurement and council scrutiny?",
-      body: "Thanelinc is a licensed DPCO — not a consultancy offering an opinion, but the category of firm the NDPC requires EHL organisations to use. The certificate is viewable, not just described.\n\nRequest the Thanelinc company profile — a procurement-ready document you can circulate to your committee.",
-      cta: { label: "View the credential", href: "/about/credentials" },
+      body: "Thanelinc is a licensed DPCO — not a consultancy offering an opinion, but the category of firm the NDPC requires EHL organisations to use. The credential status and its distinction from a Data Controller/Processor registration are clearly explained.\n\nRequest the Thanelinc company profile — a procurement-ready document you can circulate to your committee.",
+      cta: { label: "See the credential details", href: "/about#credentials" },
     },
   ],
   closingCta: {

@@ -48,12 +48,12 @@ export const publicSectorPage: SectorPageContent = {
   hero: {
     h1: "A clear compliance route for public-sector teams.",
     subhead: "Government Ministries, Departments and Agencies are listed in the GAID 2025 Schedule as an EHL category. The practical question is how to evidence the work, use the right filing route, and give decision-makers something they can verify.",
-    primaryCta: { label: "View our credentials", href: "/about/credentials" },
+    primaryCta: { label: "See our credentials", href: "/about#credentials" },
     secondaryCta: { label: "Get in touch", href: "/contact" },
   },
   credentialBlock: {
     body: "Thanelinc is licensed by the NDPC as a Data Protection Compliance Organization. For UHL and EHL organisations, annual Compliance Audit Returns are filed through a DPCO licensed by the Commission, except as otherwise approved by the Commission.",
-    cta: { label: "Inspect the licence", href: "/about/credentials" },
+    cta: { label: "Inspect the licence", href: "/about#credentials" },
     backgroundImage: "/hero-portrait-sectors.jpg",
   },
   reasonsId: "ministries-agencies",
@@ -67,7 +67,7 @@ export const publicSectorPage: SectorPageContent = {
     {
       title: "A route that procurement can verify",
       body: "The DPCO licence is available to inspect directly, so a procurement or compliance team can verify the category of firm involved before work begins.",
-      cta: { label: "View the credential", href: "/about/credentials" },
+      cta: { label: "See the credential details", href: "/about#credentials" },
     },
     {
       title: "Evidence before the annual filing",
@@ -97,7 +97,7 @@ export const publicSectorPage: SectorPageContent = {
       number: "03",
       heading: "Can a procurement team verify the licence?",
       body: "Yes. The DPCO licence and the separate Data Controller/Processor registration are available to view directly. They are distinct credentials and are presented separately so the verification is clear.",
-      cta: { label: "Inspect the credentials", href: "/about/credentials" },
+      cta: { label: "Inspect the credentials", href: "/about#credentials" },
     },
     {
       number: "04",
@@ -109,13 +109,13 @@ export const publicSectorPage: SectorPageContent = {
   proof: {
     clientName: "Nigerian Bar Association — NBA Election 2026",
     body: "Thanelinc was appointed the registered Data Protection Organization for a national professional body's election. This is professional-body evidence, not an MDA engagement.",
-    cta: { label: "View our credentials", href: "/about/credentials" },
+    cta: { label: "See our credentials", href: "/about#credentials" },
   },
   closingCta: {
     headingLead: "Need a compliance route your team can",
     headingAccent: "verify and carry forward?",
     eyebrow: "Public Sector & MDAs",
-    primary: { label: "View credentials", href: "/about/credentials" },
+    primary: { label: "See credentials", href: "/about#credentials" },
     secondary: { label: "Get in touch", href: "/contact" },
     cutoutImage: "/services-hero-cutout.png",
   },

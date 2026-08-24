@@ -208,7 +208,7 @@ export const resourcesMenu: MegaMenu = {
       items: [
         {
           label: "Credentials",
-          href: "/about/credentials",
+          href: "/about#credentials",
           status: "live",
           description: "Our NDPC Data Protection Compliance Organization licence.",
           icon: "seal",
@@ -248,18 +248,18 @@ export const aboutMenu: MegaMenu = {
       eyebrow: "Thanelinc",
       items: [
         { label: "About Thanelinc", href: "/about", status: "live", description: "Our credential-led compliance position.", icon: "building" },
-        { label: "Credentials", href: "/about/credentials", status: "live", description: "View the DPCO licence and separate registration.", icon: "seal" },
-        { label: "Team", href: "/about/team", status: "live", description: "The practitioner approved for public listing.", icon: "shield" },
+        { label: "Credentials", href: "/about#credentials", status: "live", description: "View the DPCO licence and separate registration.", icon: "seal" },
+        { label: "Team", href: "/about#team", status: "live", description: "The practitioners approved for public listing.", icon: "shield" },
       ],
     },
   ],
   featured: {
     eyebrow: "Due diligence",
-    title: "Inspect our DPCO licence",
-    description: "The certificate is viewable, not merely described.",
-    href: "/about/credentials",
+    title: "See our DPCO credentials",
+    description: "The DPCO licence and separate registration are clearly explained.",
+    href: "/about#credentials",
     status: "live",
-    ctaLabel: "View credentials",
+    ctaLabel: "See credentials",
   },
   viewAll: { label: "About Thanelinc", href: "/about", status: "live" },
 };
@@ -281,8 +281,8 @@ export const footerColumns: { title: string; items: NavItem[] }[] = [
     title: "Company",
     items: [
       { label: "About Thanelinc", href: "/about", status: "live" },
-      { label: "Credentials", href: "/about/credentials", status: "live" },
-      { label: "Team", href: "/about/team", status: "live" },
+      { label: "Credentials", href: "/about#credentials", status: "live" },
+      { label: "Team", href: "/about#team", status: "live" },
       { label: "How We Work", href: "/how-we-work", status: "live" },
       { label: "Training", href: "/training", status: "planned" },
       { label: "Contact", href: "/contact", status: "live" },

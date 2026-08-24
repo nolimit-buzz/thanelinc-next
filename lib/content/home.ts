@@ -112,7 +112,7 @@ export const hero = {
     "Thanelinc is a Nigeria Data Protection Commission–licensed Data Protection Compliance Organization, licensed to file compliance audit returns on behalf of UHL and EHL organisations. If you're a university, bank, fintech, telecom, insurer, or MDA, that licence is what the NDPC requires you to use.",
   ctas: [
     { label: "Am I Covered? — 2-Minute Check", href: "/am-i-covered", variant: "primary" },
-    { label: "View Our DPCO Licence", href: "/about/credentials", variant: "secondary" },
+    { label: "View Our DPCO Licence", href: "/about#credentials", variant: "secondary" },
   ] satisfies CtaLink[],
 } as const;
 
@@ -320,11 +320,11 @@ export const footer = {
   tagline: { lead: "Turning a compliance deadline into a", accent: "licensed", trail: "advantage." },
   ctas: [
     { label: "Am I Covered? — 2-Minute Check", href: "/am-i-covered", variant: "primary" },
-    { label: "View Our DPCO Licence", href: "/about/credentials", variant: "secondary" },
+    { label: "View Our DPCO Licence", href: "/about#credentials", variant: "secondary" },
   ] satisfies CtaLink[],
   descriptor:
     "Thanelinc Nigeria Limited is a licensed Data Protection Compliance Organization (DPCO) registered with the Nigeria Data Protection Commission (NDPC).",
-  credentialLink: { label: "Licensed DPCO — View Certificate", href: "/about/credentials" },
+  credentialLink: { label: "Licensed DPCO — See credentials", href: "/about#credentials" },
   columns: [
     {
       title: "Compliance Services",
@@ -358,7 +358,7 @@ export const footer = {
     {
       title: "Company",
       links: [
-        { label: "Credentials", href: "/about/credentials" },
+        { label: "Credentials", href: "/about#credentials" },
         { label: "Training", href: "/training" },
         { label: "Contact", href: "/contact" },
         { label: "Privacy Notice", href: "/privacy" },

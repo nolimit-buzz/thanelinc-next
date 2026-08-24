@@ -1,11 +1,24 @@
 import Link from "next/link";
 import { EditorialBannerHero } from "@/components/inner/EditorialBannerHero";
 import { InnerPageCta } from "@/components/inner/InnerPageCta";
+import { CredentialsSection } from "@/components/about/CredentialsPage";
+import { TeamSection } from "@/components/about/TeamPage";
+import { TrackRecord } from "@/components/v5/TrackRecord";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
 import type { AboutPageContent } from "@/lib/content/about";
+import type { CredentialsPageContent } from "@/lib/content/credentials";
+import type { TeamPageContent } from "@/lib/content/team";
 import styles from "@/components/about/about.module.css";
 
-export function AboutPage({ content }: { content: AboutPageContent }) {
+export function AboutPage({
+  content,
+  credentialsContent,
+  teamContent,
+}: {
+  content: AboutPageContent;
+  credentialsContent: CredentialsPageContent;
+  teamContent: TeamPageContent;
+}) {
   return (
     <main className={styles.page}>
       <EditorialBannerHero
@@ -20,40 +33,36 @@ export function AboutPage({ content }: { content: AboutPageContent }) {
       />
 
       <section className={styles.positioningSection}>
-        <div className={`container ${styles.readingWidth}`}>
+        <div className="container">
           <div className={`${styles.positioning} reveal`}>
-            <div className={styles.eyebrow}>{content.positioning.eyebrow}</div>
-            <h2>{content.positioning.heading}</h2>
+            <div className={styles.positioningIntro}>
+              <div className={styles.eyebrow}>{content.positioning.eyebrow}</div>
+              <h2>{content.positioning.heading}</h2>
+            </div>
             <p>{content.positioning.body}</p>
           </div>
         </div>
       </section>
 
-      <section className={styles.pathwaysSection}>
-        <div className={`container ${styles.pathways}`}>
-          {content.pathways.map((pathway, index) => (
-            <article className={`${styles.pathway} reveal delay-${index + 1}`} key={pathway.title}>
-              <div className={styles.eyebrow}>{pathway.eyebrow}</div>
-              <h2>{pathway.title}</h2>
-              <p>{pathway.body}</p>
-              <Link href={pathway.href} className="mandate-link-check">
-                <span>{pathway.ctaLabel}</span><span aria-hidden>→</span>
-              </Link>
-            </article>
-          ))}
-        </div>
-      </section>
+      <TeamSection content={teamContent} />
 
-      <section className={styles.processSection}>
-        <div className={`container ${styles.processCard} reveal`}>
-          <div>
-            <div className={styles.eyebrow}>Before you start</div>
-            <h2>{content.process.heading}</h2>
-            <p>{content.process.body}</p>
+      <CredentialsSection content={credentialsContent} />
+
+      <section className={styles.nextStepsSection}>
+        <div className="container">
+          <div className={styles.nextStepsGrid}>
+            <div className={`${styles.nextStepsCard} reveal`}>
+              <article className={styles.nextStep}>
+                <div className={styles.eyebrow}>{credentialsContent.proof.eyebrow}</div>
+                <h2>{credentialsContent.proof.title}</h2>
+                <p>{credentialsContent.proof.body}</p>
+                <Link href={credentialsContent.proof.href} className={`mandate-link-check ${styles.nextStepLink}`}>
+                  <span>{credentialsContent.proof.ctaLabel}</span><span aria-hidden>→</span>
+                </Link>
+              </article>
+            </div>
+            <TrackRecord className={styles.clientProof} />
           </div>
-          <Link href={content.process.href} className="btn-architectural-cta">
-            <span className="btn-arch-label">{content.process.ctaLabel}</span><span className="btn-arch-arrow">→</span>
-          </Link>
         </div>
       </section>
 

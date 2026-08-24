@@ -65,9 +65,9 @@ export function SiteFooter() {
                   <p className="footer-brand-text">
                     Thanelinc Nigeria Limited is a licensed Data Protection Compliance Organization (DPCO) registered with the Nigeria Data Protection Commission (NDPC).
                   </p>
-                  <Link href="/about/credentials" className="footer-status-pill">
+                  <Link href="/about#credentials" className="footer-status-pill">
                     <span className="footer-status-dot"></span>
-                    <span>Licensed DPCO — View Certificate</span>
+                    <span>Licensed DPCO — See credentials</span>
                   </Link>
                 </div>
 
