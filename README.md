@@ -20,7 +20,9 @@ questions, and client permissions — lives outside this repo in the
 `ThanelInc-Handover/` workspace and is **never committed here**. It contains
 commercially sensitive material, and git history is permanent.
 
-**Strapi** is connected later by the client's own team. Content currently lives
+**Strapi** is in build mode with the client's separate team. That team owns CMS
+and all backend integrations; this repository must not add a parallel backend.
+Content currently lives
 in typed modules under `lib/content/`, reaching components as props, so the CMS
 swap touches only the data-fetch layer. See `lib/content/types.ts` — those types
 are the schema contract.

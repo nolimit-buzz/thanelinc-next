@@ -1,7 +1,7 @@
 # Strapi Backend Handover — Thanelinc Website
 
-**Audience:** the engineering team that will build and connect the Strapi CMS (client's own team, per W-025).
-**Written:** 2026-08-23. **Status:** informational handover — no Strapi work has started. This document does not authorise starting it.
+**Audience:** the engineering team building and connecting the Strapi CMS (client's own team, per W-025 and W-041).
+**Written:** 2026-08-23. **Status:** Strapi is in build mode with the separate backend team. This document is the frontend integration handover; it does not authorise a frontend agent to implement a parallel backend.
 
 ---
 
@@ -38,8 +38,8 @@ Don't build a Strapi schema from `types.ts` while the frontend keeps rendering t
 | `lib/content/sectorsRegulatedBusinesses.ts`, `sectorsTertiaryInstitutions.ts`, `sectorsPublicSector.ts` | `SectorPageContent` (`components/sectors/SectorPageTemplate.tsx`) | `sector-page` | `sectorsPublicSector.ts` carries hard content-safety constraints (§5) — do not let a generic CMS editor bypass them. |
 | `lib/content/sectorsIndex.ts`, `servicesIndex.ts` | index/listing shape, co-located | `single-type` (index pages) or derive from the collections above | Prefer deriving the index from the collection queries rather than duplicating a separate content entry. |
 | `lib/content/resources.ts` + the three explainer bodies | explainer/article shape, co-located | `resource-article` | Carries `lastReviewed`/`nextReviewDue` — keep these as real date fields, not free text, so a review-cadence workflow can query them. |
-| `lib/content/credentials.ts` | credential shape, co-located | `credential` + a linked **media** field | The two certificate PDFs/PNGs under `public/credentials/` must move to the Strapi media library, not stay as static frontend assets, once Strapi owns this content. |
-| `lib/content/team.ts` | `TeamMember` (`disclosureStatus: "cleared" \| "pending-clearance" \| "excluded"`) | `team-member` | **Do not drop the `disclosureStatus` gate.** The frontend filters on it; Strapi's query/publish workflow must preserve an equivalent gate so an editor cannot publish an uncleared or excluded person by mistake. |
+| `lib/content/credentials.ts` | credential shape, co-located | `credential` | The public frontend now renders descriptions only: certificate previews, PDFs and download links are intentionally unreferenced. Do not model or expose credential media unless the owner later authorises it. |
+| `lib/content/team.ts` | `TeamMember` (`displayOrder`, `name`, `role`, `biography[]`, optional local `image`, optional `linkedInUrl`, `credentials[]`, `disclosureStatus`) | `team-member` | **Do not drop the `disclosureStatus` gate.** The frontend filters it and suppresses cleared profiles that do not yet have an approved image; Strapi's query/publish workflow must preserve both safeguards and the explicit display order. |
 | `lib/content/about.ts`, `howWeWork.ts` | page-specific shapes | `single-type` per page | Low-churn pages; low priority for CMS migration. |
 | `lib/content/legal.ts` | draft/legal shape | `single-type` per legal page, or keep static | These are drafts pending CDPO/legal approval (Gate 1) — do not connect them to editorial workflow until that approval lands; premature editability risks an unreviewed legal change going live. |
 | `lib/content/navigation.ts`, `searchIndex.ts` | nav/search config | Probably **stays in code**, not Strapi | These are structural/routing concerns, not editorial content. Making them CMS-editable risks an editor creating a link to a route that doesn't exist. |
@@ -51,6 +51,7 @@ These are enforced by code today and must have an equivalent enforcement in the 
 
 - **`deliverable` and `turnaround` are required on every service** (W-005) — they compensate for publishing no pricing anywhere on the site. A Strapi content type that allows either field to be empty reopens a rule that was deliberately closed.
 - **`disclosureStatus` blocks publication** (W-008) — a team member or case-evidence entry not explicitly `"cleared"` must never reach rendered output. Model this as a required, defaulted-to-blocked field with an editorial approval step, not an optional flag an editor can skip.
+- **Team image and social publication is explicit** — `image` and `linkedInUrl` are optional. Do not render a person in the leadership-card grid without an approved image; do not render a social action without an owner-approved URL. Keep the full biography as structured rich text/blocks so the accessible profile disclosure can preserve its paragraphs.
 - **Every regulatory statement traces to a claims-register ID** (`RegulationReference` — `claimId` + `instrument`). If Strapi lets editors write free-text statutory claims without a linked, verified source, the site's core differentiator (a licensed DPCO not overstating its own regulatory claims) is the first thing that breaks. Consider a `regulation-reference` collection editors select from, not a free-text field.
 - **NDPA penalty wording is fixed**: "section 49," never 48; "up to the greater of ₦10 million or 2% of annual gross revenue," never paraphrased.
 - **Breach response is "same-day," never "24/7" or "round-the-clock."**

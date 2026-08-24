@@ -1,16 +1,16 @@
 # Thanelinc Website — Launch Readiness Report
 
-**Assessment date:** 23 August 2026  
-**Delivery state:** `implemented_local / verified_local`  
-**Scope:** the current `thanelinc-next` worktree, not the legacy public site or a production crawl.
+**Assessment date:** 24 August 2026 (production-state reconciliation; filename retained for continuity)
+**Delivery state:** `production` for the committed frontend; `verified_local` for one uncommitted CSS refinement
+**Scope:** the current `thanelinc-next` worktree and direct production-route checks, not a full crawl or client-acceptance review.
 
 ## Executive outcome
 
-Thanelinc now has a coherent, audience-led DPCO website locally: eight service pages, sector pathways, a self-check, proof and credentials, Contact, a resource library, three explainers, and editorial legal-page drafts. The visual system is consistent across the new page families, and content is held in typed modules that can be replaced by a CMS data layer later.
+Thanelinc now has a coherent, audience-led DPCO website in production: eight service pages, sector pathways, a self-check, proof and credentials, Contact, a resource library, three explainers, and editorial legal-page drafts. The visual system is consistent across the new page families, and content is held in typed modules that can be replaced by a CMS data layer later.
 
-The site is **not yet ready for a public production launch**. The remaining work is concentrated and operational rather than another broad design phase: production lead delivery, CDPO/legal approval, technical discovery, measurement, final claim review, and deployment of this uncommitted worktree.
+The production deployment is **not yet evidenced as client-approved or release-complete**. The remaining work is concentrated and operational rather than another broad design phase: Strapi-owned backend integration, CDPO/legal approval, technical discovery, measurement and production acceptance.
 
-The current Vercel URL, `https://thanelinc-next.vercel.app`, reflects the earlier deployed commit. It **does not include** the local legal, resources, or latest polish work described here. Do not use it as final launch QA until a new deployment has been made.
+On 24 August 2026, `https://www.thanelinc.ng` and `https://thanelinc-next.vercel.app` returned identical homepage responses. `main` is synchronised with `origin/main` at `0d4cf2c`. This confirms the committed frontend is live; it does not confirm that the separate Strapi integration, legal approval or formal client acceptance is complete.
 
 ## Readiness scorecard
 
@@ -18,7 +18,7 @@ These are internal readiness scores based on the repository, not Google, Lightho
 
 | Dimension | Score | What is working | What keeps it from launch-ready |
 |---|---:|---|---|
-| Audience-first experience | **82 / 100** | Homepage, self-check, eight service pages, sector routes, how-we-work path, credentials, and Contact give compliance owners a relevant next step. | Contact/newsletter data do not reach an approved backend; there is no production conversion measurement; final proof clearances still govern future content. |
+| Audience-first experience | **82 / 100** | Homepage, self-check, eight service pages, sector routes, how-we-work path, credentials, and Contact give compliance owners a relevant next step. | The Strapi-owned Contact/newsletter integration is not yet connected to the frontend; there is no production conversion measurement; final proof clearances still govern future content. |
 | SEO readiness | **48 / 100** | Typed titles/descriptions cover public pages except the homepage, which inherits the site default; resource articles have generated metadata; URLs are stable and readable. | No `robots.ts`, `sitemap.ts`, canonical URLs, Open Graph/Twitter images, organisation/service/article/breadcrumb schema, Search Console setup, or production-domain verification. |
 | AI architecture readiness | **52 / 100** | Typed content is separated from components, articles have stable slugs/section IDs, credentials emit limited JSON-LD, and in-browser semantic search exists. | No `llms.txt`, machine-readable resource feed, organisation/service/article JSON-LD, CMS/webhook publishing model, retrieval API, or evaluation loop. |
 | Production launch readiness | **54 / 100** | Local type checking, linting, route structure, responsive templates, and source-safe content architecture are in place. | Public lead submission, legal sign-off, deployment, domain/DNS, discovery files, analytics, production acceptance test, and final operations checklist remain. |
@@ -35,8 +35,8 @@ These are internal readiness scores based on the repository, not Google, Lightho
 
 ### Audience-first launch gaps
 
-- Replace the Contact form’s present `mailto:` hand-off with the approved backend submission path; preserve the reason/category field in the payload.
-- Connect the resource newsletter to an approved, consent-aware subscription provider. Its current state intentionally says delivery is not live.
+- Integrate the Contact form with the Strapi team’s approved submission contract; preserve the reason/category field in the payload.
+- Integrate the resource newsletter with the Strapi team’s consent-aware subscription contract. Its current state intentionally says delivery is not live.
 - Add first-party, consent-aware events for self-check starts/completions, Contact submits, newsletter submits, and key CTA clicks. Do not add analytics before the legal notices are approved.
 - Confirm which client names, testimonials, outcomes, and team biographies are cleared before expanding proof or case-study content.
 
@@ -60,8 +60,8 @@ These are internal readiness scores based on the repository, not Google, Lightho
 
 ### Gate 1 — production data handling and legal approval
 
-1. Implement `POST` endpoints or an approved external form provider for Contact and newsletter submissions. Validate server-side, rate-limit, and protect with suitable bot control.
-2. Send Contact data and the selected reason to the approved backend/CRM or inbox workflow. Return honest success/error states; do not claim delivery before the backend confirms it.
+1. The Strapi team implements the Contact/newsletter endpoints, provider configuration, server-side validation, rate limiting and bot protection. The frontend must not create a parallel backend.
+2. Integrate the frontend only after that team supplies the approved contract. Send Contact data and the selected reason through that contract; return honest success/error states and do not claim delivery before it confirms it.
 3. Obtain CDPO/legal approval for `/privacy`, `/cookie-policy`, and `/terms`. Resolve retention, controller contact, processor/subprocessor list, privacy-request workflow, cookies/analytics, and cross-border transfer wording against the final production stack.
 4. Reconcile legal copy with the actual form implementation: today the UI opens an email client while the drafts describe the intended backend.
 
@@ -82,8 +82,8 @@ These are internal readiness scores based on the repository, not Google, Lightho
 
 ### Gate 4 — production release and acceptance
 
-1. Commit the present worktree. This repository still has no configured GitHub remote.
-2. Attach and verify the final domain, redirects, HTTPS, `www` policy, and Vercel environment variables.
+1. The committed frontend is already pushed to `origin/main` and live. Keep the separate uncommitted CSS refinement out of any release until it is explicitly reviewed and committed.
+2. Verify the final domain, redirects, HTTPS, `www` policy, and Vercel environment variables as part of production acceptance.
 3. Run production checks: routes, forms, newsletter, self-check, legal links, navigation, sitemap, robots, canonical tags, schema, mobile layout, keyboard navigation, and slow-network image behaviour.
 4. Confirm every public regulatory/capability statement against `ThanelInc-Handover/Website Thanelinc/docs/CLAIMS_REGISTER.md`; obtain clearance for any named proof.
 
@@ -122,12 +122,13 @@ These are internal readiness scores based on the repository, not Google, Lightho
 
 ## Verification evidence at handoff
 
-- `npx tsc --noEmit` — pass.
-- `npm run lint` — pass.
-- `git diff --check` — pass.
-- Prior isolated production builds passed with resource routes statically generated.
+- `npx tsc --noEmit` — pass on 24 August 2026.
+- `npm run lint` — pass on 24 August 2026.
+- `git diff --check` — pass on 24 August 2026.
+- `npm run build` — pass on 24 August 2026; 33 static/SSG routes generated.
+- Direct production checks — `www.thanelinc.ng`, Vercel, Contact, Privacy and Resources returned as expected; design-review routes returned 404.
 - The three current external resource photographs returned HTTP 200 on 23 August 2026. Their availability and licensing remain an operational asset decision until they are replaced or explicitly approved.
 
 ## Next LLM starting point
 
-Read [NEXT_LLM_HANDOVER.md](./NEXT_LLM_HANDOVER.md) first, then follow the gates above. Begin with Gate 1, not another visual redesign.
+Read [NEXT_LLM_HANDOVER.md](./NEXT_LLM_HANDOVER.md) first, then follow the gates above. Do not implement backend work in this repository; coordinate frontend integration with the Strapi team’s supplied contract.

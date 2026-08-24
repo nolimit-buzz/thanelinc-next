@@ -5,6 +5,12 @@ export const designReview = {
   viewportChecklist: ["390px mobile", "768px tablet", "1440px desktop"],
   pages: [
     {
+      label: "Homepage artwork review",
+      title: "People-led sector carousel",
+      href: "/design-review/home",
+      reference: "Four generic people-led sector artworks",
+    },
+    {
       label: "Service exemplar",
       title: "Data Mapping & ROPA",
       href: "/services/data-mapping-ropa",

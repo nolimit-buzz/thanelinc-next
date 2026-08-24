@@ -2,11 +2,133 @@
 
 Delivery state for the **implementation repository**. Update at every handoff.
 
-**Last updated:** 2026-08-23
+**Last updated:** 2026-08-24
 
 > The content-phase state — framework artefacts, page copy, claims register,
 > decisions — lives in the `ThanelInc-Handover/` workspace and is not duplicated
 > here. This file covers the build only.
+
+---
+
+## Development-only homepage artwork review (2026-08-24)
+
+**Delivery state:** `verified_local` — owner review required before any live
+homepage replacement.
+
+`/design-review/home` is a review-only duplicate of the current homepage. Its
+section order and live homepage content are unchanged; its hero alone swaps in
+four generic, non-representational people-led sector illustrations: female-led
+Tertiary Institutions and Healthcare & Public Sector, male-led Regulated
+Businesses and Hospitality Industry. Each slide retains an existing live
+destination. The people are generated editorial artwork only and must not be
+described or implied as Thanelinc staff, clients, regulators or engagement
+proof.
+
+The hero artwork is intentionally large and uncontained. A single dark forest
+stage behind it carries the site-standard chamfered top-right edge; the image
+is no longer nested in a second card. The route has `noindex` metadata and
+calls `notFound()` in production. `/`, `components/v5/Hero.tsx`,
+`homeMandateSlides` and the separate uncommitted `app/v5.css` refinement were
+not changed. Review artwork is scoped to `public/design-review/home-hero/`.
+
+`npx tsc --noEmit`, `npm run lint`, `git diff --check`, and `npm run build`
+pass; the build generates 34 static/SSG routes. A temporary local production
+server returned HTTP 404 for `/design-review/home` and HTTP 200 for `/`.
+
+---
+
+## Consolidated About page (2026-08-24)
+
+**Delivery state:** `verified_local`.
+
+`/about` now contains the About introduction, the cleared Team-card section and
+the description-only Credentials section in one continuous experience. The
+former `/about/team` and `/about/credentials` routes redirect to their anchored
+sections, while navigation, search and site-wide credential calls now link to
+`/about#team` or `/about#credentials` directly. The one closing CTA reads
+“Ready to confirm what applies to your organisation?” as owner-supplied.
+
+No backend, Strapi, certificate asset, privacy-claim or `app/v5.css` change is
+included. W-046 and W-047 are the controlling delivery decisions. `npx tsc --noEmit`,
+`npm run lint`, `git diff --check`, and `npm run build` pass; the build generates
+33 static/SSG routes. A fresh local HTTP check returned 200 for `/about`, found
+the `team` and `credentials` section IDs and the supplied CTA text, and confirmed
+307 redirects from the former Team and Credentials routes to their anchors.
+
+**Visual refinement (W-047):** `verified_local`. The licence explanation is now
+unboxed and container-aligned; the Team heading uses the shared display rhythm;
+and the cleared proof is one contained editorial band and the sole About-page
+pathway to How We Work. The credential pair has equal-height cards, with the
+separate registration on the approved teal field; the licence and Team body
+copy match the hero-description scale.
+TypeScript, lint, diff checks and the 33-route production build pass.
+
+**Closing proof and CTA refinement:** `verified_local`. Both credential cards
+now use the site chamfer. The final About CTA retains its original full-width
+treatment; the preceding Cleared Proof band pairs with the existing landing-page
+client-logo proof component in a responsive two-column layout. No new client
+proof was added; the original component and assets are reused unchanged.
+TypeScript, lint, diff checks and the 33-route production build pass.
+
+---
+
+## Credentials and Team-profile update (2026-08-24)
+
+**Delivery state:** `verified_local` for the description-only Credentials
+change; Team-card delivery is `verified_local` for all four approved portraits.
+
+`/about/credentials` now presents only the two credential descriptions. It no
+longer renders certificate previews, links certificate PDFs, or exposes View or
+Download controls; the static certificate files remain unreferenced rather than
+being destructively removed. W-042 clears the owner-supplied Team text for
+Ogho Emore, Chukwuweike Karl Ogwu, Emmanuella Uyaelumuo and Tsenyon Dariem.
+The Team route now implements the leadership-card presentation using the four
+individually named, owner-supplied portraits. Karl's portrait was embedded in
+the owner-supplied Team document; it was extracted locally and verified before
+use. All cards provide grayscale treatment, a keyboard-operable full-profile
+modal on a white editorial surface, and no social action because no approved
+LinkedIn URLs were supplied. The Team accent is the existing teal secondary
+token, not reference-image green. The modal mounts at `document.body` through
+a React portal so transformed card/reveal ancestors cannot constrain its
+viewport width. After owner review, each card uses a single full-bleed approved
+portrait rather than a reduced foreground over a blurred background, restoring
+the natural full-image flow used by Tsenyon Dariem and the original Ogho card.
+Each card now reserves two deliberate lines for name and role, keeping the text
+and action baselines aligned; full biographies remain in the profile modal. No
+generic substitute is used. The owner-directed Team order is Ogho Emore,
+Tsenyon Dariem, Chukwuweike Karl Ogwu, then Emmanuella Uyaelumuo.
+
+`npx tsc --noEmit`, `npm run lint`, `git diff --check`, and `npm run build`
+pass. The production build generated 33 static/SSG routes. The local Team
+route returns HTTP 200 with one H1, its three approved portrait assets each
+return HTTP 200, and it contains neither Karl's card nor a LinkedIn placeholder.
+The compiled Credentials route contains none of the retired certificate-link
+text or asset paths.
+
+---
+
+## Production-state reconciliation (2026-08-24)
+
+**Delivery state:** `production` for the committed frontend; `verified_local`
+for the separate uncommitted `app/v5.css` refinement.
+
+`main` is synchronised with `origin/main` at `0d4cf2c`. Direct checks confirmed
+that `https://www.thanelinc.ng` and `https://thanelinc-next.vercel.app` serve
+identical homepage responses. The production domain plus `/contact`, `/privacy`
+and `/resources` return HTTP 200; production correctly returns HTTP 404 for the
+design-review routes. Fresh `npx tsc --noEmit`, `npm run lint`, `git diff
+--check`, and an elevated `npm run build` all pass; the build generated 33
+static/SSG routes.
+
+The production deployment does not imply `client_approved` status or close the
+remaining release work. The separate Strapi team is in build mode and owns the
+CMS and all backend integration, including Contact/newsletter delivery. Do not
+add a parallel API route, provider, credential or data store in this repository.
+The frontend may integrate only against the contract supplied by that team.
+
+The historical entries below retain the original local-state record. Their
+statements that no remote or current deployment exists are superseded by this
+entry.
 
 ---
 
