@@ -117,7 +117,7 @@ export function SectorAccordion() {
                         <a href="#check" className="sector-sublink-item">• Event Centres & Venues ↗</a>
                         <a href="#check" className="sector-sublink-item">• Restaurants & Chains ↗</a>
                       </div>
-                      <a href="#check" className="sector-drawer-cta">
+                      <a href="/sectors/regulated-businesses" className="sector-drawer-cta">
                         <span>Explore for Businesses</span>
                         <span>→</span>
                       </a>
@@ -147,7 +147,7 @@ export function SectorAccordion() {
                         <a href="#check" className="sector-sublink-item">• Private Clinics & Labs ↗</a>
                         <a href="#check" className="sector-sublink-item">• HMO Organizations ↗</a>
                       </div>
-                      <a href="#check" className="sector-drawer-cta">
+                      <a href="/sectors/public-sector" className="sector-drawer-cta">
                         <span>Explore for Businesses</span>
                         <span>→</span>
                       </a>
