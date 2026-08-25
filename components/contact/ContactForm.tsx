@@ -6,30 +6,44 @@ import styles from "@/components/contact/contact.module.css";
 
 export function ContactForm() {
   const [status, setStatus] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  function continueInEmail(event: FormEvent<HTMLFormElement>) {
+  async function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const reason = String(form.get("reason") ?? "");
-    const body = [
-      `Reason for contacting: ${reason}`,
-      `Name: ${form.get("name") ?? ""}`,
-      `Organisation: ${form.get("organisation") ?? ""}`,
-      `Email: ${form.get("email") ?? ""}`,
-      `Phone: ${form.get("phone") ?? ""}`,
-      "",
-      String(form.get("message") ?? ""),
-    ].join("\n");
-    const email = contact.channels[0];
-    window.open(
-      `${email.href}?subject=${encodeURIComponent(`${contact.form.subject} — ${reason}`)}&body=${encodeURIComponent(body)}`,
-      "_self",
-    );
-    setStatus("Your email app should open with this request. Review it before sending.");
+    const currentForm = event.currentTarget;
+    const form = new FormData(currentForm);
+    const payload = {
+      reason: String(form.get("reason") ?? ""),
+      name: String(form.get("name") ?? ""),
+      organisation: String(form.get("organisation") ?? ""),
+      email: String(form.get("email") ?? ""),
+      phone: String(form.get("phone") ?? ""),
+      message: String(form.get("message") ?? ""),
+    };
+
+    setSubmitting(true);
+    setStatus("Sending…");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error ?? "Failed to send message");
+      }
+      setStatus("Thanks — your message has been sent. We'll be in touch.");
+      currentForm.reset();
+    } catch {
+      setStatus("Something went wrong sending your message. Please try again or email us directly.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
-    <form className={styles.form} onSubmit={continueInEmail}>
+    <form className={styles.form} onSubmit={submitForm}>
       <label className={styles.field}>
         <span className={styles.label}>{contact.form.reasonLabel}</span>
         <select className={`${styles.input} ${styles.select}`} required name="reason" defaultValue="">
@@ -64,7 +78,7 @@ export function ContactForm() {
         <textarea className={`${styles.input} ${styles.textarea}`} required name="message" />
       </label>
       <p className={styles.deliveryNote}>{contact.form.deliveryNote}</p>
-      <button type="submit" className="btn-architectural-cta">
+      <button type="submit" className="btn-architectural-cta" disabled={submitting}>
         <span className="btn-arch-label">{contact.form.submitLabel}</span>
         <span className="btn-arch-arrow">→</span>
       </button>

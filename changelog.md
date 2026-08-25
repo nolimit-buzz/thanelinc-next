@@ -6,6 +6,17 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-24 · Contact form and self-check call request now send real email
+
+Added `lib/mail/sendMail.ts` (nodemailer over SMTP) and two API routes,
+`app/api/contact` and `app/api/self-check/call-request`, both validating
+input server-side and setting `replyTo` to the submitter's address. Wired
+`ContactForm` and `AmICovered`'s call-request form to POST to these routes
+instead of stubbing/opening a `mailto:` link. Requires `SMTP_*` and
+`MAIL_TO` env vars (see `.env.local.example`) — not committed.
+
+---
+
 ## 2026-08-23 · Strapi backend handover documentation
 
 Added `docs/STRAPI_BACKEND_HANDOVER.md` for the team that will build the

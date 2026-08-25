@@ -55,6 +55,8 @@ export function AmICovered() {
   const [answers, setAnswers] = useState<PartialAnswers>({});
   const [callRequest, setCallRequest] = useState({ phone: "", email: "", bestTime: "morning" });
   const [callRequestSubmitted, setCallRequestSubmitted] = useState(false);
+  const [callRequestSubmitting, setCallRequestSubmitting] = useState(false);
+  const [callRequestError, setCallRequestError] = useState("");
 
   const currentQuestion = typeof step === "number" ? questions[step] : null;
 
@@ -74,13 +76,27 @@ export function AmICovered() {
     else if (step === "result") setStep(questions.length - 1);
   }
 
-  function handleCallRequestSubmit(e: React.FormEvent) {
+  async function handleCallRequestSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // No backend is wired in this repo yet — no CRM/notification endpoint
-    // exists to receive this (same gap as email delivery, see
-    // docs/BUILD_STATE.md). This records the intent client-side only so the
-    // flow has no dead end; wire to a real API route before launch.
-    setCallRequestSubmitted(true);
+    setCallRequestSubmitting(true);
+    setCallRequestError("");
+    try {
+      const category = resolveSelfCheck(answers as SelfCheckAnswers).category;
+      const response = await fetch("/api/self-check/call-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...callRequest, category }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error ?? "Failed to send request");
+      }
+      setCallRequestSubmitted(true);
+    } catch {
+      setCallRequestError("Something went wrong sending your request. Please try again.");
+    } finally {
+      setCallRequestSubmitting(false);
+    }
   }
 
   if (step === "intro") {
@@ -296,19 +312,19 @@ export function AmICovered() {
                       ))}
                     </select>
                   </div>
-                  <button type="submit" className="btn-architectural-cta" style={{ alignSelf: "flex-start" }}>
-                    <span className="btn-arch-label">Request a call</span>
+                  <button type="submit" className="btn-architectural-cta" style={{ alignSelf: "flex-start" }} disabled={callRequestSubmitting}>
+                    <span className="btn-arch-label">{callRequestSubmitting ? "Sending…" : "Request a call"}</span>
                     <span className="btn-arch-arrow">→</span>
                   </button>
+                  {callRequestError ? (
+                    <p className="process-step-desc" style={{ marginBottom: 0, color: "#B3261E" }} aria-live="polite">
+                      {callRequestError}
+                    </p>
+                  ) : null}
                 </form>
               ) : (
                 <p className="process-step-desc" style={{ marginBottom: 0 }}>
                   Noted — we&apos;ll call {callRequest.phone} ({BEST_TIME_OPTIONS.find((o) => o.value === callRequest.bestTime)?.label.toLowerCase()}).
-                  (This build isn&apos;t connected to call-request delivery yet; in the meantime,{" "}
-                  <Link href="/#contact" className="mandate-link-check" style={{ display: "inline-flex" }}>
-                    <span>book a consultation</span>
-                  </Link>
-                  .)
                 </p>
               )}
             </div>
