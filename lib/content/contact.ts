@@ -45,8 +45,8 @@ export const contact = {
       "Privacy and compliance training",
       "General enquiry",
     ],
-    submitLabel: "Continue in email",
-    deliveryNote: "This opens your email app. Nothing is sent until you review and send the message there.",
+    submitLabel: "Send message",
+    deliveryNote: "We'll reply to the email address you provide.",
     subject: "Proposal request from thanelinc.com",
   },
 } as const;
