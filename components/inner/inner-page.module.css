@@ -159,6 +159,12 @@
   display: block;
 }
 
+.outcomeLead {
+  display: grid;
+  grid-column: 1 / span 2;
+  gap: 24px;
+}
+
 .outcomeLabel {
   margin-bottom: 10px;
   color: var(--color-teal-accent);
@@ -432,6 +438,8 @@
     grid-column: 2;
   }
 
+  .outcomeLead { grid-column: 1; }
+
   .ctaCardWithCutout {
     padding-right: 38vw;
   }
@@ -459,7 +467,7 @@
     grid-template-columns: minmax(0, 1fr);
     padding: 34px 26px;
   }
-  .outcomeIcon, .outcomeFacts { grid-column: 1; }
+  .outcomeLead, .outcomeIcon, .outcomeFacts { grid-column: 1; }
 
   .narrativeSection { padding: 72px 0 88px; }
   .storyBlock { grid-template-columns: 38px minmax(0, 1fr); gap: 12px; }

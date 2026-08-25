@@ -2,11 +2,37 @@
 
 Delivery state for the **implementation repository**. Update at every handoff.
 
-**Last updated:** 2026-08-24
+**Last updated:** 2026-08-25
 
 > The content-phase state — framework artefacts, page copy, claims register,
 > decisions — lives in the `ThanelInc-Handover/` workspace and is not duplicated
 > here. This file covers the build only.
+
+## Service-page owner corrections (2026-08-25)
+
+**Delivery state:** `verified_local` pending owner review.
+
+The owner-reviewed Service-page copy is implemented across NDPC Registration,
+Policies & Remediation, Outsourced DPO, Compliance Audit & Filing, Ongoing
+Monitoring and Breach Response. The revision preserves the document's numbered
+steps and updates the approved EHL/UHL/OHL audience language, registration
+filing sequence, DPO reporting and oversight copy, annual deadline wording,
+and final-service sequencing. The Breach Response outcome band now stacks the
+SAME-DAY RESPONSE call block above its What you get copy on the dark variant.
+Service audience links now use stable composite keys when multiple labels share
+the same sector destination.
+
+The homepage hero now remains visible in the stacked mobile layout: the wrapper
+uses natural height, reserves space below the fixed navigation, and scales the
+artwork instead of clipping it below the first viewport.
+The adjacent Problem card now also stacks its mobile copy, reduces its inset,
+and scales the heading to prevent horizontal clipping.
+At narrow phone widths, the hero headline and lede use a smaller responsive
+display scale so the hero artwork enters the scroll flow sooner.
+The mobile hero order is pre-header, main heading, slider, description and CTA;
+its slider controls sit below the artwork.
+
+No backend, Strapi, deployment, commit or push is included in this local pass.
 
 ---
 

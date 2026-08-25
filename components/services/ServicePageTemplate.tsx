@@ -36,15 +36,29 @@ export interface ServicePageContent {
 }
 
 function EditorialOutcome({ content, icon }: { content: ServicePageContent; icon?: ReactNode }) {
+  const stackLead = content.heroVariant === "dark" && Boolean(icon);
+  const outcomeCopy = (
+    <div>
+      <div className={innerStyles.outcomeLabel}>{content.whatYouGet.label}</div>
+      <p className={innerStyles.outcomeBody}>{content.whatYouGet.body}</p>
+    </div>
+  );
+
   return (
     <section className={innerStyles.outcomeSection}>
       <div className="container">
         <div className={`${innerStyles.outcomeBand} reveal`}>
-          {icon ? <div className={innerStyles.outcomeIcon}>{icon}</div> : null}
-          <div>
-            <div className={innerStyles.outcomeLabel}>{content.whatYouGet.label}</div>
-            <p className={innerStyles.outcomeBody}>{content.whatYouGet.body}</p>
-          </div>
+          {stackLead ? (
+            <div className={innerStyles.outcomeLead}>
+              <div className={innerStyles.outcomeIcon}>{icon}</div>
+              {outcomeCopy}
+            </div>
+          ) : (
+            <>
+              {icon ? <div className={innerStyles.outcomeIcon}>{icon}</div> : null}
+              {outcomeCopy}
+            </>
+          )}
           <div className={innerStyles.outcomeFacts} aria-label="Service outcome">
             <div className={innerStyles.outcomeFact}>
               <FileCheck aria-hidden className={innerStyles.outcomeFactIcon} />
@@ -108,7 +122,7 @@ function EditorialNarrative({ content }: { content: ServicePageContent }) {
             <h2 className={innerStyles.audienceHeading}>Who this is for</h2>
             <div className={innerStyles.audienceLinks}>
               {content.whoThisIsFor.map((item) => (
-                <Link key={item.href} href={item.href} className={innerStyles.audienceLink}>
+                <Link key={`${item.href}-${item.label}`} href={item.href} className={innerStyles.audienceLink}>
                   <span>{item.label}</span>
                   <span aria-hidden>→</span>
                 </Link>

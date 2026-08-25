@@ -35,8 +35,8 @@ export const policiesRemediationContent: ServicePageContent = {
       body: "Privacy policy, data retention policy, breach response procedure, staff data-handling guidelines, and whatever else your specific gaps require.",
     },
     {
-      heading: "Why this stage matters most for procurement",
-      body: "If you're a university or regulated business fielding due-diligence questions, this is usually the deliverable that gets requested first — a documented, dated policy suite is what an investor, auditor, or governing council actually wants to see.",
+      heading: "Why this stage matters most for due diligence",
+      body: "If you're a regulated business or university fielding due-diligence questions, this is usually the deliverable that gets requested first; a documented, dated policy suite is what an investor, auditor, or governing council actually wants to see.",
     },
     {
       heading: "Where this fits",

@@ -127,11 +127,11 @@ export const services: ServiceRow[] = [
     slug: "ndpc-registration",
     category: "REGISTRATION",
     name: "NDPC Registration",
-    summary: "Whether you're registering for the first time or need your annual Compliance Audit Returns filed through a licensed DPCO, this is the step that puts you on record with the NDPC.",
+    summary: "Registering for the first time? This is the step that puts you on record with the NDPC.",
     bullets: [
       "Confirm your category — named by type, or by data-subject volume",
-      "Prepare the registration or CAR filing using existing data-mapping work",
-      "Submit through the NDPC platform for official certificate issuance",
+      "Prepare the registration filing using existing data-mapping work",
+      "Submit through the NDPC platform with supporting documents",
     ],
     deliverable: "Certificate of Registration",
     turnaround: "3 working days",
@@ -202,7 +202,7 @@ export const services: ServiceRow[] = [
     slug: "compliance-audit-filing",
     category: "ANNUAL FILING",
     name: "Compliance Audit & Filing",
-    summary: "If you're UHL or EHL, the NDPC requires your annual Compliance Audit Returns to be filed through a licensed DPCO. Thanelinc holds that licence.",
+    summary: "If you're EHL or UHL, the NDPC requires your annual Compliance Audit Returns to be prepared and verified by a licensed DPCO before filing. Thanelinc holds that licence.",
     bullets: [
       "Your CAR filed through the NDPC's automated platform ahead of your deadline",
       "Filed ahead of 31 March annually, or within 15 months of establishment for newer entities",

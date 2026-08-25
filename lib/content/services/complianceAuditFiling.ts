@@ -6,7 +6,7 @@ export const complianceAuditFilingContent: ServicePageContent = {
   hero: {
     eyebrow: "Annual Filing",
     h1: "Compliance Audit & Filing",
-    subhead: "If you're UHL or EHL, the NDPC requires your annual Compliance Audit Returns to be filed through a licensed DPCO. Thanelinc holds that licence.",
+    subhead: "If you're EHL or UHL, the NDPC requires your annual Compliance Audit Returns to be prepared and verified by a licensed DPCO before filing. Thanelinc holds that licence.",
     primaryCta: { label: "Run the self-check", href: "/am-i-covered" },
     secondaryCta: { label: "Talk to us", href: "/contact" },
   },
@@ -19,9 +19,9 @@ export const complianceAuditFilingContent: ServicePageContent = {
     bannerPosition: "50% 40%",
   },
   features: [
-    { number: "01", title: "Licensed DPCO Filing", body: "UHL and EHL Compliance Audit Returns are filed through Thanelinc's DPCO licence." },
+    { number: "01", title: "Licensed DPCO Filing", body: "EHL and UHL Compliance Audit Returns are prepared and verified under Thanelinc's DPCO licence, then filed through the NDPC's platform." },
     { number: "02", title: "Automated Platform", body: "Your CAR is filed through the NDPC's automated platform." },
-    { number: "03", title: "Annual Deadline", body: "Established organisations file ahead of the 31 March annual deadline." },
+    { number: "03", title: "Annual Deadline", body: "Entities established before 12 June 2023 file ahead of the 31 March annual deadline." },
     { number: "04", title: "Newer Organisations", body: "Newer entities file within 15 months of establishment, then annually." },
   ],
   whatYouGet: {
@@ -42,8 +42,8 @@ export const complianceAuditFilingContent: ServicePageContent = {
     {
       heading: "Who must file through a DPCO",
       steps: [
-        "Universities and tertiary institutions — EHL by name, filing is mandatory",
-        "Regulated businesses — UHL by category or volume, filing is mandatory",
+        "Higher institutions, MDAs, hospitals, microfinance banks, mortgage banks, and high-volume private organisations or SMEs; EHL by name or by volume, filing is mandatory",
+        "Banks, telecoms, insurers, fintechs and other high-volume sectors; UHL by category or volume, filing is mandatory",
         "OHL organisations renew registration annually and do not file CAR",
       ],
       links: [

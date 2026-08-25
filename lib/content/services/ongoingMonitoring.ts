@@ -35,7 +35,7 @@ export const ongoingMonitoringContent: ServicePageContent = {
       heading: "What happens each quarter",
       steps: [
         "Reviewing new processing activities against your existing ROPA",
-        "Checking vendor and third-party processing hasn't introduced new risk",
+        "Checking that vendor and third-party processing hasn't introduced new risk",
         "Keeping policies current as your organisation or the NDPC's guidance changes",
         "Preparing documentation for that year's CAR filing in the quarter ahead of 31 March",
       ],
@@ -43,7 +43,7 @@ export const ongoingMonitoringContent: ServicePageContent = {
     },
     {
       heading: "Where this fits",
-      body: "This is the final step in the engagement, following Compliance Audit & Filing — see the full sequence in How We Work, Step 10.",
+      body: "This is the final step in the engagement, following Compliance Audit & Filing — see the full sequence in How We Work, Step 6.",
       links: [
         { label: "Explore Compliance Audit & Filing", href: "/services/compliance-audit-filing" },
         { label: "See how we work", href: "/how-we-work" },
@@ -51,8 +51,8 @@ export const ongoingMonitoringContent: ServicePageContent = {
     },
   ],
   whoThisIsFor: [
-    { label: "Universities with an annual filing obligation", href: "/sectors/tertiary-institutions" },
-    { label: "Regulated businesses with an annual filing obligation", href: "/sectors/regulated-businesses" },
+    { label: "Higher institutions, MDAs, hospitals, microfinance banks, mortgage banks, and high-volume private organisations or SMEs with an annual filing obligation", href: "/sectors/tertiary-institutions" },
+    { label: "Banks, telecoms, insurers, fintechs and other high-volume UHL sectors with an annual filing obligation", href: "/sectors/regulated-businesses" },
   ],
   closingCta: {
     heading: "Keep your compliance current as your organisation changes.",

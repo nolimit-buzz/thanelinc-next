@@ -15,6 +15,40 @@ of the six question answers into a readable line (using the question labels
 from `lib/content/amICovered.ts`) so the recipient can see how the visitor
 answered, not just the final bucket.
 
+## 2026-08-25 · Mobile homepage hero visibility fix
+
+At stacked hero breakpoints, the homepage now lets the hero wrapper grow with
+its copy and artwork instead of clipping the visual below a fixed 100vh box.
+The mobile layout reserves space below the fixed navigation and uses a
+responsive artwork height so the hero image follows the copy in the scroll
+flow.
+
+The adjacent Problem section now stacks its title and statutory description on
+mobile, reduces the card inset, and scales the heading to the viewport so the
+headline does not clip or leave an oversized empty panel.
+
+At narrow phone widths, the hero headline and lede now use a smaller responsive
+display scale so the copy does not dominate the first viewport before the
+hero artwork.
+
+On mobile, the hero now flows as pre-header, main heading, slider, description,
+and CTA. Slider dots and arrow controls sit below the artwork instead of over it.
+
+## 2026-08-25 · Service-page copy corrections from owner review
+
+Updated the NDPC Registration, Policies & Remediation, Outsourced DPO,
+Compliance Audit & Filing, Ongoing Monitoring and Breach Response service
+content to match the latest owner-reviewed Google Doc. This includes the
+revised registration steps, EHL/UHL/OHL language, 12 June 2023 deadline
+wording, due-diligence framing, six-month reporting, same-day escalation,
+and corrected service audience descriptions. The Service directory summaries
+now stay consistent with the revised registration and audit copy.
+
+The Breach Response outcome lead now places the SAME-DAY RESPONSE call block
+above its What you get copy in the shared editorial outcome band.
+
+## 2026-08-24 · Development-only people-led homepage artwork review
+
 ---
 
 ## 2026-08-24 · Contact form and self-check call request now send real email

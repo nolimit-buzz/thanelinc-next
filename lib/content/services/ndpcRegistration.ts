@@ -10,7 +10,7 @@ export const ndpcRegistrationContent: ServicePageContent = {
     eyebrow: "Registration · Journey Step 2",
     h1: "NDPC Registration",
     subhead:
-      "Whether you're registering for the first time or need your annual Compliance Audit Returns filed through a licensed DPCO, this is the step that puts you on record with the NDPC.",
+      "Registering for the first time? This is the step that puts you on record with the NDPC.",
     primaryCta: { label: "Run the self-check", href: "/am-i-covered" },
     secondaryCta: { label: "Talk to us", href: "/contact" },
   },
@@ -24,23 +24,23 @@ export const ndpcRegistrationContent: ServicePageContent = {
   },
   features: [
     { number: "01", title: "Confirm Your Category", body: "Confirm your category — named by type, or by data-subject volume." },
-    { number: "02", title: "Prepare the Filing", body: "Prepare the registration or CAR filing, using existing data-mapping work where available." },
-    { number: "03", title: "Submit to the NDPC", body: "Submit the registration or CAR filing through the NDPC's platform." },
+    { number: "02", title: "Prepare the Filing", body: "Prepare the registration filing, using existing data-mapping work where available." },
+    { number: "03", title: "Submit to the NDPC", body: "Submit the registration through the NDPC's platform with supporting documents." },
     { number: "04", title: "Receive the Certificate", body: "The NDPC Certificate of Registration is issued and delivered to you." },
   ],
   whatYouGet: {
     label: "What you get",
-    body: "Your NDPC Certificate of Registration, delivered within 3 working days of scoping. If you're UHL or EHL, this includes filing your Compliance Audit Returns through Thanelinc's DPCO licence — a legal requirement for those categories, not an optional add-on.",
+    body: "Your NDPC Certificate of Registration, delivered within 3 working days of scoping.",
     deliverable: "NDPC Certificate of Registration",
     turnaround: "3 working days",
   },
   bodyBlocks: [
     {
-      heading: "What's involved",
+      heading: "What’s involved",
       steps: [
-        "Confirm your category — named by type, or by data-subject volume",
-        "Prepare the registration or CAR filing, using your existing data-mapping work where available",
-        "Submit through the NDPC's platform",
+        "Confirm your category named by type, or by data-subject volume",
+        "Prepare the registration filing, using your existing data-mapping work where available",
+        "Submit through the NDPC's platform with supporting documents",
         "Certificate issued and delivered to you",
       ],
     },

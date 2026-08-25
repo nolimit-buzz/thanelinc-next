@@ -20,13 +20,13 @@ export const outsourcedDpoContent: ServicePageContent = {
   },
   features: [
     { number: "01", title: "DPO of Record", body: "Thanelinc itself is formally appointed as your organisation's DPO of record." },
-    { number: "02", title: "NDPC Contact", body: "A direct point of contact for the NDPC is covered by the same team running your engagement." },
-    { number: "03", title: "Internal Reporting", body: "Internal reporting keeps your organisation informed about its compliance status." },
-    { number: "04", title: "Ongoing Oversight", body: "Ongoing obligations and incident escalation are overseen as part of the role." },
+    { number: "02", title: "NDPC Contact", body: "The same team running your engagement is your direct point of contact for the NDPC." },
+    { number: "03", title: "Internal Reporting", body: "Thanelinc reports to your leadership every six months, in line with NDPC requirements; plus updates whenever something needs your attention sooner." },
+    { number: "04", title: "Ongoing Oversight", body: "New obligations are tracked as they arise, and incidents are escalated the same day, feeding directly into our breach response process." },
   ],
   whatYouGet: {
     label: "What you get",
-    body: "Thanelinc itself is appointed as your organisation's DPO of record — not a name handed to you from somewhere else, but the firm you're already working with, formally covering the role.",
+    body: "Thanelinc is formally appointed as your organisation's Data Protection Officer of record; not an individual name outsourced to you, but the licensed firm itself, accountable for the role.",
     deliverable: "DPO appointment letter, NDPC liaison and reporting",
     turnaround: "Confirmed at scoping",
   },

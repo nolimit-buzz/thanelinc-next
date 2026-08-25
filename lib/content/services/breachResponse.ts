@@ -61,8 +61,8 @@ export const breachResponseContent: ServicePageContent = {
     },
   ],
   whoThisIsFor: [
-    { label: "Regulated businesses", href: "/sectors/regulated-businesses" },
-    { label: "Higher institutions", href: "/sectors/tertiary-institutions" },
+    { label: "Higher institutions, MDAs, hospitals and other EHL organisations with an annual filing obligation", href: "/sectors/tertiary-institutions" },
+    { label: "Banks, telecoms, fintechs and other UHL organisations with an annual filing obligation", href: "/sectors/regulated-businesses" },
   ],
   closingCta: {
     heading: "Not sure if this is reportable? Call anyway.",
