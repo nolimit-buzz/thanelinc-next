@@ -6,6 +6,17 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-25 · Self-check call-request email now includes the full stepper answers
+
+`app/api/self-check/call-request` previously only emailed phone/email/best-time
+and the resolved category. It now also receives the full `SelfCheckAnswers`
+object and `mandatoryFiling`/`source` from `AmICovered.tsx`, and formats each
+of the six question answers into a readable line (using the question labels
+from `lib/content/amICovered.ts`) so the recipient can see how the visitor
+answered, not just the final bucket.
+
+---
+
 ## 2026-08-24 · Contact form and self-check call request now send real email
 
 Added `lib/mail/sendMail.ts` (nodemailer over SMTP) and two API routes,

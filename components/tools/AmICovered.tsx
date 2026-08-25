@@ -81,11 +81,17 @@ export function AmICovered() {
     setCallRequestSubmitting(true);
     setCallRequestError("");
     try {
-      const category = resolveSelfCheck(answers as SelfCheckAnswers).category;
+      const selfCheckResult = resolveSelfCheck(answers as SelfCheckAnswers);
       const response = await fetch("/api/self-check/call-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...callRequest, category }),
+        body: JSON.stringify({
+          ...callRequest,
+          answers,
+          category: selfCheckResult.category,
+          mandatoryFiling: selfCheckResult.mandatoryFiling,
+          source: selfCheckResult.source,
+        }),
       });
       const result = await response.json();
       if (!response.ok || !result.ok) {

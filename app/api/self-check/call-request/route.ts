@@ -1,7 +1,27 @@
 import { NextResponse } from "next/server";
 import { sendMail } from "@/lib/mail/sendMail";
+import { questions } from "@/lib/content/amICovered";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ANSWER_KEYS = [
+  "orgType",
+  "volumeBand",
+  "sensitiveData",
+  "crossBorder",
+  "thirdPartyProcessing",
+  "establishmentDate",
+] as const;
+
+function describeAnswers(answers: Record<string, unknown>): string[] {
+  return questions
+    .filter((question) => ANSWER_KEYS.includes(question.id as (typeof ANSWER_KEYS)[number]))
+    .map((question) => {
+      const rawValue = String(answers[question.id] ?? "").trim();
+      const option = question.options.find((opt) => opt.value === rawValue);
+      const label = option ? option.label : rawValue || "—";
+      return `${question.prompt} ${label}`;
+    });
+}
 
 export async function POST(request: Request) {
   let body: Record<string, unknown>;
@@ -15,6 +35,11 @@ export async function POST(request: Request) {
   const email = String(body.email ?? "").trim();
   const bestTime = String(body.bestTime ?? "").trim();
   const category = String(body.category ?? "").trim();
+  const mandatoryFiling = Boolean(body.mandatoryFiling);
+  const answers = (body.answers && typeof body.answers === "object" ? body.answers : {}) as Record<
+    string,
+    unknown
+  >;
 
   if (!phone || !email || !bestTime) {
     return NextResponse.json({ ok: false, error: "Missing required fields" }, { status: 400 });
@@ -23,14 +48,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Invalid email address" }, { status: 400 });
   }
 
+  const answerLines = describeAnswers(answers);
+
   const text = [
     "Self-check call request",
     `Phone: ${phone}`,
     `Email: ${email}`,
     `Best time to call: ${bestTime}`,
     category ? `Self-check category: ${category}` : null,
+    category ? `Mandatory CAR filing: ${mandatoryFiling ? "Yes" : "No"}` : null,
+    answerLines.length ? "" : null,
+    answerLines.length ? "Answers:" : null,
+    ...answerLines.map((line) => `- ${line}`),
   ]
-    .filter(Boolean)
+    .filter((line) => line !== null)
     .join("\n");
 
   try {
