@@ -12,6 +12,15 @@ import { Services } from "@/components/v5/Services";
 import { SiteFooter } from "@/components/v5/SiteFooter";
 import { TrackRecord } from "@/components/v5/TrackRecord";
 import { resources } from "@/lib/content/resources";
+import {
+  defaultProblem,
+  defaultSelfCheck,
+  defaultSectorAccordion,
+  defaultTrackRecord,
+  defaultProcess,
+  defaultServices,
+  defaultPreFooter,
+} from "@/lib/cms/defaultHomeContent";
 
 export const metadata: Metadata = {
   title: "Homepage Artwork Review",
@@ -25,14 +34,14 @@ export default function HomepageArtworkReviewPage() {
     <>
       <main id="view-home">
         <HomeHeroArtworkReview />
-        <Problem />
-        <SelfCheck />
-        <SectorAccordion />
-        <TrackRecord />
-        <Process />
-        <Services />
+        <Problem content={defaultProblem} />
+        <SelfCheck content={defaultSelfCheck} />
+        <SectorAccordion content={defaultSectorAccordion} />
+        <TrackRecord content={defaultTrackRecord} />
+        <Process content={defaultProcess} />
+        <Services content={defaultServices} />
         <Resources content={resources} />
-        <PreFooter />
+        <PreFooter content={defaultPreFooter} />
       </main>
       <SiteFooter />
       <ScrollReveals />
