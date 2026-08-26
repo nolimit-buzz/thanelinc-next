@@ -1,0 +1,1 @@
+export const STRAPI_API_URL = "https://cms.thanelinc.ng";

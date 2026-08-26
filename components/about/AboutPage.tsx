@@ -5,6 +5,7 @@ import { CredentialsSection } from "@/components/about/CredentialsPage";
 import { TeamSection } from "@/components/about/TeamPage";
 import { TrackRecord } from "@/components/v5/TrackRecord";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
+import { defaultTrackRecord } from "@/lib/cms/defaultHomeContent";
 import type { AboutPageContent } from "@/lib/content/about";
 import type { CredentialsPageContent } from "@/lib/content/credentials";
 import type { TeamPageContent } from "@/lib/content/team";
@@ -61,7 +62,7 @@ export function AboutPage({
                 </Link>
               </article>
             </div>
-            <TrackRecord className={styles.clientProof} />
+            <TrackRecord className={styles.clientProof} content={defaultTrackRecord} />
           </div>
         </div>
       </section>
