@@ -33,7 +33,7 @@ export async function fetchHomeSections(): Promise<StrapiSection[] | null> {
 
     const response = await fetch(`${STRAPI_API_URL}/api/home?${HOME_POPULATE_QUERY}`, {
       headers,
-      next: { revalidate: 300 },
+      cache: "no-store",
     });
 
     if (!response.ok) {
