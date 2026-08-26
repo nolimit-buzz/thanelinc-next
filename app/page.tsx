@@ -20,51 +20,49 @@ import {
   mapServices,
   mapPreFooter,
 } from "@/lib/cms/mapHome";
-import {
-  defaultProblem,
-  defaultSelfCheck,
-  defaultSectorAccordion,
-  defaultTrackRecord,
-  defaultProcess,
-  defaultServices,
-  defaultPreFooter,
-} from "@/lib/cms/defaultHomeContent";
 
 /**
  * Homepage — v5 `view-home`, ported section for section (W-026).
  * Order and content are v5's. Do not reorder, restyle, or reword.
- * Section copy is fetched from the Strapi CMS (`home` single type); each
- * section falls back to the last-shipped hardcoded copy if the CMS is
- * unreachable or a section is missing, so the page never renders blank.
+ * Section copy is fetched from the Strapi CMS (`home` single type) with no
+ * fallback — a missing/invalid section is simply omitted from the page, so
+ * what renders here is only ever real CMS data.
  */
-function withSource<T>(name: string, live: T | null, fallback: T): T {
-  console.log(`[cms] ${name}: ${live ? "live" : "fallback"}`);
-  return live ?? fallback;
+function logSource(name: string, live: unknown) {
+  console.log(`[cms] ${name}: ${live ? "live" : "missing"}`);
 }
 
 export default async function Home() {
   const sections = await fetchHomeSections();
 
-  const problem = withSource("problem", mapProblem(sections), defaultProblem);
-  const selfCheck = withSource("selfCheck", mapSelfCheck(sections), defaultSelfCheck);
-  const sectorAccordion = withSource("sectorAccordion", mapSectorAccordion(sections), defaultSectorAccordion);
-  const trackRecord = withSource("trackRecord", mapTrackRecord(sections), defaultTrackRecord);
-  const process = withSource("process", mapProcess(sections), defaultProcess);
-  const services = withSource("services", mapServices(sections), defaultServices);
-  const preFooter = withSource("preFooter", mapPreFooter(sections), defaultPreFooter);
+  const problem = mapProblem(sections);
+  const selfCheck = mapSelfCheck(sections);
+  const sectorAccordion = mapSectorAccordion(sections);
+  const trackRecord = mapTrackRecord(sections);
+  const process = mapProcess(sections);
+  const services = mapServices(sections);
+  const preFooter = mapPreFooter(sections);
+
+  logSource("problem", problem);
+  logSource("selfCheck", selfCheck);
+  logSource("sectorAccordion", sectorAccordion);
+  logSource("trackRecord", trackRecord);
+  logSource("process", process);
+  logSource("services", services);
+  logSource("preFooter", preFooter);
 
   return (
     <>
       <main id="view-home">
         <HomeHeroArtworkReview />
-        <Problem content={problem} />
-        <SelfCheck content={selfCheck} />
-        <SectorAccordion content={sectorAccordion} />
-        <TrackRecord content={trackRecord} />
-        <Process content={process} />
-        <Services content={services} />
+        {problem && <Problem content={problem} />}
+        {selfCheck && <SelfCheck content={selfCheck} />}
+        {sectorAccordion && <SectorAccordion content={sectorAccordion} />}
+        {trackRecord && <TrackRecord content={trackRecord} />}
+        {process && <Process content={process} />}
+        {services && <Services content={services} />}
         <Resources content={resources} />
-        <PreFooter content={preFooter} />
+        {preFooter && <PreFooter content={preFooter} />}
       </main>
       <SiteFooter />
       <ScrollReveals />
