@@ -2,11 +2,84 @@
 
 Delivery state for the **implementation repository**. Update at every handoff.
 
-**Last updated:** 2026-08-25
+**Last updated:** 2026-08-27
 
 > The content-phase state — framework artefacts, page copy, claims register,
 > decisions — lives in the `ThanelInc-Handover/` workspace and is not duplicated
 > here. This file covers the build only.
+
+## Task 1.1 — SMTP credentials on env vars (2026-08-27)
+
+`lib/mail/config.ts` reads `SMTP_HOST/PORT/SECURE/USER/PASSWORD`, `MAIL_TO`
+from `process.env`, fails loudly (specific server log, generic client 502) if
+any is unset — verified against a real `next start` with no env vars present,
+and verified `next build` succeeds regardless (validation is request-time
+only). **🛑 Not safe to deploy until Vercel has the real, rotated values set**
+— the live contact form 502s on every submission otherwise. This is gated on
+Stage 0.1 (credential rotation, owner action, not yet confirmed done as of
+this entry) happening first, same deploy window, not after.
+
+## Cookie-consent banner + gated analytics (2026-08-27)
+
+Consent mechanism live: banner on first visit (Allow analytics / Necessary
+only, neither pre-selected), localStorage-backed, `@vercel/analytics` only
+mounts after opt-in, `trackEvent()` wrapper no-ops without consent. Two
+launch-report-named events wired: `self_check_start`/`self_check_complete`,
+`contact_submit`. Cookie-policy copy updated to match (still `draftNotice`,
+CDPO review still pending — same status as before, not a new gate).
+**Outstanding:** enable Web Analytics in the Vercel dashboard (Analytics tab)
+— no env vars needed, confirmed the page degrades gracefully without it.
+Verified: `tsc`, `eslint`, `vitest` (27/27), `next build`, plus a Playwright
+functional smoke test of all consent-state transitions.
+
+## Turnstile deferred (2026-08-27)
+
+**Decision:** Cloudflare Turnstile removed from both forms and both routes.
+Owner call — defer bot verification until real traffic creates a spam/abuse
+pattern that justifies the dependency, rather than block on Cloudflare
+domain-scoping/anti-debugging friction hit during preview testing.
+`lib/security/submissionProtection.ts` is now honeypot + minimum-elapsed-time
+only. **This makes the Cloudflare WAF rate-limiting rule (plan task 1.2b) the
+sole remaining abuse control** — still outstanding, still a dashboard-only
+action, now higher-priority than before. `TurnstileWidget.tsx` deleted; CSP
+no longer references `challenges.cloudflare.com`. All other Stage 1 hardening
+unchanged. Verified: `tsc`, `eslint`, `vitest` (27/27), `next build` all pass.
+
+## Stage 1 form-security and privacy code slice (2026-08-27)
+
+**Delivery state:** `verified_local`; not committed, pushed, deployed or
+production-accepted.
+
+W-051 now authorises temporary security hardening of the two existing frontend
+form routes. Both routes fail closed behind honeypot/minimum-time checks and
+server-side Turnstile verification with exact environment hostname/action
+validation, bounded single-use tokens and a five-second timeout. Contact and
+self-check clients reset consumed verification tokens before retrying. The
+self-check additionally requires server-enforced consent, validates all six
+answer enums and recomputes classification through the shared resolver instead
+of trusting client claims. Its typed point-of-collection notice and the Privacy
+Policy now accurately describe the transmitted answers, result and contact
+fields. Six published contact-domain references now use `thanelinc.ng`.
+
+Global response headers include Report-Only CSP, nosniff, frame denial,
+strict-origin referrer policy and restricted permissions; `x-powered-by` is
+disabled. Gitleaks v8.30.1 and Husky 9.1.7 are checksum-pinned with a synthetic
+SMTP rule test, a staged pre-commit hook and a PR-base-to-head CI scan. Vitest
+provides 50 isolated handler tests with both SMTP and Turnstile mocked.
+
+Verification passes: `npx tsc --noEmit`, `npx eslint .`, `npm test` (50/50),
+`git diff --check`, and `npm run build` (36 routes). Local production requests
+to `/`, `/contact`, `/am-i-covered`, `/privacy` and `/services` returned 200,
+all five planned response headers and no `x-powered-by` header. The Gitleaks
+synthetic rule and actual Husky wrapper both rejected the temporary dummy SMTP
+shape; the fixture was unstaged and removed afterward.
+
+Task 1.1 is still gated: the tracked credential file and mail transport are
+untouched pending credential rotation plus production/preview environment
+configuration. The full production gate still requires separate Turnstile
+widgets and exact hostname lists, an all-ingress Vercel/Cloudflare rate-limit
+decision and bypass proof, Cloudflare email-obfuscation configuration, the
+26-route CSP/browser sweep, widget-reset E2E and CDPO Turnstile/privacy review.
 
 ## Service-page owner corrections (2026-08-25)
 

@@ -1,0 +1,15 @@
+title = "Thanelinc secret scanning"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "thanelinc-smtp-credential"
+description = "Hardcoded Thanelinc SMTP credential"
+regex = '''(?i)smtp(?:password|user)\s*[:=]\s*["'][^"'\r\n]{4,}["']'''
+# Go's RE2 engine (used by gitleaks) has no lookahead, so this can't be a
+# wildcard-with-exclusion for test files - list the real source files
+# explicitly instead. Add new lib/mail/*.ts source files here if any appear;
+# deliberately does not match *.test.ts fixtures, which use fake values.
+path = '''(^|/)lib/mail/(config|sendMail)\.ts$'''
+tags = ["smtp", "credential", "thanelinc"]

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import "./v5.css";
+import { ConsentBanner } from "@/components/consent/ConsentBanner";
+import { AnalyticsGate } from "@/components/consent/AnalyticsGate";
 
 // Self-hosted via next/font — no external font CDN request.
 // Deliberate: a data protection firm's site should not hand visitor IPs to a
@@ -33,7 +35,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       {/* Browser extensions (e.g. ColorZilla's cz-shortcut-listen) add attributes to
           <body> before React hydrates, which React reports as a mismatch. This
           suppresses that noise only; it does not mask app-level mismatches. */}
-      <body suppressHydrationWarning className="min-h-full flex flex-col">{children}</body>
+      <body suppressHydrationWarning className="min-h-full flex flex-col">
+        {children}
+        <AnalyticsGate />
+        <ConsentBanner />
+      </body>
     </html>
   );
 }

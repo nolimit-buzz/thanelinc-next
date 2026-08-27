@@ -9,6 +9,7 @@ import {
   resultCopy,
   categoryDisplayName,
   penaltyFraming,
+  callRequestDisclosure,
 } from "@/lib/content/amICovered";
 import {
   resolveSelfCheck,
@@ -18,6 +19,7 @@ import {
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/v5/SiteFooter";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
+import { trackEvent } from "@/lib/consent/track";
 
 const CHAMFER = "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)";
 
@@ -57,16 +59,21 @@ export function AmICovered() {
   const [callRequestSubmitted, setCallRequestSubmitted] = useState(false);
   const [callRequestSubmitting, setCallRequestSubmitting] = useState(false);
   const [callRequestError, setCallRequestError] = useState("");
+  const [callRequestConsent, setCallRequestConsent] = useState(false);
+  const [callRequestWebsite, setCallRequestWebsite] = useState("");
+  const [callRequestStartedAt, setCallRequestStartedAt] = useState(() => Date.now());
 
   const currentQuestion = typeof step === "number" ? questions[step] : null;
 
-  function answer(questionId: string, value: string) {
+  function answer(questionId: string, value: string, answeredAt: number) {
     const next = { ...answers, [questionId]: value };
     setAnswers(next);
     if (typeof step === "number" && step < questions.length - 1) {
       setStep(step + 1);
     } else {
+      setCallRequestStartedAt(answeredAt);
       setStep("result");
+      trackEvent("self_check_complete");
     }
   }
 
@@ -81,16 +88,15 @@ export function AmICovered() {
     setCallRequestSubmitting(true);
     setCallRequestError("");
     try {
-      const selfCheckResult = resolveSelfCheck(answers as SelfCheckAnswers);
       const response = await fetch("/api/self-check/call-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...callRequest,
           answers,
-          category: selfCheckResult.category,
-          mandatoryFiling: selfCheckResult.mandatoryFiling,
-          source: selfCheckResult.source,
+          consent: callRequestConsent,
+          website: callRequestWebsite,
+          submittedAt: callRequestStartedAt,
         }),
       });
       const result = await response.json();
@@ -100,6 +106,7 @@ export function AmICovered() {
       setCallRequestSubmitted(true);
     } catch {
       setCallRequestError("Something went wrong sending your request. Please try again.");
+      setCallRequestStartedAt(Date.now());
     } finally {
       setCallRequestSubmitting(false);
     }
@@ -121,7 +128,14 @@ export function AmICovered() {
             <p className="hero-lede-text reveal active delay-1" style={{ maxWidth: "600px", margin: "20px auto 32px", color: "#94A3B8" }}>
               {hero.subhead}
             </p>
-            <button type="button" onClick={() => setStep(0)} className="btn-architectural-cta btn-architectural-cta-light">
+            <button
+              type="button"
+              onClick={() => {
+                trackEvent("self_check_start");
+                setStep(0);
+              }}
+              className="btn-architectural-cta btn-architectural-cta-light"
+            >
               <span className="btn-arch-label">{hero.primaryCta}</span>
               <span className="btn-arch-arrow">→</span>
             </button>
@@ -160,7 +174,7 @@ export function AmICovered() {
                 <button
                   key={opt.value}
                   type="button"
-                  onClick={() => answer(currentQuestion.id, opt.value)}
+                  onClick={() => answer(currentQuestion.id, opt.value, Date.now())}
                   className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                   style={{
                     textAlign: "left",
@@ -292,6 +306,7 @@ export function AmICovered() {
                     <input
                       type="tel"
                       required
+                      maxLength={40}
                       value={callRequest.phone}
                       onChange={(e) => setCallRequest({ ...callRequest, phone: e.target.value })}
                       placeholder="Phone number"
@@ -301,6 +316,7 @@ export function AmICovered() {
                     <input
                       type="email"
                       required
+                      maxLength={254}
                       value={callRequest.email}
                       onChange={(e) => setCallRequest({ ...callRequest, email: e.target.value })}
                       placeholder="you@organisation.com"
@@ -318,7 +334,41 @@ export function AmICovered() {
                       ))}
                     </select>
                   </div>
-                  <button type="submit" className="btn-architectural-cta" style={{ alignSelf: "flex-start" }} disabled={callRequestSubmitting}>
+                  <div style={{ borderTop: "1px solid rgba(10, 28, 30, 0.1)", paddingTop: "16px" }}>
+                    <p style={{ margin: "0 0 6px", fontWeight: 700 }}>{callRequestDisclosure.heading}</p>
+                    <p className="process-step-desc" style={{ margin: "0 0 10px" }}>
+                      {callRequestDisclosure.notice}
+                    </p>
+                    <label style={{ display: "flex", alignItems: "flex-start", gap: "8px", cursor: "pointer" }}>
+                      <input
+                        type="checkbox"
+                        checked={callRequestConsent}
+                        onChange={(event) => setCallRequestConsent(event.target.checked)}
+                        style={{ marginTop: "4px" }}
+                      />
+                      <span className="process-step-desc" style={{ margin: 0 }}>
+                        {callRequestDisclosure.consentLabel}{" "}
+                        <Link href={callRequestDisclosure.privacyLink.href}>
+                          {callRequestDisclosure.privacyLink.label}
+                        </Link>
+                      </span>
+                    </label>
+                  </div>
+                  <input
+                    type="text"
+                    value={callRequestWebsite}
+                    onChange={(event) => setCallRequestWebsite(event.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: "absolute", left: "-10000px", width: "1px", height: "1px" }}
+                  />
+                  <button
+                    type="submit"
+                    className="btn-architectural-cta"
+                    style={{ alignSelf: "flex-start" }}
+                    disabled={callRequestSubmitting || !callRequestConsent}
+                  >
                     <span className="btn-arch-label">{callRequestSubmitting ? "Sending…" : "Request a call"}</span>
                     <span className="btn-arch-arrow">→</span>
                   </button>
@@ -343,6 +393,9 @@ export function AmICovered() {
                   setAnswers({});
                   setCallRequestSubmitted(false);
                   setCallRequest({ phone: "", email: "", bestTime: "morning" });
+                  setCallRequestConsent(false);
+                  setCallRequestWebsite("");
+                  setCallRequestStartedAt(Date.now());
                 }}
                 className="mandate-link-check"
                 style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}

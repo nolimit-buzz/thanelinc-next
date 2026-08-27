@@ -6,6 +6,118 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-27 · Task 1.1 — SMTP credentials moved to environment variables
+
+`lib/mail/config.ts` no longer hardcodes the SMTP credential. `getMailConfig()`
+reads `SMTP_HOST` / `SMTP_PORT` / `SMTP_SECURE` / `SMTP_USER` / `SMTP_PASSWORD`
+/ `MAIL_TO` from `process.env` on every call (not cached at module scope), and
+throws a specific "Missing required environment variable: X" error if any is
+unset or blank — verified this does NOT crash `next build` (validation only
+runs at actual request time) and DOES correctly 502 with a generic client
+message while logging the specific missing var server-side, tested against a
+real `next start` instance with no env vars present.
+
+Deleted `lib/mail/config.example.ts` (redundant — `.env.local.example` already
+documents these exact six vars) and the now-stale `.gitignore` entry for
+`lib/mail/config.ts` (nothing in this file is secret anymore).
+
+**🛑 Deployment-sequencing requirement, not optional:** this must not deploy
+to production before `SMTP_HOST/PORT/SECURE/USER/PASSWORD` and `MAIL_TO` are
+set as real values in Vercel with the **rotated** password (Stage 0.1) — the
+live contact form will 502 on every submission until they are. This code
+change and the credential rotation are two separate actions that must land
+together, not sequentially with a gap.
+
+Added `lib/mail/config.test.ts` — 13 new tests, one per required var × 2
+(missing / blank) plus one valid-config case. `tsc`, `eslint`, `vitest`
+(40/40 total now), `next build` all pass.
+
+## 2026-08-27 · Cookie-consent banner + gated Vercel Analytics
+
+Added a consent mechanism (`lib/consent/store.ts`, `useSyncExternalStore`-backed,
+localStorage, no cookies) and a banner (`components/consent/ConsentBanner.tsx`)
+shown on first visit: "Allow analytics" / "Necessary only", neither pre-selected,
+equally prominent. Choice persists per-browser and is reactive — accepting
+mounts `@vercel/analytics` immediately, no reload needed.
+
+`components/consent/AnalyticsGate.tsx` only renders `<Analytics />` after
+opt-in; `lib/consent/track.ts` wraps `track()` so every call site stays
+simple and every event silently no-ops without consent — nothing queues or
+fires retroactively if consent is granted later.
+
+Wired two events named in `LAUNCH_READINESS_REPORT-2026-08-23.md`'s
+audience-first gaps: `self_check_start` (intro → first question) and
+`self_check_complete` (reaching the result step) in `AmICovered.tsx`, plus
+`contact_submit` (with the selected `reason`) in `ContactForm.tsx`.
+
+`lib/content/legal.ts`'s cookie-policy content updated to describe the new,
+cookieless, opt-in analytics — this is still inside the existing `draftNotice`
+envelope (CDPO review still pending, unchanged from before), so no new
+approval gate was needed to update it.
+
+**Outstanding dashboard step:** Vercel project → Analytics tab → Enable Web
+Analytics. Confirmed locally that without it the page degrades gracefully
+(a console warning, no thrown errors, no user-visible effect) rather than
+breaking — but no data collects until enabled. No env vars required, unlike
+Turnstile.
+
+No CSP change needed — Vercel Analytics serves from the same origin
+(`/_vercel/insights/*`), already covered by `'self'`.
+
+Verified: `tsc`, `eslint`, `vitest` (27/27), `next build`, plus a Playwright
+smoke test confirming banner visibility, reactive mount/unmount of Analytics,
+persistence across reload, and correct behaviour for a fresh visitor.
+
+## 2026-08-27 · Turnstile deferred; honeypot/timing-only bot check
+
+Removed Cloudflare Turnstile from both hardened routes and their forms
+(`components/forms/TurnstileWidget.tsx` deleted; `next.config.ts` CSP no
+longer allow-lists `challenges.cloudflare.com`). Owner decision: defer
+Turnstile until real traffic creates a spam/abuse pattern worth the added
+dependency, rather than block Stage 1 on Cloudflare domain-scoping and
+anti-debugging issues encountered while wiring it into a preview deployment.
+
+`lib/security/submissionProtection.ts` now does honeypot + minimum-elapsed-time
+only — this is a known-weak check against a scripted bot that spoofs the
+submission timestamp, same limitation noted when Turnstile was still in
+place as a secondary layer. **The Cloudflare WAF rate-limiting rule
+(plan task 1.2b) is now the only real remaining abuse control** and should
+not be skipped even though it wasn't strictly required before.
+
+All other Stage 1 hardening (server-side answer-enum validation, server-side
+category recomputation, server-enforced consent, security headers, six
+`.com`→`.ng` fixes, Gitleaks) is unchanged. Test count dropped from 50 to 27
+— all removed cases were Turnstile-specific; the honeypot/timing/validation
+coverage is intact. `tsc`, `eslint`, `vitest` (27/27) and `next build` all
+pass. No commit, push or deployment made by this change yet.
+
+## 2026-08-27 · Stage 1 form-security and privacy code slice
+
+Hardened the two temporarily approved frontend form routes under W-051. Both
+contact flows now require a honeypot, minimum elapsed time and server-validated
+Cloudflare Turnstile token with exact environment hostname/action checks, a
+five-second fail-closed timeout and bounded tokens. The shared widget resets
+after expiry, error or a consumed failed submission. Security headers now ship
+globally with CSP in Report-Only mode and the Next.js disclosure header disabled.
+
+The self-check route validates all six answer enums, requires explicit consent,
+ignores client-supplied classification and recomputes the category and filing
+state via `resolveSelfCheck`. Its collection notice and Privacy Policy now state
+which answers/result/contact fields are sent. All six `thanelinc.com` contact
+references now use `thanelinc.ng`.
+
+Added 50 isolated Vitest handler cases with mocked Turnstile and SMTP, plus
+Gitleaks v8.30.1 and Husky 9.1.7 with checksum-verified repo-local bootstrap,
+a project SMTP rule, staged pre-commit enforcement and PR-range CI scanning.
+TypeScript, ESLint, tests, diff checks and the 36-route production build pass;
+five local routes emit all five planned headers with no `x-powered-by`.
+
+Task 1.1 remains deliberately excluded: `lib/mail/config.ts` and
+`lib/mail/sendMail.ts` are untouched pending credential rotation and Vercel
+environment setup. Turnstile provisioning, all-ingress edge rate limiting,
+email-obfuscation configuration, browser/CSP sweeps and CDPO review remain
+dashboard/full-production-gate work. No commit, push or deployment was made.
+
 ## 2026-08-25 · Self-check call-request email now includes the full stepper answers
 
 `app/api/self-check/call-request` previously only emailed phone/email/best-time
