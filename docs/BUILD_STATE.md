@@ -8,6 +8,17 @@ Delivery state for the **implementation repository**. Update at every handoff.
 > decisions — lives in the `ThanelInc-Handover/` workspace and is not duplicated
 > here. This file covers the build only.
 
+## Task 1.1 — SMTP credentials on env vars (2026-08-27)
+
+`lib/mail/config.ts` reads `SMTP_HOST/PORT/SECURE/USER/PASSWORD`, `MAIL_TO`
+from `process.env`, fails loudly (specific server log, generic client 502) if
+any is unset — verified against a real `next start` with no env vars present,
+and verified `next build` succeeds regardless (validation is request-time
+only). **🛑 Not safe to deploy until Vercel has the real, rotated values set**
+— the live contact form 502s on every submission otherwise. This is gated on
+Stage 0.1 (credential rotation, owner action, not yet confirmed done as of
+this entry) happening first, same deploy window, not after.
+
 ## Cookie-consent banner + gated analytics (2026-08-27)
 
 Consent mechanism live: banner on first visit (Allow analytics / Necessary

@@ -6,6 +6,32 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-27 · Task 1.1 — SMTP credentials moved to environment variables
+
+`lib/mail/config.ts` no longer hardcodes the SMTP credential. `getMailConfig()`
+reads `SMTP_HOST` / `SMTP_PORT` / `SMTP_SECURE` / `SMTP_USER` / `SMTP_PASSWORD`
+/ `MAIL_TO` from `process.env` on every call (not cached at module scope), and
+throws a specific "Missing required environment variable: X" error if any is
+unset or blank — verified this does NOT crash `next build` (validation only
+runs at actual request time) and DOES correctly 502 with a generic client
+message while logging the specific missing var server-side, tested against a
+real `next start` instance with no env vars present.
+
+Deleted `lib/mail/config.example.ts` (redundant — `.env.local.example` already
+documents these exact six vars) and the now-stale `.gitignore` entry for
+`lib/mail/config.ts` (nothing in this file is secret anymore).
+
+**🛑 Deployment-sequencing requirement, not optional:** this must not deploy
+to production before `SMTP_HOST/PORT/SECURE/USER/PASSWORD` and `MAIL_TO` are
+set as real values in Vercel with the **rotated** password (Stage 0.1) — the
+live contact form will 502 on every submission until they are. This code
+change and the credential rotation are two separate actions that must land
+together, not sequentially with a gap.
+
+Added `lib/mail/config.test.ts` — 13 new tests, one per required var × 2
+(missing / blank) plus one valid-config case. `tsc`, `eslint`, `vitest`
+(40/40 total now), `next build` all pass.
+
 ## 2026-08-27 · Cookie-consent banner + gated Vercel Analytics
 
 Added a consent mechanism (`lib/consent/store.ts`, `useSyncExternalStore`-backed,

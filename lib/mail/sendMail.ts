@@ -1,16 +1,16 @@
 import nodemailer from "nodemailer";
-import { mailConfig } from "@/lib/mail/config";
+import { getMailConfig, type MailConfig } from "@/lib/mail/config";
 
 let transporter: ReturnType<typeof nodemailer.createTransport> | null = null;
 
-function getTransporter() {
+function getTransporter(config: MailConfig) {
   if (transporter) return transporter;
 
   transporter = nodemailer.createTransport({
-    host: mailConfig.smtpHost,
-    port: mailConfig.smtpPort,
-    secure: mailConfig.smtpSecure,
-    auth: { user: mailConfig.smtpUser, pass: mailConfig.smtpPassword },
+    host: config.smtpHost,
+    port: config.smtpPort,
+    secure: config.smtpSecure,
+    auth: { user: config.smtpUser, pass: config.smtpPassword },
   });
   return transporter;
 }
@@ -29,9 +29,10 @@ export async function sendMail({
   text: string;
   replyTo?: string;
 }) {
-  await getTransporter().sendMail({
-    from: mailConfig.smtpUser,
-    to: mailConfig.mailTo,
+  const config = getMailConfig();
+  await getTransporter(config).sendMail({
+    from: config.smtpUser,
+    to: config.mailTo,
     replyTo: replyTo ? stripHeaderInjection(replyTo) : undefined,
     subject: stripHeaderInjection(subject),
     text,
