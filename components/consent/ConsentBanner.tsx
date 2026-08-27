@@ -39,6 +39,10 @@ export function ConsentBanner() {
           <p style={{ margin: "0 0 4px", fontWeight: 700 }}>{consentBanner.heading}</p>
           <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.5, opacity: 0.9 }}>
             {consentBanner.body}{" "}
+            <Link href={consentBanner.privacyLink.href} style={{ color: "#FFFFFF", textDecoration: "underline" }}>
+              {consentBanner.privacyLink.label}
+            </Link>
+            {" · "}
             <Link href={consentBanner.cookiePolicyLink.href} style={{ color: "#FFFFFF", textDecoration: "underline" }}>
               {consentBanner.cookiePolicyLink.label}
             </Link>
@@ -60,7 +64,7 @@ export function ConsentBanner() {
           >
             {consentBanner.necessaryOnlyLabel}
           </button>
-          <button type="button" onClick={accept} className="btn-architectural-cta">
+          <button type="button" onClick={accept} className="btn-architectural-cta btn-architectural-cta-light">
             <span className="btn-arch-label">{consentBanner.acceptLabel}</span>
             <span className="btn-arch-arrow">→</span>
           </button>

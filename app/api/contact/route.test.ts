@@ -17,6 +17,7 @@ function body(overrides: Record<string, unknown> = {}) {
     phone: "+234 800 000 0000",
     message: "Please contact me about compliance support.",
     website: "",
+    consent: true,
     submittedAt: now.getTime() - 4_000,
     ...overrides,
   };
@@ -66,6 +67,10 @@ describe("POST /api/contact", () => {
     ["message", "x".repeat(4_001)],
   ])("rejects an oversized %s", async (field, value) => {
     await expectRejected(body({ [field]: value }));
+  });
+
+  it.each([undefined, false])("rejects consent value %s", async (consent) => {
+    await expectRejected(body({ consent }));
   });
 
   it("sends one expected email for a valid submission", async () => {

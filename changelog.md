@@ -6,6 +6,37 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-27 · Consent banner visibility fix + contact-form privacy checkbox
+
+`ConsentBanner`'s "Allow analytics" button was invisible until hover — it used
+bare `btn-architectural-cta` on a dark background without the `-light`
+modifier every other dark-background usage in the codebase pairs it with
+(confirmed by grep: MobileNavDrawer, MegaMenu, AmICovered's intro CTA,
+SiteFooter all do this). Fixed; visually confirmed via screenshot, not just
+class-name inspection — the base variant's text/border color equals the dark
+background until `:hover` flips it, so it read as a real bug, not a
+theoretical one.
+
+Banner now links both Privacy Policy and Cookie Policy (previously
+Cookie Policy only) — the banner is the point of collection for both,
+matching NDPC practice for combined cookie/privacy notices.
+
+`ContactForm.tsx` gained a required "I agree to the Privacy Policy" checkbox,
+matching the pattern already in place on the self-check call-request form.
+Server-enforced in `app/api/contact/route.ts` (`consent !== true` rejects,
+same as the self-check route) — not just a disabled submit button. 2 new
+tests for the rejection case (42 → 44 total).
+
+`lib/content/consent.ts` and `lib/content/contact.ts` updated (typed content
+modules, W-025 CMS seam — no copy hardcoded into components).
+
+Verified: `tsc`, `eslint`, `vitest` (44/44), `next build`, plus a Playwright
+visual check confirming the button's actual rendered background/text colors
+(not just that a CSS class was present) and the checkbox's disable/enable
+behavior end-to-end.
+
+---
+
 ## 2026-08-27 · Task 1.1 — SMTP credentials moved to environment variables
 
 `lib/mail/config.ts` no longer hardcodes the SMTP credential. `getMailConfig()`

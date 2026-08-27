@@ -47,6 +47,8 @@ export const contact = {
     ],
     submitLabel: "Send message",
     deliveryNote: "We'll reply to the email address you provide.",
+    consentLabel: "I agree to the",
+    privacyLink: { label: "Privacy Policy", href: "/privacy" },
     subject: "Proposal request from thanelinc.ng",
   },
 } as const;

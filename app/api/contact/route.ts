@@ -54,6 +54,9 @@ export async function POST(request: Request) {
   if (!EMAIL_RE.test(email)) {
     return rejected();
   }
+  if (body.consent !== true) {
+    return rejected();
+  }
 
   const text = [
     `Reason for contacting: ${reason}`,

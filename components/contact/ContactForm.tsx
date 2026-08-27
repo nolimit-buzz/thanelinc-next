@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { contact } from "@/lib/content/contact";
 import styles from "@/components/contact/contact.module.css";
 import { trackEvent } from "@/lib/consent/track";
@@ -8,6 +9,7 @@ import { trackEvent } from "@/lib/consent/track";
 export function ContactForm() {
   const [status, setStatus] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
   const [submittedAt, setSubmittedAt] = useState(() => Date.now());
 
   async function submitForm(event: FormEvent<HTMLFormElement>) {
@@ -22,6 +24,7 @@ export function ContactForm() {
       phone: String(form.get("phone") ?? ""),
       message: String(form.get("message") ?? ""),
       website: String(form.get("website") ?? ""),
+      consent: privacyConsent,
       submittedAt,
     };
 
@@ -93,7 +96,20 @@ export function ContactForm() {
         style={{ position: "absolute", left: "-10000px", width: "1px", height: "1px" }}
       />
       <p className={styles.deliveryNote}>{contact.form.deliveryNote}</p>
-      <button type="submit" className="btn-architectural-cta" disabled={submitting}>
+      <label style={{ display: "flex", alignItems: "flex-start", gap: "8px", cursor: "pointer" }}>
+        <input
+          type="checkbox"
+          required
+          checked={privacyConsent}
+          onChange={(event) => setPrivacyConsent(event.target.checked)}
+          style={{ marginTop: "4px" }}
+        />
+        <span className={styles.deliveryNote} style={{ margin: 0 }}>
+          {contact.form.consentLabel}{" "}
+          <Link href={contact.form.privacyLink.href}>{contact.form.privacyLink.label}</Link>.
+        </span>
+      </label>
+      <button type="submit" className="btn-architectural-cta" disabled={submitting || !privacyConsent}>
         <span className="btn-arch-label">{contact.form.submitLabel}</span>
         <span className="btn-arch-arrow">→</span>
       </button>
