@@ -9,9 +9,8 @@ const contentSecurityPolicy = [
   "img-src 'self' data: blob: https://images.unsplash.com https://res.cloudinary.com",
   "font-src 'self' data:",
   "style-src 'self' 'unsafe-inline'",
-  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://challenges.cloudflare.com",
-  "frame-src https://challenges.cloudflare.com",
-  "connect-src 'self' https://huggingface.co https://*.huggingface.co https://*.hf.co https://*.xethub.hf.co https://challenges.cloudflare.com",
+  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'",
+  "connect-src 'self' https://huggingface.co https://*.huggingface.co https://*.hf.co https://*.xethub.hf.co",
   "worker-src 'self' blob: https://huggingface.co https://*.hf.co",
 ].join("; ");
 

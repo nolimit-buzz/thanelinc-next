@@ -6,6 +6,29 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-27 · Turnstile deferred; honeypot/timing-only bot check
+
+Removed Cloudflare Turnstile from both hardened routes and their forms
+(`components/forms/TurnstileWidget.tsx` deleted; `next.config.ts` CSP no
+longer allow-lists `challenges.cloudflare.com`). Owner decision: defer
+Turnstile until real traffic creates a spam/abuse pattern worth the added
+dependency, rather than block Stage 1 on Cloudflare domain-scoping and
+anti-debugging issues encountered while wiring it into a preview deployment.
+
+`lib/security/submissionProtection.ts` now does honeypot + minimum-elapsed-time
+only — this is a known-weak check against a scripted bot that spoofs the
+submission timestamp, same limitation noted when Turnstile was still in
+place as a secondary layer. **The Cloudflare WAF rate-limiting rule
+(plan task 1.2b) is now the only real remaining abuse control** and should
+not be skipped even though it wasn't strictly required before.
+
+All other Stage 1 hardening (server-side answer-enum validation, server-side
+category recomputation, server-enforced consent, security headers, six
+`.com`→`.ng` fixes, Gitleaks) is unchanged. Test count dropped from 50 to 27
+— all removed cases were Turnstile-specific; the honeypot/timing/validation
+coverage is intact. `tsc`, `eslint`, `vitest` (27/27) and `next build` all
+pass. No commit, push or deployment made by this change yet.
+
 ## 2026-08-27 · Stage 1 form-security and privacy code slice
 
 Hardened the two temporarily approved frontend form routes under W-051. Both

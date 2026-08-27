@@ -8,6 +8,19 @@ Delivery state for the **implementation repository**. Update at every handoff.
 > decisions — lives in the `ThanelInc-Handover/` workspace and is not duplicated
 > here. This file covers the build only.
 
+## Turnstile deferred (2026-08-27)
+
+**Decision:** Cloudflare Turnstile removed from both forms and both routes.
+Owner call — defer bot verification until real traffic creates a spam/abuse
+pattern that justifies the dependency, rather than block on Cloudflare
+domain-scoping/anti-debugging friction hit during preview testing.
+`lib/security/submissionProtection.ts` is now honeypot + minimum-elapsed-time
+only. **This makes the Cloudflare WAF rate-limiting rule (plan task 1.2b) the
+sole remaining abuse control** — still outstanding, still a dashboard-only
+action, now higher-priority than before. `TurnstileWidget.tsx` deleted; CSP
+no longer references `challenges.cloudflare.com`. All other Stage 1 hardening
+unchanged. Verified: `tsc`, `eslint`, `vitest` (27/27), `next build` all pass.
+
 ## Stage 1 form-security and privacy code slice (2026-08-27)
 
 **Delivery state:** `verified_local`; not committed, pushed, deployed or

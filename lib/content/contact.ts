@@ -47,7 +47,6 @@ export const contact = {
     ],
     submitLabel: "Send message",
     deliveryNote: "We'll reply to the email address you provide.",
-    verificationUnavailable: "Message verification is unavailable. Please try again later.",
     subject: "Proposal request from thanelinc.ng",
   },
 } as const;

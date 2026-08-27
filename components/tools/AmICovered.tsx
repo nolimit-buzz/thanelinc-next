@@ -19,7 +19,6 @@ import {
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/v5/SiteFooter";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
-import { TurnstileWidget } from "@/components/forms/TurnstileWidget";
 
 const CHAMFER = "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)";
 
@@ -61,8 +60,6 @@ export function AmICovered() {
   const [callRequestError, setCallRequestError] = useState("");
   const [callRequestConsent, setCallRequestConsent] = useState(false);
   const [callRequestWebsite, setCallRequestWebsite] = useState("");
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-  const [turnstileReset, setTurnstileReset] = useState(0);
   const [callRequestStartedAt, setCallRequestStartedAt] = useState(() => Date.now());
 
   const currentQuestion = typeof step === "number" ? questions[step] : null;
@@ -98,7 +95,6 @@ export function AmICovered() {
           consent: callRequestConsent,
           website: callRequestWebsite,
           submittedAt: callRequestStartedAt,
-          turnstileToken,
         }),
       });
       const result = await response.json();
@@ -108,8 +104,7 @@ export function AmICovered() {
       setCallRequestSubmitted(true);
     } catch {
       setCallRequestError("Something went wrong sending your request. Please try again.");
-      setTurnstileToken(null);
-      setTurnstileReset((value) => value + 1);
+      setCallRequestStartedAt(Date.now());
     } finally {
       setCallRequestSubmitting(false);
     }
@@ -359,17 +354,11 @@ export function AmICovered() {
                     aria-hidden="true"
                     style={{ position: "absolute", left: "-10000px", width: "1px", height: "1px" }}
                   />
-                  <TurnstileWidget
-                    action="self_check_submit"
-                    resetSignal={turnstileReset}
-                    unavailableMessage={callRequestDisclosure.verificationUnavailable}
-                    onTokenChange={setTurnstileToken}
-                  />
                   <button
                     type="submit"
                     className="btn-architectural-cta"
                     style={{ alignSelf: "flex-start" }}
-                    disabled={callRequestSubmitting || !callRequestConsent || !turnstileToken}
+                    disabled={callRequestSubmitting || !callRequestConsent}
                   >
                     <span className="btn-arch-label">{callRequestSubmitting ? "Sending…" : "Request a call"}</span>
                     <span className="btn-arch-arrow">→</span>
@@ -397,8 +386,7 @@ export function AmICovered() {
                   setCallRequest({ phone: "", email: "", bestTime: "morning" });
                   setCallRequestConsent(false);
                   setCallRequestWebsite("");
-                  setTurnstileToken(null);
-                  setTurnstileReset((value) => value + 1);
+                  setCallRequestStartedAt(Date.now());
                 }}
                 className="mandate-link-check"
                 style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}

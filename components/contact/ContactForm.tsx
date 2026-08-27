@@ -3,13 +3,10 @@
 import { useState, type FormEvent } from "react";
 import { contact } from "@/lib/content/contact";
 import styles from "@/components/contact/contact.module.css";
-import { TurnstileWidget } from "@/components/forms/TurnstileWidget";
 
 export function ContactForm() {
   const [status, setStatus] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-  const [turnstileReset, setTurnstileReset] = useState(0);
   const [submittedAt, setSubmittedAt] = useState(() => Date.now());
 
   async function submitForm(event: FormEvent<HTMLFormElement>) {
@@ -25,7 +22,6 @@ export function ContactForm() {
       message: String(form.get("message") ?? ""),
       website: String(form.get("website") ?? ""),
       submittedAt,
-      turnstileToken,
     };
 
     setSubmitting(true);
@@ -42,13 +38,10 @@ export function ContactForm() {
       }
       setStatus("Thanks — your message has been sent. We'll be in touch.");
       currentForm.reset();
-      setTurnstileToken(null);
-      setTurnstileReset((value) => value + 1);
       setSubmittedAt(Date.now());
     } catch {
       setStatus("Something went wrong sending your message. Please try again or email us directly.");
-      setTurnstileToken(null);
-      setTurnstileReset((value) => value + 1);
+      setSubmittedAt(Date.now());
     } finally {
       setSubmitting(false);
     }
@@ -98,13 +91,7 @@ export function ContactForm() {
         style={{ position: "absolute", left: "-10000px", width: "1px", height: "1px" }}
       />
       <p className={styles.deliveryNote}>{contact.form.deliveryNote}</p>
-      <TurnstileWidget
-        action="contact_submit"
-        resetSignal={turnstileReset}
-        unavailableMessage={contact.form.verificationUnavailable}
-        onTokenChange={setTurnstileToken}
-      />
-      <button type="submit" className="btn-architectural-cta" disabled={submitting || !turnstileToken}>
+      <button type="submit" className="btn-architectural-cta" disabled={submitting}>
         <span className="btn-arch-label">{contact.form.submitLabel}</span>
         <span className="btn-arch-arrow">→</span>
       </button>

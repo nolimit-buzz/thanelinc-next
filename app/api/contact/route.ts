@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Invalid request body" }, { status: 400 });
   }
 
-  if (!(await verifyProtectedSubmission({ request, body, action: "contact_submit" }))) {
+  if (!verifyProtectedSubmission({ body })) {
     return rejected();
   }
 
