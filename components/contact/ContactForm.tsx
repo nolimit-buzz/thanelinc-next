@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { contact } from "@/lib/content/contact";
 import styles from "@/components/contact/contact.module.css";
+import { trackEvent } from "@/lib/consent/track";
 
 export function ContactForm() {
   const [status, setStatus] = useState("");
@@ -37,6 +38,7 @@ export function ContactForm() {
         throw new Error(result.error ?? "Failed to send message");
       }
       setStatus("Thanks — your message has been sent. We'll be in touch.");
+      trackEvent("contact_submit", { reason: payload.reason });
       currentForm.reset();
       setSubmittedAt(Date.now());
     } catch {

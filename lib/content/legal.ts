@@ -106,7 +106,7 @@ export const legalDocuments: LegalDocumentContent[] = [
     title: "Cookie Policy",
     summary: "A clear, current view of the cookies and similar technologies used on this website.",
     updated: "23 August 2026",
-    draftNotice: "Operational draft for CDPO and legal review. It must be updated before optional analytics, advertising or third-party tracking tools are introduced, or if the approved submission backend adds cookies beyond essential security controls.",
+    draftNotice: "Operational draft for CDPO and legal review. The site now offers optional, cookieless analytics behind an on-site consent choice, described below — this section needs CDPO confirmation before being treated as final. It must be updated again before advertising or third-party tracking tools are introduced, or if the approved submission backend adds cookies beyond essential security controls.",
     sections: [
       {
         id: "scope",
@@ -121,7 +121,8 @@ export const legalDocuments: LegalDocumentContent[] = [
         label: "02 — Current use",
         title: "The current website position",
         paragraphs: [
-          "At the date above, the public website code does not include optional analytics, advertising or social-media tracking cookies. It does not use a consent banner because no optional tracking tool has been configured in this implementation.",
+          "This website offers optional, cookieless analytics (Vercel Web Analytics) to understand aggregate visitor traffic. It does not use tracking cookies, does not build cross-site or individual visitor profiles, and does not include advertising or social-media tracking of any kind.",
+          "Analytics is off by default. It only activates after you choose “Allow analytics” in the banner shown on your first visit; choosing “Necessary only” keeps it off. Your choice is stored on your own device and can be changed at any time by clearing your browser's local storage for this site.",
           "Hosting, security, browser functionality, or the approved form-submission backend may use strictly necessary technical storage to deliver and protect the website. These functions are not used by Thanelinc to build an advertising profile.",
         ],
       },

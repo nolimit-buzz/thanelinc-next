@@ -8,6 +8,19 @@ Delivery state for the **implementation repository**. Update at every handoff.
 > decisions — lives in the `ThanelInc-Handover/` workspace and is not duplicated
 > here. This file covers the build only.
 
+## Cookie-consent banner + gated analytics (2026-08-27)
+
+Consent mechanism live: banner on first visit (Allow analytics / Necessary
+only, neither pre-selected), localStorage-backed, `@vercel/analytics` only
+mounts after opt-in, `trackEvent()` wrapper no-ops without consent. Two
+launch-report-named events wired: `self_check_start`/`self_check_complete`,
+`contact_submit`. Cookie-policy copy updated to match (still `draftNotice`,
+CDPO review still pending — same status as before, not a new gate).
+**Outstanding:** enable Web Analytics in the Vercel dashboard (Analytics tab)
+— no env vars needed, confirmed the page degrades gracefully without it.
+Verified: `tsc`, `eslint`, `vitest` (27/27), `next build`, plus a Playwright
+functional smoke test of all consent-state transitions.
+
 ## Turnstile deferred (2026-08-27)
 
 **Decision:** Cloudflare Turnstile removed from both forms and both routes.

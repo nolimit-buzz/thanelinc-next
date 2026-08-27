@@ -19,6 +19,7 @@ import {
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/v5/SiteFooter";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
+import { trackEvent } from "@/lib/consent/track";
 
 const CHAMFER = "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)";
 
@@ -72,6 +73,7 @@ export function AmICovered() {
     } else {
       setCallRequestStartedAt(answeredAt);
       setStep("result");
+      trackEvent("self_check_complete");
     }
   }
 
@@ -126,7 +128,14 @@ export function AmICovered() {
             <p className="hero-lede-text reveal active delay-1" style={{ maxWidth: "600px", margin: "20px auto 32px", color: "#94A3B8" }}>
               {hero.subhead}
             </p>
-            <button type="button" onClick={() => setStep(0)} className="btn-architectural-cta btn-architectural-cta-light">
+            <button
+              type="button"
+              onClick={() => {
+                trackEvent("self_check_start");
+                setStep(0);
+              }}
+              className="btn-architectural-cta btn-architectural-cta-light"
+            >
               <span className="btn-arch-label">{hero.primaryCta}</span>
               <span className="btn-arch-arrow">→</span>
             </button>

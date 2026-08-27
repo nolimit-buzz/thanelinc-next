@@ -6,6 +6,42 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-27 · Cookie-consent banner + gated Vercel Analytics
+
+Added a consent mechanism (`lib/consent/store.ts`, `useSyncExternalStore`-backed,
+localStorage, no cookies) and a banner (`components/consent/ConsentBanner.tsx`)
+shown on first visit: "Allow analytics" / "Necessary only", neither pre-selected,
+equally prominent. Choice persists per-browser and is reactive — accepting
+mounts `@vercel/analytics` immediately, no reload needed.
+
+`components/consent/AnalyticsGate.tsx` only renders `<Analytics />` after
+opt-in; `lib/consent/track.ts` wraps `track()` so every call site stays
+simple and every event silently no-ops without consent — nothing queues or
+fires retroactively if consent is granted later.
+
+Wired two events named in `LAUNCH_READINESS_REPORT-2026-08-23.md`'s
+audience-first gaps: `self_check_start` (intro → first question) and
+`self_check_complete` (reaching the result step) in `AmICovered.tsx`, plus
+`contact_submit` (with the selected `reason`) in `ContactForm.tsx`.
+
+`lib/content/legal.ts`'s cookie-policy content updated to describe the new,
+cookieless, opt-in analytics — this is still inside the existing `draftNotice`
+envelope (CDPO review still pending, unchanged from before), so no new
+approval gate was needed to update it.
+
+**Outstanding dashboard step:** Vercel project → Analytics tab → Enable Web
+Analytics. Confirmed locally that without it the page degrades gracefully
+(a console warning, no thrown errors, no user-visible effect) rather than
+breaking — but no data collects until enabled. No env vars required, unlike
+Turnstile.
+
+No CSP change needed — Vercel Analytics serves from the same origin
+(`/_vercel/insights/*`), already covered by `'self'`.
+
+Verified: `tsc`, `eslint`, `vitest` (27/27), `next build`, plus a Playwright
+smoke test confirming banner visibility, reactive mount/unmount of Analytics,
+persistence across reload, and correct behaviour for a fresh visitor.
+
 ## 2026-08-27 · Turnstile deferred; honeypot/timing-only bot check
 
 Removed Cloudflare Turnstile from both hardened routes and their forms
