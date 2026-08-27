@@ -39,11 +39,11 @@ export function ConsentBanner() {
           <p style={{ margin: "0 0 4px", fontWeight: 700 }}>{consentBanner.heading}</p>
           <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.5, opacity: 0.9 }}>
             {consentBanner.body}{" "}
-            <Link href={consentBanner.privacyLink.href} style={{ color: "#FFFFFF", textDecoration: "underline" }}>
+            <Link href={consentBanner.privacyLink.href} style={{ color: "var(--color-teal-accent)", textDecoration: "underline" }}>
               {consentBanner.privacyLink.label}
             </Link>
             {" · "}
-            <Link href={consentBanner.cookiePolicyLink.href} style={{ color: "#FFFFFF", textDecoration: "underline" }}>
+            <Link href={consentBanner.cookiePolicyLink.href} style={{ color: "var(--color-teal-accent)", textDecoration: "underline" }}>
               {consentBanner.cookiePolicyLink.label}
             </Link>
           </p>

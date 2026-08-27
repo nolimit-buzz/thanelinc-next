@@ -6,6 +6,20 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-27 · Consent banner links in teal accent colour
+
+`ConsentBanner`'s Privacy Policy / Cookie Policy links changed from white to
+`var(--color-teal-accent)` per owner request, for stronger visual distinction
+from body text. Safe on this background: teal-on-forest-dark measured at
+6.18:1 in the earlier accessibility audit (well above the 4.5:1 AA
+threshold) — the audit's contrast finding was specifically about teal *on
+light* surfaces, not dark ones, so this stays inside the safe case. Kept the
+underline alongside colour (not relying on colour alone, per 1.4.1).
+Verified via a Playwright screenshot, computed color confirmed
+`rgb(28, 176, 184)` (#1CB0B8).
+
+---
+
 ## 2026-08-27 · Consent banner visibility fix + contact-form privacy checkbox
 
 `ConsentBanner`'s "Allow analytics" button was invisible until hover — it used
