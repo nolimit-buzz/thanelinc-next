@@ -51,6 +51,49 @@ export interface SelfCheckAnswers {
   establishmentDate: EstablishmentDate;
 }
 
+const ORG_TYPES: readonly OrgType[] = [
+  "higher-institution",
+  "mda",
+  "bank-commercial",
+  "bank-microfinance-mortgage",
+  "telecoms-fintech-insurance",
+  "hospital-tertiary-secondary",
+  "ohl-named",
+  "other-private",
+  "sole-trader-artisan",
+  "social-media-community",
+];
+const VOLUME_BANDS: readonly VolumeBand[] = [
+  "under-200",
+  "200-999",
+  "1000-4999",
+  "5000-plus",
+];
+const YES_NO: readonly YesNo[] = ["yes", "no"];
+const ESTABLISHMENT_DATES: readonly EstablishmentDate[] = [
+  "before-2023-06-12",
+  "on-or-after-2023-06-12",
+];
+
+export function isSelfCheckAnswers(value: unknown): value is SelfCheckAnswers {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const answers = value as Record<string, unknown>;
+  return (
+    typeof answers.orgType === "string" &&
+    ORG_TYPES.includes(answers.orgType as OrgType) &&
+    typeof answers.volumeBand === "string" &&
+    VOLUME_BANDS.includes(answers.volumeBand as VolumeBand) &&
+    typeof answers.sensitiveData === "string" &&
+    YES_NO.includes(answers.sensitiveData as YesNo) &&
+    typeof answers.crossBorder === "string" &&
+    YES_NO.includes(answers.crossBorder as YesNo) &&
+    typeof answers.thirdPartyProcessing === "string" &&
+    YES_NO.includes(answers.thirdPartyProcessing as YesNo) &&
+    typeof answers.establishmentDate === "string" &&
+    ESTABLISHMENT_DATES.includes(answers.establishmentDate as EstablishmentDate)
+  );
+}
+
 export type Category = "UHL" | "EHL" | "OHL" | "not-of-major-importance";
 
 export type ResolutionSource =

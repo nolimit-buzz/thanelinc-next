@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { sendMail } from "@/lib/mail/sendMail";
 import { questions } from "@/lib/content/amICovered";
+import {
+  isSelfCheckAnswers,
+  resolveSelfCheck,
+  type SelfCheckAnswers,
+} from "@/lib/self-check/resolve";
+import { verifyProtectedSubmission } from "@/lib/security/submissionProtection";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const ANSWER_KEYS = [
@@ -11,12 +17,31 @@ const ANSWER_KEYS = [
   "thirdPartyProcessing",
   "establishmentDate",
 ] as const;
+const BEST_TIMES = ["morning", "afternoon", "evening", "anytime"] as const;
+const FIELD_LIMITS = { phone: 40, email: 254 } as const;
 
-function describeAnswers(answers: Record<string, unknown>): string[] {
+function rejected() {
+  return NextResponse.json(
+    { ok: false, error: "Unable to process request" },
+    { status: 400 },
+  );
+}
+
+function readText(
+  body: Record<string, unknown>,
+  key: keyof typeof FIELD_LIMITS,
+): string | null {
+  const value = body[key];
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return trimmed && trimmed.length <= FIELD_LIMITS[key] ? trimmed : null;
+}
+
+function describeAnswers(answers: SelfCheckAnswers): string[] {
   return questions
     .filter((question) => ANSWER_KEYS.includes(question.id as (typeof ANSWER_KEYS)[number]))
     .map((question) => {
-      const rawValue = String(answers[question.id] ?? "").trim();
+      const rawValue = answers[question.id as keyof SelfCheckAnswers];
       const option = question.options.find((opt) => opt.value === rawValue);
       const label = option ? option.label : rawValue || "—";
       return `${question.prompt} ${label}`;
@@ -31,23 +56,27 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Invalid request body" }, { status: 400 });
   }
 
-  const phone = String(body.phone ?? "").trim();
-  const email = String(body.email ?? "").trim();
-  const bestTime = String(body.bestTime ?? "").trim();
-  const category = String(body.category ?? "").trim();
-  const mandatoryFiling = Boolean(body.mandatoryFiling);
-  const answers = (body.answers && typeof body.answers === "object" ? body.answers : {}) as Record<
-    string,
-    unknown
-  >;
-
-  if (!phone || !email || !bestTime) {
-    return NextResponse.json({ ok: false, error: "Missing required fields" }, { status: 400 });
-  }
-  if (!EMAIL_RE.test(email)) {
-    return NextResponse.json({ ok: false, error: "Invalid email address" }, { status: 400 });
+  if (!(await verifyProtectedSubmission({ request, body, action: "self_check_submit" }))) {
+    return rejected();
   }
 
+  const phone = readText(body, "phone");
+  const email = readText(body, "email");
+  const bestTime = typeof body.bestTime === "string" ? body.bestTime.trim() : "";
+  const answers = body.answers;
+
+  if (
+    !phone ||
+    !email ||
+    !EMAIL_RE.test(email) ||
+    !BEST_TIMES.includes(bestTime as (typeof BEST_TIMES)[number]) ||
+    body.consent !== true ||
+    !isSelfCheckAnswers(answers)
+  ) {
+    return rejected();
+  }
+
+  const { category, mandatoryFiling } = resolveSelfCheck(answers);
   const answerLines = describeAnswers(answers);
 
   const text = [
@@ -55,8 +84,8 @@ export async function POST(request: Request) {
     `Phone: ${phone}`,
     `Email: ${email}`,
     `Best time to call: ${bestTime}`,
-    category ? `Self-check category: ${category}` : null,
-    category ? `Mandatory CAR filing: ${mandatoryFiling ? "Yes" : "No"}` : null,
+    `Self-check category: ${category}`,
+    `Mandatory CAR filing: ${mandatoryFiling ? "Yes" : "No"}`,
     answerLines.length ? "" : null,
     answerLines.length ? "Answers:" : null,
     ...answerLines.map((line) => `- ${line}`),
@@ -75,5 +104,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Failed to send request" }, { status: 502 });
   }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, category, mandatoryFiling });
 }

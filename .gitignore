@@ -37,6 +37,9 @@ yarn-error.log*
 # hardcoded SMTP credentials (temporary — see lib/mail/config.ts)
 # lib/mail/config.ts
 
+# pinned repo-local security tooling cache
+.tools/
+
 # vercel
 .vercel
 

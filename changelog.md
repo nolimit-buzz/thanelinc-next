@@ -6,6 +6,33 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-27 · Stage 1 form-security and privacy code slice
+
+Hardened the two temporarily approved frontend form routes under W-051. Both
+contact flows now require a honeypot, minimum elapsed time and server-validated
+Cloudflare Turnstile token with exact environment hostname/action checks, a
+five-second fail-closed timeout and bounded tokens. The shared widget resets
+after expiry, error or a consumed failed submission. Security headers now ship
+globally with CSP in Report-Only mode and the Next.js disclosure header disabled.
+
+The self-check route validates all six answer enums, requires explicit consent,
+ignores client-supplied classification and recomputes the category and filing
+state via `resolveSelfCheck`. Its collection notice and Privacy Policy now state
+which answers/result/contact fields are sent. All six `thanelinc.com` contact
+references now use `thanelinc.ng`.
+
+Added 50 isolated Vitest handler cases with mocked Turnstile and SMTP, plus
+Gitleaks v8.30.1 and Husky 9.1.7 with checksum-verified repo-local bootstrap,
+a project SMTP rule, staged pre-commit enforcement and PR-range CI scanning.
+TypeScript, ESLint, tests, diff checks and the 36-route production build pass;
+five local routes emit all five planned headers with no `x-powered-by`.
+
+Task 1.1 remains deliberately excluded: `lib/mail/config.ts` and
+`lib/mail/sendMail.ts` are untouched pending credential rotation and Vercel
+environment setup. Turnstile provisioning, all-ingress edge rate limiting,
+email-obfuscation configuration, browser/CSP sweeps and CDPO review remain
+dashboard/full-production-gate work. No commit, push or deployment was made.
+
 ## 2026-08-25 · Self-check call-request email now includes the full stepper answers
 
 `app/api/self-check/call-request` previously only emailed phone/email/best-time

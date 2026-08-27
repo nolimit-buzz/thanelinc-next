@@ -171,3 +171,20 @@ export const categoryDisplayName: Record<Category, string> = {
   OHL: "OHL — Ordinary High Level",
   "not-of-major-importance": "Not of major importance",
 };
+
+export interface CallRequestDisclosure {
+  heading: string;
+  notice: string;
+  consentLabel: string;
+  privacyLink: { label: string; href: "/privacy" };
+  verificationUnavailable: string;
+}
+
+export const callRequestDisclosure: CallRequestDisclosure = {
+  heading: "What will be sent",
+  notice:
+    "If you request a call, Thanelinc will receive your six self-check answers and the category calculated from them, together with your phone number, email address and preferred call time. This helps the team route and prepare for the conversation.",
+  consentLabel: "I agree to send this information to Thanelinc for this follow-up request.",
+  privacyLink: { label: "Read the Privacy Policy", href: "/privacy" },
+  verificationUnavailable: "Call-request verification is unavailable. Please try again later.",
+};

@@ -1,0 +1,11 @@
+title = "Thanelinc secret scanning"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "thanelinc-smtp-credential"
+description = "Hardcoded Thanelinc SMTP credential"
+regex = '''(?i)smtp(?:password|user)\s*[:=]\s*["'][^"'\r\n]{4,}["']'''
+path = '''(^|/)lib/mail/.*\.[cm]?[jt]s$'''
+tags = ["smtp", "credential", "thanelinc"]
