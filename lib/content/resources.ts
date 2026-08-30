@@ -179,7 +179,25 @@ export const resourceArticles: ResourceArticle[] = [
   },
 ];
 
-export const resources = {
+export interface ResourcesHomeContent {
+  eyebrow: string;
+  heading: string;
+  body: string;
+  items: Array<{
+    id: string;
+    category: string;
+    title: string;
+    body: string;
+    lastReviewed: string;
+    href: string;
+    image: { src: string; alt: string };
+    audience: string[];
+  }>;
+  categories: Array<{ id: string; label: string; detail: string; state: "live" | "coming-soon" }>;
+  cta: CtaLink;
+}
+
+export const resources: ResourcesHomeContent = {
   eyebrow: "Resources & Explainers",
   heading: "Clear guidance for the work in front of you.",
   body: "Practical explainers for compliance owners, with room for the articles, news and training updates that follow.",
@@ -191,11 +209,10 @@ export const resources = {
     lastReviewed: article.lastReviewed,
     href: `/resources/${article.slug}`,
     image: article.image,
+    audience: article.audience,
   })),
   categories: resourceKinds,
-  cta: { label: "Explore the resource library", href: "/resources", variant: "ghost" } satisfies CtaLink,
-} as const;
-
-export type ResourcesHomeContent = typeof resources;
+  cta: { label: "Explore the resource library", href: "/resources", variant: "ghost" },
+};
 
 export const resourceArticleBySlug = (slug: string) => resourceArticles.find((article) => article.slug === slug);

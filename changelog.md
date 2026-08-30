@@ -6,6 +6,55 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-08-27 · Homepage resource cards now come from Strapi
+
+The three Resources cards on the homepage rendered hardcoded `images.unsplash.com`
+URLs even though Strapi held the correct Cloudinary ones. Two gaps: the home
+populate query asked only for the resources section's `categories`, so `items`
+never came back, and `mapResourcesHeader` hardcoded `items: []`; and
+`Resources.tsx` ignored its own `content` prop for the cards, importing
+`resourceArticles` straight from `lib/content/resources.ts` — the AGENTS.md CMS
+seam violation that made the section un-CMS-able.
+
+`fetchHomeSections` now populates `items` (with a `[populate]=*` wildcard rather
+than naming fields — Strapi 400s on an unknown populate key, and a 400 is
+non-retryable, so naming a field the deployed CMS lacks would blank the whole
+page). `mapResourcesHeader` is renamed `mapResources` and maps the item list,
+running each image through `withCloudinaryTransform(url, 1200)` like the other
+image-bearing mappers. `Resources.tsx` passes `content.items` through.
+
+`ResourceCards` now takes a narrower `ResourceCardItem` prop rather than the full
+`ResourceArticle`, so the homepage can pass CMS items that carry no article body;
+`ResourceArticle` still satisfies it structurally, so the `/resources` callers are
+unchanged. The audience tag row renders only when tags are present.
+
+`cms/src/components/home/resource-item.json` gains a repeatable `audience` field
+(reusing `resources.audience-tag-item`). **Until that schema change is deployed and
+the three entries have their tags filled in via the admin, the homepage cards
+render without the tag row.** Source the labels from the `audience` arrays in
+`lib/content/resources.ts` — do not invent new ones.
+
+Still outstanding: `/resources` and `/resources/[slug]` continue to serve the
+Unsplash URLs from `lib/content/resources.ts`. Strapi already has a `resources`
+single type with a `library-section` holding `cards[].image`, so wiring that up is
+a self-contained follow-up.
+
+## 2026-08-27 · Homepage blank below the hero after the loader cleared
+
+`ScrollReveals` scanned for `.reveal` elements once on mount and observed only
+what existed at that moment. Since it was mounted as a sibling of the
+homepage's `Suspense` boundary, that scan ran while the `HomeLoading` fallback
+was still on screen — every section below the hero mounted afterwards, was
+never observed, never gained `.active`, and stayed at `opacity: 0`. The hero
+was unaffected because it drives its own `hero-entered` class.
+
+`ScrollReveals` now re-scans via a `MutationObserver` on `document.body`
+(rAF-coalesced) so late-mounting `.reveal` content is always picked up — this
+also covers the mega menu, the self-check tool and the sector/services
+directories — and honours `prefers-reduced-motion` by revealing everything
+immediately. `<ScrollReveals />` also moved inside `HomeContent` so the common
+path does not depend on the mutation fallback.
+
 ## 2026-08-25 · Self-check call-request email now includes the full stepper answers
 
 `app/api/self-check/call-request` previously only emailed phone/email/best-time

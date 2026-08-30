@@ -1,9 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ResourceArticle } from "@/lib/content/resources";
 import styles from "@/components/resources/resource-cards.module.css";
 
-export function ResourceCards({ articles, compact = false }: { articles: ResourceArticle[]; compact?: boolean }) {
+/**
+ * Only the fields a card actually renders. Narrower than `ResourceArticle` so
+ * the homepage can pass CMS-sourced items (which carry no article body) —
+ * `ResourceArticle` still satisfies it structurally, so the /resources callers
+ * pass their static articles unchanged.
+ */
+export interface ResourceCardItem {
+  slug: string;
+  kind: string;
+  title: string;
+  summary: string;
+  lastReviewed: string;
+  image: { src: string; alt: string };
+  audience: string[];
+}
+
+export function ResourceCards({ articles, compact = false }: { articles: ResourceCardItem[]; compact?: boolean }) {
   return (
     <div className={compact ? styles.compactGrid : styles.grid}>
       {articles.map((article) => (
@@ -15,7 +30,9 @@ export function ResourceCards({ articles, compact = false }: { articles: Resourc
             <div className={styles.meta}><span>{article.kind}</span><span>Reviewed {article.lastReviewed}</span></div>
             <h3><Link href={`/resources/${article.slug}`}>{article.title}<span aria-hidden>↗</span></Link></h3>
             <p>{article.summary}</p>
-            <div className={styles.tags}>{article.audience.map((audience) => <span key={audience}>{audience}</span>)}</div>
+            {article.audience.length > 0 && (
+              <div className={styles.tags}>{article.audience.map((audience) => <span key={audience}>{audience}</span>)}</div>
+            )}
           </div>
         </article>
       ))}

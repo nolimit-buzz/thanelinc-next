@@ -12,6 +12,7 @@ import { Services } from "@/components/v5/Services";
 import { SiteFooter } from "@/components/v5/SiteFooter";
 import { TrackRecord } from "@/components/v5/TrackRecord";
 import { resources } from "@/lib/content/resources";
+import { homeHeroReviewCopy, homeHeroReviewSlides } from "@/lib/content/homeHeroReview";
 import {
   defaultProblem,
   defaultSelfCheck,
@@ -21,6 +22,26 @@ import {
   defaultServices,
   defaultPreFooter,
 } from "@/lib/cms/defaultHomeContent";
+
+const heroContent = {
+  eyebrow: homeHeroReviewCopy.eyebrow,
+  headlinePrimary: homeHeroReviewCopy.headlinePrimary,
+  headlineLead: homeHeroReviewCopy.headlineLead,
+  headlineAccent: homeHeroReviewCopy.headlineAccent,
+  headlineSecondary: homeHeroReviewCopy.headlineSecondary,
+  lede: homeHeroReviewCopy.lede,
+  primaryCta: homeHeroReviewCopy.primaryCta,
+  primaryCtaCaption: homeHeroReviewCopy.primaryCtaCaption,
+  scrollLabel: "SCROLL DOWN",
+  slides: homeHeroReviewSlides.map((slide) => ({
+    id: slide.id,
+    title: slide.title,
+    eyebrow: slide.eyebrow,
+    description: slide.description,
+    image: slide.image,
+    cta: slide.cta,
+  })),
+};
 
 export const metadata: Metadata = {
   title: "Homepage Artwork Review",
@@ -33,7 +54,7 @@ export default function HomepageArtworkReviewPage() {
   return (
     <>
       <main id="view-home">
-        <HomeHeroArtworkReview />
+        <HomeHeroArtworkReview content={heroContent} />
         <Problem content={defaultProblem} />
         <SelfCheck content={defaultSelfCheck} />
         <SectorAccordion content={defaultSectorAccordion} />

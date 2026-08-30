@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { ResourcesHomeContent } from "@/lib/content/resources";
 import { ResourceCards } from "@/components/resources/ResourceCards";
-import { resourceArticles } from "@/lib/content/resources";
 import styles from "@/components/resources/resources-home.module.css";
 
 export function Resources({ content }: { content: ResourcesHomeContent }) {
@@ -27,7 +26,19 @@ export function Resources({ content }: { content: ResourcesHomeContent }) {
           ))}
         </div>
 
-        <div className="reveal delay-2"><ResourceCards articles={resourceArticles} /></div>
+        <div className="reveal delay-2">
+          <ResourceCards
+            articles={content.items.map((item) => ({
+              slug: item.id,
+              kind: item.category,
+              title: item.title,
+              summary: item.body,
+              lastReviewed: item.lastReviewed,
+              image: item.image,
+              audience: item.audience,
+            }))}
+          />
+        </div>
       </div>
     </section>
   );

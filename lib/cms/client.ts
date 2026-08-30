@@ -20,39 +20,77 @@ const HOME_POPULATE_QUERY = [
   "populate[sections][on][home.track-record-section][populate]=logos",
   "populate[sections][on][home.process-section][populate][steps][populate]=checklistRows",
   "populate[sections][on][home.services-section][populate][cards][populate]=chips",
-  "populate[sections][on][home.resources-section][populate]=categories",
+  "populate[sections][on][home.resources-section][populate][categories]=true",
+  // `[populate]=*` rather than naming `audience`: Strapi 400s on an unknown
+  // populate key, and naming a field the deployed CMS does not have yet would
+  // fail the whole home fetch (a 400 is non-retryable) and blank the page. The
+  // wildcard picks up audience once cms/src/components/home/resource-item.json
+  // is deployed, and is harmless before then.
+  "populate[sections][on][home.resources-section][populate][items][populate]=*",
   "populate[sections][on][home.pre-footer-section][populate]=*",
 ].join("&");
 
-export async function fetchHomeSections(): Promise<StrapiSection[] | null> {
-  try {
-    const headers: Record<string, string> = {};
-    if (process.env.STRAPI_API_TOKEN) {
-      headers.Authorization = `Bearer ${process.env.STRAPI_API_TOKEN}`;
-    }
+const MAX_ATTEMPTS = 3;
+const RETRY_DELAY_MS = [400, 900];
 
-    const response = await fetch(`${STRAPI_API_URL}/api/home?${HOME_POPULATE_QUERY}`, {
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// Only worth retrying when the failure looks transient (network blip, gateway
+// down mid-restart) — a 4xx is our own request's fault and won't change on retry.
+function isRetryableStatus(status: number) {
+  return status >= 500;
+}
+
+async function fetchHomeSectionsOnce(): Promise<{ ok: true; sections: StrapiSection[] } | { ok: false; retryable: boolean; reason: string }> {
+  const headers: Record<string, string> = {};
+  if (process.env.STRAPI_API_TOKEN) {
+    headers.Authorization = `Bearer ${process.env.STRAPI_API_TOKEN}`;
+  }
+
+  let response: Response;
+  try {
+    response = await fetch(`${STRAPI_API_URL}/api/home?${HOME_POPULATE_QUERY}`, {
       headers,
       cache: "no-store",
     });
-
-    if (!response.ok) {
-      console.log("[cms] home fetch failed, using fallback content", { status: response.status });
-      return null;
-    }
-
-    const json = await response.json();
-    const sections = json?.data?.sections;
-
-    if (!Array.isArray(sections)) {
-      console.log("[cms] home fetch returned no sections, using fallback content", { status: response.status, data: json?.data });
-      return null;
-    }
-
-    console.log("[cms] home fetch: live data", { status: response.status, sectionCount: sections.length });
-    return sections;
   } catch (error) {
-    console.log("[cms] home fetch threw, using fallback content", { error: error instanceof Error ? error.message : error });
-    return null;
+    return { ok: false, retryable: true, reason: error instanceof Error ? error.message : String(error) };
   }
+
+  if (!response.ok) {
+    return { ok: false, retryable: isRetryableStatus(response.status), reason: `status ${response.status}` };
+  }
+
+  const json = await response.json();
+  const sections = json?.data?.sections;
+
+  if (!Array.isArray(sections)) {
+    return { ok: false, retryable: false, reason: "response had no sections array" };
+  }
+
+  return { ok: true, sections };
+}
+
+export async function fetchHomeSections(): Promise<StrapiSection[] | null> {
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    const result = await fetchHomeSectionsOnce();
+
+    if (result.ok) {
+      console.log("[cms] home fetch: live data", { attempt, sectionCount: result.sections.length });
+      return result.sections;
+    }
+
+    const isLastAttempt = attempt === MAX_ATTEMPTS;
+    if (!result.retryable || isLastAttempt) {
+      console.log("[cms] home fetch failed, sections omitted", { attempt, reason: result.reason });
+      return null;
+    }
+
+    console.log("[cms] home fetch attempt failed, retrying", { attempt, reason: result.reason });
+    await sleep(RETRY_DELAY_MS[attempt - 1]);
+  }
+
+  return null;
 }
