@@ -6,6 +6,73 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-09-02 · /services and its eight service pages now read from the CMS
+
+The homepage already fetched its copy from Strapi; the services directory and all
+eight service detail pages still rendered the hardcoded modules in
+`lib/content/services*`, even though the CMS side was fully built and seeded
+(`services` plus the eight detail single types, each a `sections` dynamiczone).
+This closes that gap using the same pattern, so the client can edit service copy
+without a deploy.
+
+`lib/cms/client.ts` keeps its retry semantics (3 attempts, 5xx/network only —
+a 4xx is our own request's fault and would blank the page) but the loop is now a
+shared `fetchSections(endpoint, populateQuery)`. `fetchHomeSections()` is
+unchanged for callers; `fetchServicesSections()` and
+`fetchServiceDetailSections(slug)` join it. The eight detail types share one
+five-component shape and differ only in namespace — which equals the endpoint
+name — so one query builder and one mapper (`lib/cms/mapServiceDetail.ts`) cover
+all eight. `lib/cms/mapServices.ts` maps the directory page.
+
+`ServicesDirectory` previously imported its five content modules directly,
+against the rule that components take content as props; it now takes a single
+`content` object. The nine pages are async server components wrapped in Suspense
+with **no fallback copy** — a failed fetch renders `ContentUnavailable`, matching
+the homepage. Stale compliance copy is worse than none.
+
+New CMS components `services.service-card-item` and `services.bullet-item`, added
+to `services.directory-group-item` as `cards`, so the eight directory rows
+(including each one's deliverable and turnaround, W-005) are editable too.
+`slugs` stays on the group for backward compatibility.
+
+`lib/content/servicesIndex.ts` and `lib/content/services/*.ts` are retained but
+no longer rendered: `lib/content/navigation.ts` and `lib/content/searchIndex.ts`
+build their indexes synchronously and cannot await a fetch, so the `services`
+array still feeds the menu and site search. A service added or renamed in Strapi
+must be mirrored there or the two will drift.
+
+The Public role's missing `find` permission on `data-mapping-ropa`,
+`compliance-audit-filing` and `ongoing-monitoring` (403 on those three) was
+granted in the Strapi admin; all nine routes now render live copy.
+
+Known follow-up: the seeded CMS copy for NDPC Registration still describes
+filing Compliance Audit Returns, wording the local module had dropped — it now
+renders again and needs correcting in the admin. Compliance Audit & Filing's
+CMS subhead is likewise looser than the local copy ("filed through a licensed
+DPCO" vs "prepared and verified by a licensed DPCO before filing").
+
+## 2026-09-02 · lib/mail/config.test.ts rewritten to match the implemented module
+
+The test imported `getMailConfig` — a validating, lazily-evaluated function that
+does not exist and appears never to have shipped; `config.ts` exports a
+`mailConfig` const. This failed `tsc`, so `npm run build` had been broken on
+main.
+
+Fixed by correcting the test, not the module, because the module's design is
+deliberate: validation lives in `sendMail.ts`'s `assertMailEnv()` at send time
+precisely so that importing the config cannot throw during `next build` in an
+environment without a full env file — the comment there says so. The stale test
+also asserted `SMTP_PORT=465`/`secure=true` as the valid configuration, which is
+the blocked implicit-TLS port that fails as a 20s ETIMEDOUT; the working setup is
+587 + STARTTLS.
+
+The test now covers what the module actually does: reading each variable, the
+587 port default, `SMTP_SECURE` being true only for the exact string `"true"`,
+and the empty-string fallbacks. Since `mailConfig` reads `process.env` once at
+module evaluation, each case re-imports it via `vi.resetModules()` against a
+fresh environment, restoring any pre-existing values afterwards. No runtime
+behaviour changed.
+
 ## 2026-09-02 · SMTP and Strapi URL moved from source into environment variables
 
 `lib/mail/config.ts` held the SMTP host, user and **plaintext password**, and

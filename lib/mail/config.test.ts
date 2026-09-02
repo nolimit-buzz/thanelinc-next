@@ -1,43 +1,92 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { getMailConfig } from "./config";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const REQUIRED_VARS = ["SMTP_HOST", "SMTP_PORT", "SMTP_SECURE", "SMTP_USER", "SMTP_PASSWORD", "MAIL_TO"] as const;
-const VALID_ENV: Record<(typeof REQUIRED_VARS)[number], string> = {
-  SMTP_HOST: "mail.thanelinc.ng",
-  SMTP_PORT: "465",
-  SMTP_SECURE: "true",
-  SMTP_USER: "noreply@thanelinc.ng",
-  SMTP_PASSWORD: "test-password",
-  MAIL_TO: "info@thanelinc.ng",
-};
+const MAIL_VARS = [
+  "SMTP_HOST",
+  "SMTP_PORT",
+  "SMTP_SECURE",
+  "SMTP_USER",
+  "SMTP_PASSWORD",
+  "MAIL_TO",
+  "MAIL_COPY_TO",
+] as const;
+
+/**
+ * `mailConfig` reads `process.env` once, when the module is first evaluated, so
+ * each case has to re-import it against a fresh environment.
+ *
+ * Note what is deliberately NOT tested here: the module does not validate. It
+ * falls back to empty strings and `sendMail.ts` checks for them at send time —
+ * see the comment on `assertMailEnv`. Throwing at module load would fail
+ * `next build` in any environment without a full env file.
+ */
+async function loadConfig() {
+  vi.resetModules();
+  return (await import("./config")).mailConfig;
+}
+
+const originalEnv: Partial<Record<(typeof MAIL_VARS)[number], string | undefined>> = {};
 
 beforeEach(() => {
-  for (const key of REQUIRED_VARS) process.env[key] = VALID_ENV[key];
+  for (const key of MAIL_VARS) {
+    originalEnv[key] = process.env[key];
+    delete process.env[key];
+  }
 });
 
 afterEach(() => {
-  for (const key of REQUIRED_VARS) delete process.env[key];
+  for (const key of MAIL_VARS) {
+    const value = originalEnv[key];
+    if (value === undefined) delete process.env[key];
+    else process.env[key] = value;
+  }
 });
 
-describe("getMailConfig", () => {
-  it("reads a complete, valid config from the environment", () => {
-    expect(getMailConfig()).toEqual({
+describe("mailConfig", () => {
+  it("reads a complete config from the environment", async () => {
+    // 587 + STARTTLS, not 465: the implicit-TLS port is blocked on this host and
+    // fails as a 20s ETIMEDOUT.
+    Object.assign(process.env, {
+      SMTP_HOST: "mail.thanelinc.ng",
+      SMTP_PORT: "587",
+      SMTP_SECURE: "false",
+      SMTP_USER: "noreply@thanelinc.ng",
+      SMTP_PASSWORD: "test-password",
+      MAIL_TO: "info@thanelinc.ng",
+      MAIL_COPY_TO: "archive@thanelinc.ng",
+    });
+
+    await expect(loadConfig()).resolves.toEqual({
       smtpHost: "mail.thanelinc.ng",
-      smtpPort: 465,
-      smtpSecure: true,
+      smtpPort: 587,
+      smtpSecure: false,
       smtpUser: "noreply@thanelinc.ng",
       smtpPassword: "test-password",
       mailTo: "info@thanelinc.ng",
+      mailCopyTo: "archive@thanelinc.ng",
     });
   });
 
-  it.each(REQUIRED_VARS)("throws a clear error when %s is missing", (missingKey) => {
-    delete process.env[missingKey];
-    expect(() => getMailConfig()).toThrow(`Missing required environment variable: ${missingKey}`);
+  it("defaults the port to 587 when SMTP_PORT is unset", async () => {
+    await expect(loadConfig()).resolves.toMatchObject({ smtpPort: 587 });
   });
 
-  it.each(REQUIRED_VARS)("throws when %s is an empty string", (blankKey) => {
-    process.env[blankKey] = "";
-    expect(() => getMailConfig()).toThrow(`Missing required environment variable: ${blankKey}`);
+  it("treats SMTP_SECURE as true only for the exact string 'true'", async () => {
+    process.env.SMTP_SECURE = "TRUE";
+    await expect(loadConfig()).resolves.toMatchObject({ smtpSecure: false });
+
+    process.env.SMTP_SECURE = "true";
+    await expect(loadConfig()).resolves.toMatchObject({ smtpSecure: true });
+  });
+
+  it("falls back to empty strings rather than throwing when nothing is set", async () => {
+    await expect(loadConfig()).resolves.toEqual({
+      smtpHost: "",
+      smtpPort: 587,
+      smtpSecure: false,
+      smtpUser: "",
+      smtpPassword: "",
+      mailTo: "",
+      mailCopyTo: "",
+    });
   });
 });

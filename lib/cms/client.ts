@@ -1,5 +1,6 @@
-// Minimal Strapi 5 fetch layer for the homepage (`home` single type). The `home`
-// single type's find permission is public, so this sends no credentials.
+// Minimal Strapi 5 fetch layer. Every single type read here (`home`, `services`,
+// and the eight service detail types) has a public find permission, so this
+// sends no credentials.
 
 import { STRAPI_API_URL } from "@/lib/config/site-config";
 
@@ -30,6 +31,16 @@ const HOME_POPULATE_QUERY = [
   "populate[sections][on][home.pre-footer-section][populate]=*",
 ].join("&");
 
+// Same one-level-of-populate limit as the homepage: metrics, cards, groups and
+// the bullets nested inside each directory card each need their own `on` path.
+const SERVICES_POPULATE_QUERY = [
+  "populate[sections][on][services.hero-section][populate]=metrics",
+  "populate[sections][on][services.problem-section][populate]=cards",
+  "populate[sections][on][services.directory-section][populate][groups][populate][cards][populate]=bullets",
+  "populate[sections][on][services.audience-section][populate]=cards",
+  "populate[sections][on][services.closing-cta-section][populate]=*",
+].join("&");
+
 const MAX_ATTEMPTS = 3;
 const RETRY_DELAY_MS = [400, 900];
 
@@ -43,10 +54,13 @@ function isRetryableStatus(status: number) {
   return status >= 500;
 }
 
-async function fetchHomeSectionsOnce(): Promise<{ ok: true; sections: StrapiSection[] } | { ok: false; retryable: boolean; reason: string }> {
+async function fetchSectionsOnce(
+  endpoint: string,
+  populateQuery: string,
+): Promise<{ ok: true; sections: StrapiSection[] } | { ok: false; retryable: boolean; reason: string }> {
   let response: Response;
   try {
-    response = await fetch(`${STRAPI_API_URL}/api/home?${HOME_POPULATE_QUERY}`, {
+    response = await fetch(`${STRAPI_API_URL}/api/${endpoint}?${populateQuery}`, {
       cache: "no-store",
     });
   } catch (error) {
@@ -67,24 +81,62 @@ async function fetchHomeSectionsOnce(): Promise<{ ok: true; sections: StrapiSect
   return { ok: true, sections };
 }
 
-export async function fetchHomeSections(): Promise<StrapiSection[] | null> {
+async function fetchSections(endpoint: string, populateQuery: string): Promise<StrapiSection[] | null> {
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    const result = await fetchHomeSectionsOnce();
+    const result = await fetchSectionsOnce(endpoint, populateQuery);
 
     if (result.ok) {
-      console.log("[cms] home fetch: live data", { attempt, sectionCount: result.sections.length });
+      console.log(`[cms] ${endpoint} fetch: live data`, { attempt, sectionCount: result.sections.length });
       return result.sections;
     }
 
     const isLastAttempt = attempt === MAX_ATTEMPTS;
     if (!result.retryable || isLastAttempt) {
-      console.log("[cms] home fetch failed, sections omitted", { attempt, reason: result.reason });
+      console.log(`[cms] ${endpoint} fetch failed, sections omitted`, { attempt, reason: result.reason });
       return null;
     }
 
-    console.log("[cms] home fetch attempt failed, retrying", { attempt, reason: result.reason });
+    console.log(`[cms] ${endpoint} fetch attempt failed, retrying`, { attempt, reason: result.reason });
     await sleep(RETRY_DELAY_MS[attempt - 1]);
   }
 
   return null;
+}
+
+export async function fetchHomeSections(): Promise<StrapiSection[] | null> {
+  return fetchSections("home", HOME_POPULATE_QUERY);
+}
+
+export async function fetchServicesSections(): Promise<StrapiSection[] | null> {
+  return fetchSections("services", SERVICES_POPULATE_QUERY);
+}
+
+/**
+ * The eight service detail single types share an identical five-component shape,
+ * differing only in their component namespace — which is the same string as the
+ * API endpoint in every case. So one query builder covers all of them.
+ */
+export type ServiceDetailSlug =
+  | "ndpc-registration"
+  | "data-mapping-ropa"
+  | "gap-assessment-dpia"
+  | "policies-remediation"
+  | "outsourced-dpo"
+  | "compliance-audit-filing"
+  | "ongoing-monitoring"
+  | "breach-response";
+
+function serviceDetailPopulateQuery(namespace: ServiceDetailSlug) {
+  return [
+    `populate[sections][on][${namespace}.hero-section][populate]=*`,
+    `populate[sections][on][${namespace}.banner-hero-section][populate]=features`,
+    `populate[sections][on][${namespace}.what-you-get-section][populate]=*`,
+    `populate[sections][on][${namespace}.narrative-section][populate][bodyBlocks][populate]=*`,
+    `populate[sections][on][${namespace}.narrative-section][populate][whoThisIsFor]=true`,
+    `populate[sections][on][${namespace}.closing-cta-section][populate]=*`,
+  ].join("&");
+}
+
+export async function fetchServiceDetailSections(slug: ServiceDetailSlug): Promise<StrapiSection[] | null> {
+  return fetchSections(slug, serviceDetailPopulateQuery(slug));
 }
