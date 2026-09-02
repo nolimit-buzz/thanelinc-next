@@ -1,5 +1,5 @@
-// Minimal Strapi 5 fetch layer for the homepage (`home` single type). Server-only —
-// STRAPI_API_TOKEN must never be prefixed with NEXT_PUBLIC_.
+// Minimal Strapi 5 fetch layer for the homepage (`home` single type). The `home`
+// single type's find permission is public, so this sends no credentials.
 
 import { STRAPI_API_URL } from "@/lib/config/site-config";
 
@@ -44,15 +44,9 @@ function isRetryableStatus(status: number) {
 }
 
 async function fetchHomeSectionsOnce(): Promise<{ ok: true; sections: StrapiSection[] } | { ok: false; retryable: boolean; reason: string }> {
-  const headers: Record<string, string> = {};
-  if (process.env.STRAPI_API_TOKEN) {
-    headers.Authorization = `Bearer ${process.env.STRAPI_API_TOKEN}`;
-  }
-
   let response: Response;
   try {
     response = await fetch(`${STRAPI_API_URL}/api/home?${HOME_POPULATE_QUERY}`, {
-      headers,
       cache: "no-store",
     });
   } catch (error) {

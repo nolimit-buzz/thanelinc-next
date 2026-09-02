@@ -66,9 +66,11 @@ export async function POST(request: Request) {
 
   try {
     await sendMail({
+      type: "self-check",
       subject: "Self-check — call request",
       text,
       replyTo: email,
+      payload: { phone, email, bestTime, category, mandatoryFiling, answers },
     });
   } catch (error) {
     console.error("Failed to send call-request email", error);

@@ -6,6 +6,98 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-09-02 · Every website email now copies noreply@thanelinc.ng
+
+The client wants a mailbox-level record of site email that does not depend on
+Strapi being up or reachable. `lib/mail/config.ts` gains `mailCopyTo`
+(`noreply@thanelinc.ng`, the account the site authenticates as); `sendMail`
+passes it as **BCC** on every send. Set `mailCopyTo` to `""` to switch the copy
+off.
+
+BCC rather than CC is deliberate: `replyTo` carries the *visitor's* address, so a
+"Reply All" from `info@` on a CC'd message would also fire a reply into the
+unattended `noreply@` inbox. BCC delivers the same copy with no reply-path
+effect.
+
+Both senders (`app/api/contact`, `app/api/self-check/call-request`) route through
+`sendMail`, so neither route changed. The archive's `to` field now records every
+recipient (`info@thanelinc.ng, noreply@thanelinc.ng`) so the log reflects what
+was actually sent, and the existing `accepted`/`rejected` check covers the copy
+address for free — a rejected copy fails the submission rather than passing
+silently.
+
+**Not yet verified against the live server:** `mail.thanelinc.ng` began refusing
+to send its SMTP greeting part-way through testing (TCP connects, then a 30s
+`ETIMEDOUT` on `CONN`) after roughly five connections in a few minutes — almost
+certainly the host's per-IP connection throttle, cPanel/cPHulk. `npm run lint`
+and `npm run build` pass, but the two-recipient send needs one confirming run of
+`npx tsx scripts/mail-check.ts` once the throttle clears.
+
+---
+
+## 2026-09-02 · Contact form reported success blind — SMTP result is now recorded
+
+`POST /api/contact` returned `{ ok: true }` while the visitor's message did not
+arrive, and nothing in the logs could say why: `sendMail` discarded nodemailer's
+result object, so the only signal was "no exception thrown". That is weaker than
+it looks — nodemailer resolves once the server accepts the DATA command, which
+does not mean every recipient was accepted.
+
+`lib/mail/sendMail.ts` now captures the result, logs
+`{ messageId, accepted, rejected, response }`, and treats a non-empty `rejected`
+(or an empty `accepted`) as a failure — logged to Strapi with `status: "failed"`
+and thrown, so the route returns 502 instead of a false 200. The `email-log`
+schema gains optional `messageId` and `smtpResponse` fields so the archive keeps
+the server's own answer. The `From` header now carries a display name
+("Thanelinc Website"), since a bare `noreply@` address is a common spam
+heuristic on a same-domain send.
+
+`scripts/mail-check.ts` is a standalone diagnostic (`npx tsx
+scripts/mail-check.ts [recipient]`) that runs `transporter.verify()` and sends
+one test message with the full SMTP transcript printed — it isolates a mail
+problem from an app problem without going through Next.
+
+Result of running it: `mail.thanelinc.ng` (Exim on wghp10.wghservers.com)
+authenticates, accepts the recipient, and returns
+`250 OK id=1x1mUR-00000008N3B-1Sb3` — a real queue ID. The application side is
+working; anything missing after that point is mailbox/server-side delivery.
+
+The Strapi 403 on `POST /api/email-logs` was the Public role lacking `create` on
+`email-log`; that permission is now enabled. **Note for deployment: it must be
+set on the client's instance too, and a scoped API token would be safer than a
+public write permission.**
+
+---
+
+## 2026-09-02 · Email sending moved back to the frontend; Strapi keeps the archive
+
+Sending had been routed through a Strapi `/api/mail/send` endpoint, which put an
+API token in front of every form submission and left delivery dependent on a
+Strapi email provider that was never configured. `lib/mail/sendMail.ts` now sends
+directly over SMTP with `nodemailer` (already a dependency) using
+`lib/mail/config.ts`, as it did before.
+
+Strapi's role is now the archive, not the sender: after each send — success or
+failure — `sendMail` POSTs a copy to the `email-logs` collection
+(`type, to, from, replyTo, subject, body, payload, status, error, sentAt`). That
+write is best-effort and logged on failure, so a CMS outage cannot turn a
+delivered email into a 502 for the visitor. Both callers
+(`app/api/contact`, `app/api/self-check/call-request`) now pass `type` and a
+structured `payload`.
+
+`cms/src/api/mail` (and its `dist` build) is deleted. `cms/src/api/email-log` now
+has real TypeScript sources — schema, core controller/routes/service — where
+before only compiled output existed.
+
+`lib/cms/client.ts` no longer sends an `Authorization` header on the home fetch:
+that content is public, so `STRAPI_API_TOKEN` is gone from the frontend entirely.
+
+**Manual step:** in Strapi → Settings → Users & Permissions → Roles → Public,
+enable `create` on `email-log` (leave `find`/`findOne` off — the archive is
+admin-only).
+
+---
+
 ## 2026-08-27 · Homepage resource cards now come from Strapi
 
 The three Resources cards on the homepage rendered hardcoded `images.unsplash.com`

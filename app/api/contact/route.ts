@@ -37,9 +37,11 @@ export async function POST(request: Request) {
 
   try {
     await sendMail({
+      type: "contact",
       subject: `Contact form — ${reason}`,
       text,
       replyTo: email,
+      payload: { reason, name, organisation, email, phone, message },
     });
   } catch (error) {
     console.error("Failed to send contact form email", error);
