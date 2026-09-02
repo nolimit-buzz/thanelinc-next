@@ -10,8 +10,8 @@ export const contact = {
   channels: [
     {
       label: "Email",
-      value: "info@thanelinc.com",
-      href: "mailto:info@thanelinc.com",
+      value: "info@thanelinc.ng",
+      href: "mailto:info@thanelinc.ng",
       note: "For proposals and general enquiries.",
     },
     {
@@ -47,6 +47,8 @@ export const contact = {
     ],
     submitLabel: "Send message",
     deliveryNote: "We'll reply to the email address you provide.",
-    subject: "Proposal request from thanelinc.com",
+    consentLabel: "I agree to the",
+    privacyLink: { label: "Privacy Policy", href: "/privacy" },
+    subject: "Proposal request from thanelinc.ng",
   },
 } as const;

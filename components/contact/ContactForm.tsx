@@ -1,12 +1,16 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { contact } from "@/lib/content/contact";
 import styles from "@/components/contact/contact.module.css";
+import { trackEvent } from "@/lib/consent/track";
 
 export function ContactForm() {
   const [status, setStatus] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
+  const [submittedAt, setSubmittedAt] = useState(() => Date.now());
 
   async function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -19,6 +23,9 @@ export function ContactForm() {
       email: String(form.get("email") ?? ""),
       phone: String(form.get("phone") ?? ""),
       message: String(form.get("message") ?? ""),
+      website: String(form.get("website") ?? ""),
+      consent: privacyConsent,
+      submittedAt,
     };
 
     setSubmitting(true);
@@ -34,9 +41,12 @@ export function ContactForm() {
         throw new Error(result.error ?? "Failed to send message");
       }
       setStatus("Thanks — your message has been sent. We'll be in touch.");
+      trackEvent("contact_submit", { reason: payload.reason });
       currentForm.reset();
+      setSubmittedAt(Date.now());
     } catch {
       setStatus("Something went wrong sending your message. Please try again or email us directly.");
+      setSubmittedAt(Date.now());
     } finally {
       setSubmitting(false);
     }
@@ -56,29 +66,50 @@ export function ContactForm() {
       <div className={styles.fieldRow}>
         <label className={styles.field}>
           <span className={styles.label}>Full name</span>
-          <input className={styles.input} required name="name" autoComplete="name" />
+          <input className={styles.input} required maxLength={120} name="name" autoComplete="name" />
         </label>
         <label className={styles.field}>
           <span className={styles.label}>Organisation</span>
-          <input className={styles.input} required name="organisation" autoComplete="organization" />
+          <input className={styles.input} required maxLength={160} name="organisation" autoComplete="organization" />
         </label>
       </div>
       <div className={styles.fieldRow}>
         <label className={styles.field}>
           <span className={styles.label}>Email</span>
-          <input className={styles.input} required name="email" type="email" autoComplete="email" />
+          <input className={styles.input} required maxLength={254} name="email" type="email" autoComplete="email" />
         </label>
         <label className={styles.field}>
           <span className={styles.label}>Phone number (optional)</span>
-          <input className={styles.input} name="phone" type="tel" autoComplete="tel" />
+          <input className={styles.input} maxLength={40} name="phone" type="tel" autoComplete="tel" />
         </label>
       </div>
       <label className={styles.field}>
         <span className={styles.label}>What do you need?</span>
-        <textarea className={`${styles.input} ${styles.textarea}`} required name="message" />
+        <textarea className={`${styles.input} ${styles.textarea}`} required maxLength={4000} name="message" />
       </label>
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-10000px", width: "1px", height: "1px" }}
+      />
       <p className={styles.deliveryNote}>{contact.form.deliveryNote}</p>
-      <button type="submit" className="btn-architectural-cta" disabled={submitting}>
+      <label style={{ display: "flex", alignItems: "flex-start", gap: "8px", cursor: "pointer" }}>
+        <input
+          type="checkbox"
+          required
+          checked={privacyConsent}
+          onChange={(event) => setPrivacyConsent(event.target.checked)}
+          style={{ marginTop: "4px" }}
+        />
+        <span className={styles.deliveryNote} style={{ margin: 0 }}>
+          {contact.form.consentLabel}{" "}
+          <Link href={contact.form.privacyLink.href}>{contact.form.privacyLink.label}</Link>.
+        </span>
+      </label>
+      <button type="submit" className="btn-architectural-cta" disabled={submitting || !privacyConsent}>
         <span className="btn-arch-label">{contact.form.submitLabel}</span>
         <span className="btn-arch-arrow">→</span>
       </button>

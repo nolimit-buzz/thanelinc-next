@@ -49,7 +49,7 @@ export const legalDocuments: LegalDocumentContent[] = [
         title: "Information you may provide",
         paragraphs: [
           "When you submit a contact, consultation or call-back request, the production website will collect the fields you provide. These may include your name, organisation, email address, telephone number, reason for contacting us, preferred contact time and message.",
-          "The ‘Am I Covered?’ self-check calculates a result in your browser. If you choose to submit a follow-up request, the production website will send only the contact details and request details needed to respond through an approved backend. The self-check result should not be submitted unless that purpose is clearly shown at the point of collection.",
+          "The ‘Am I Covered?’ self-check calculates a result in your browser. If you choose to submit a follow-up request, the production website will send your six self-check answers and the category calculated from them, together with your phone number, email address and preferred contact time. This purpose is shown at the point of collection so Thanelinc can route and prepare for the requested conversation.",
         ],
       },
       {
@@ -76,7 +76,7 @@ export const legalDocuments: LegalDocumentContent[] = [
         title: "Questions and data-rights requests",
         paragraphs: [
           "Depending on the circumstances and applicable law, you may ask about the personal information Thanelinc holds about you or request that inaccurate information be corrected. You may also raise a concern about how your information is handled.",
-          "To make a request, email info@thanelinc.com with ‘Privacy request’ in the subject line. Thanelinc may need enough information to confirm your identity and understand the request before responding.",
+          "To make a request, email info@thanelinc.ng with ‘Privacy request’ in the subject line. Thanelinc may need enough information to confirm your identity and understand the request before responding.",
         ],
         links: [{ label: "Nigeria Data Protection Commission: Data Subject Access Request guidance", href: "https://forms.ndpc.gov.ng/dsar-request/" }],
       },
@@ -106,7 +106,7 @@ export const legalDocuments: LegalDocumentContent[] = [
     title: "Cookie Policy",
     summary: "A clear, current view of the cookies and similar technologies used on this website.",
     updated: "23 August 2026",
-    draftNotice: "Operational draft for CDPO and legal review. It must be updated before optional analytics, advertising or third-party tracking tools are introduced, or if the approved submission backend adds cookies beyond essential security controls.",
+    draftNotice: "Operational draft for CDPO and legal review. The site now offers optional, cookieless analytics behind an on-site consent choice, described below — this section needs CDPO confirmation before being treated as final. It must be updated again before advertising or third-party tracking tools are introduced, or if the approved submission backend adds cookies beyond essential security controls.",
     sections: [
       {
         id: "scope",
@@ -121,7 +121,8 @@ export const legalDocuments: LegalDocumentContent[] = [
         label: "02 — Current use",
         title: "The current website position",
         paragraphs: [
-          "At the date above, the public website code does not include optional analytics, advertising or social-media tracking cookies. It does not use a consent banner because no optional tracking tool has been configured in this implementation.",
+          "This website offers optional, cookieless analytics (Vercel Web Analytics) to understand aggregate visitor traffic. It does not use tracking cookies, does not build cross-site or individual visitor profiles, and does not include advertising or social-media tracking of any kind.",
+          "Analytics is off by default. It only activates after you choose “Allow analytics” in the banner shown on your first visit; choosing “Necessary only” keeps it off. Your choice is stored on your own device and can be changed at any time by clearing your browser's local storage for this site.",
           "Hosting, security, browser functionality, or the approved form-submission backend may use strictly necessary technical storage to deliver and protect the website. These functions are not used by Thanelinc to build an advertising profile.",
         ],
       },
@@ -139,7 +140,7 @@ export const legalDocuments: LegalDocumentContent[] = [
         label: "04 — Contact",
         title: "Questions about this policy",
         paragraphs: [
-          "For questions about the website’s use of cookies or similar technologies, email info@thanelinc.com with ‘Cookie policy’ in the subject line.",
+          "For questions about the website’s use of cookies or similar technologies, email info@thanelinc.ng with ‘Cookie policy’ in the subject line.",
         ],
       },
     ],
@@ -199,7 +200,7 @@ export const legalDocuments: LegalDocumentContent[] = [
         label: "06 — Contact",
         title: "Questions about these terms",
         paragraphs: [
-          "For a question about these website terms, email info@thanelinc.com with ‘Website terms’ in the subject line.",
+          "For a question about these website terms, email info@thanelinc.ng with ‘Website terms’ in the subject line.",
         ],
       },
     ],
