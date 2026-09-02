@@ -1,11 +1,9 @@
-
-
 export const mailConfig = {
-  smtpHost: "mail.thanelinc.ng",
-  smtpPort: 587,
-  smtpSecure: false,
-  smtpUser: "noreply@thanelinc.ng",
-  smtpPassword: "y9[D~Kb88DQUe^,F",
-  mailTo: "info@thanelinc.ng",
-  mailCopyTo: "noreply@thanelinc.ng",
+  smtpHost: process.env.SMTP_HOST ?? "",
+  smtpPort: Number(process.env.SMTP_PORT ?? 587),
+  smtpSecure: process.env.SMTP_SECURE === "true",
+  smtpUser: process.env.SMTP_USER ?? "",
+  smtpPassword: process.env.SMTP_PASSWORD ?? "",
+  mailTo: process.env.MAIL_TO ?? "",
+  mailCopyTo: process.env.MAIL_COPY_TO ?? "",
 };

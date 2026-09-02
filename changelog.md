@@ -6,6 +6,53 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-09-02 · SMTP and Strapi URL moved from source into environment variables
+
+`lib/mail/config.ts` held the SMTP host, user and **plaintext password**, and
+`lib/config/site-config.ts` held `STRAPI_API_URL` with the production URL sitting
+commented out above it — so switching environments meant editing tracked source,
+which is how a `localhost` CMS URL reaches production. Both files were hardcoded
+deliberately (the deploy target could not take env vars at the time) and both
+carried comments asking for exactly this reversal. The CMS now deploys via
+Dokploy with a full env set, so the blocker is gone.
+
+Both modules now read `process.env`, keeping their existing export names and
+shapes, so no consumer changed. Every consumer is server-side (`lib/cms/client.ts`,
+`lib/mail/sendMail.ts`; `app/page.tsx` is a server component and `lib/cms/mapHome.ts`
+imports only a type), so **none of these vars take a `NEXT_PUBLIC_` prefix** —
+that is what keeps `SMTP_PASSWORD` out of the client bundle.
+
+New vars: `STRAPI_API_URL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`,
+`SMTP_PASSWORD`, `MAIL_TO`, `MAIL_COPY_TO`. **All must be set on the deploy
+target.** `.env.local.example` is rewritten to match — it previously advertised
+`SMTP_PORT=465` / `SMTP_SECURE=true`, both wrong: 465 is the blocked port that
+fails as a 20s ETIMEDOUT, the working config is 587 + STARTTLS. The dead
+`STRAPI_API_TOKEN` is dropped (no code reference since the home fetch stopped
+sending an auth header).
+
+Two deliberate choices about failure behaviour:
+
+- `STRAPI_API_URL` falls back to `http://localhost:1346` rather than throwing.
+  The module is evaluated while prerendering `app/page.tsx`, so a throw would
+  break `next build` in any environment without a full env file — the trap
+  `cms/config/database.ts` documents in its "do not add a guard here" comment.
+  Verified: `npm run build` still succeeds with `.env.local` renamed away.
+- The SMTP vars are validated lazily in `sendMail`'s `getTransporter()`, which
+  throws naming each missing variable
+  (`[mail] missing required environment variables: SMTP_HOST, SMTP_PASSWORD`).
+  Module-load validation would fail the build for the same reason. An empty
+  password would otherwise surface as an opaque SMTP auth rejection.
+
+`scripts/mail-check.ts` now needs `npx tsx --env-file=.env.local
+scripts/mail-check.ts` — tsx, unlike Next, does not load `.env.local` on its own.
+
+Also confirms the previous entry's outstanding check: the run showed two
+`RCPT TO:` lines both answered `250 Accepted`, `accepted: ['info@thanelinc.ng',
+'noreply@thanelinc.ng']`, `rejected: []`, queue id `1x1nIz-00000009cRy-460i`. The
+BCC copy works.
+
+---
+
 ## 2026-09-02 · Every website email now copies noreply@thanelinc.ng
 
 The client wants a mailbox-level record of site email that does not depend on

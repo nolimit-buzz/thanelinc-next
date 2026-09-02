@@ -11,7 +11,30 @@ export type MailType = "contact" | "self-check";
 
 let transporter: nodemailer.Transporter | null = null;
 
+// Checked here rather than at module load: this file is imported while `next build`
+// compiles the API routes, and throwing there would fail the build in any
+// environment without a full env file. Naming the missing variables matters — an
+// empty SMTP_PASSWORD otherwise surfaces as an opaque SMTP auth rejection.
+function assertMailEnv() {
+  const missing = (
+    [
+      ["SMTP_HOST", mailConfig.smtpHost],
+      ["SMTP_USER", mailConfig.smtpUser],
+      ["SMTP_PASSWORD", mailConfig.smtpPassword],
+      ["MAIL_TO", mailConfig.mailTo],
+    ] as const
+  )
+    .filter(([, value]) => !value)
+    .map(([name]) => name);
+
+  if (missing.length > 0) {
+    throw new Error(`[mail] missing required environment variables: ${missing.join(", ")}`);
+  }
+}
+
 function getTransporter() {
+  assertMailEnv();
+
   if (!transporter) {
     transporter = nodemailer.createTransport({
       host: mailConfig.smtpHost,

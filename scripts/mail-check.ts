@@ -1,7 +1,10 @@
 // Standalone SMTP diagnostic — run outside Next.js so a mail problem can be
 // separated from an app problem:
 //
-//   npx tsx scripts/mail-check.ts [recipient]
+//   npx tsx --env-file=.env.local scripts/mail-check.ts [recipient]
+//
+// --env-file is required: the SMTP settings come from the environment, and tsx
+// (unlike Next) does not load .env.local on its own.
 //
 // It verifies the connection/auth, then sends one test message with the full
 // SMTP conversation printed. Read the final `250` line: a server that says
