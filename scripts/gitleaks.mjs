@@ -37,9 +37,21 @@ async function ensureBinary() {
   }
 
   writeFileSync(archivePath, archive);
-  execFileSync("tar", ["-xzf", archivePath, "-C", toolDir, "gitleaks"], { stdio: "inherit" });
+  // The Windows artifact is a .zip holding gitleaks.exe; every other platform ships
+  // a .tar.gz holding gitleaks. `-xf` (no `-z`) lets tar sniff the format, so the
+  // same call handles both — bsdtar, which Windows 10+ bundles, reads zip natively.
+  const member = process.platform === "win32" ? "gitleaks.exe" : "gitleaks";
+  // Not bare "tar" on Windows: the hook runs under Git Bash, whose GNU tar is first
+  // on PATH, reads "C:\..." as a remote host ("Cannot connect to C") and cannot read
+  // zip at all. Windows' own bsdtar does both, so address it by absolute path.
+  const tarBin =
+    process.platform === "win32"
+      ? join(process.env.SystemRoot ?? "C:\\Windows", "System32", "tar.exe")
+      : "tar";
+  execFileSync(tarBin, ["-xf", archivePath, "-C", toolDir, member], { stdio: "inherit" });
   rmSync(archivePath);
-  chmodSync(binary, 0o755);
+  // Windows has no execute bit and node's chmod is a near-no-op there.
+  if (process.platform !== "win32") chmodSync(binary, 0o755);
 
   const installed = execFileSync(binary, ["version"], { encoding: "utf8" }).trim();
   if (!installed.includes(manifest.version)) {
