@@ -1,3 +1,52 @@
+export interface ContactChannel {
+  label: string;
+  value: string;
+  href: string;
+  note: string;
+}
+
+/**
+ * The content-model contract for the `contact` single type. `consentLabel` and
+ * `privacyLink` have no CMS fields — the privacy consent wording is a legal
+ * control, not editable marketing copy — so they stay static and the route
+ * threads them into the form.
+ */
+export interface ContactPageContent {
+  eyebrow: string;
+  h1: string;
+  subhead: string;
+  visual: { calloutLabel: string };
+  channelsHeading: string;
+  channels: readonly ContactChannel[];
+  breachNote: { label: string; href: string };
+  selfCheckCta: { label: string; href: string };
+  form: {
+    heading: string;
+    intro: string;
+    reasonLabel: string;
+    reasonPlaceholder: string;
+    nameLabel: string;
+    organisationLabel: string;
+    emailLabel: string;
+    phoneLabel: string;
+    reasons: readonly string[];
+    submitLabel: string;
+    deliveryNote: string;
+    consentLabel: string;
+    privacyLink: { label: string; href: string };
+    subject: string;
+  };
+}
+
+/**
+ * Consent wording retained from the static module and threaded into the
+ * CMS-backed form — see `ContactPageContent` above.
+ */
+export const contactConsent = {
+  consentLabel: "I agree to the",
+  privacyLink: { label: "Privacy Policy", href: "/privacy" },
+} as const;
+
 /** Confirmed contact channels come from the canonical `data/site.json`. */
 export const contact = {
   eyebrow: "Contact",

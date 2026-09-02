@@ -6,9 +6,7 @@ import { TeamSection } from "@/components/about/TeamPage";
 import { TrackRecord } from "@/components/v5/TrackRecord";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
 import { defaultTrackRecord } from "@/lib/cms/defaultHomeContent";
-import type { AboutPageContent } from "@/lib/content/about";
-import type { CredentialsPageContent } from "@/lib/content/credentials";
-import type { TeamPageContent } from "@/lib/content/team";
+import type { AboutSections, CredentialsSections, TeamSections } from "@/lib/cms/mapAbout";
 import styles from "@/components/about/about.module.css";
 
 export function AboutPage({
@@ -16,9 +14,9 @@ export function AboutPage({
   credentialsContent,
   teamContent,
 }: {
-  content: AboutPageContent;
-  credentialsContent: CredentialsPageContent;
-  teamContent: TeamPageContent;
+  content: AboutSections;
+  credentialsContent: CredentialsSections;
+  teamContent: TeamSections;
 }) {
   return (
     <main className={styles.page}>
@@ -29,8 +27,8 @@ export function AboutPage({
         summary={content.hero.summary}
         primaryCta={content.hero.primaryCta}
         secondaryCta={content.hero.secondaryCta}
-        bannerImage="/services-banner-glass-architecture.jpg"
-        bannerAlt=""
+        bannerImage={content.hero.bannerImage}
+        bannerAlt={content.hero.bannerAlt}
       />
 
       <section className={styles.positioningSection}>
@@ -67,7 +65,7 @@ export function AboutPage({
         </div>
       </section>
 
-      <InnerPageCta heading={content.closingCta.heading} primary={content.closingCta.primary} secondary={content.closingCta.secondary} cutoutImage="/services-hero-cutout-bust.png" />
+      <InnerPageCta heading={content.closingCta.heading} primary={content.closingCta.primary} secondary={content.closingCta.secondary} cutoutImage={content.closingCta.cutoutImage} />
       <ScrollReveals />
     </main>
   );

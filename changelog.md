@@ -6,6 +6,56 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-09-02 · /about, /how-we-work and /contact now read from the CMS
+
+The last routes still rendering hardcoded copy. Same story as `/resources`: the
+Strapi side was already built and seeded — the `about`, `credentials`, `team`,
+`how-we-work` and `contact` single types — and only the frontend seam was missing.
+
+`lib/cms/client.ts` gains five populate queries and their fetchers on the existing
+shared fetch/retry loop. Three new mappers: `mapAbout.ts` (all three of the about
+cluster's types, since /about renders credentials and team inline as its
+`#credentials` and `#team` bands — `/about/credentials` and `/about/team` remain
+redirects to those anchors), `mapHowWeWork.ts` and `mapContact.ts`. All three
+routes now use the Suspense + `ContentUnavailable` shell that `/services` uses.
+`/about` fetches its three types in parallel and treats them as one editorial unit:
+if any fails to map, the whole page shows `ContentUnavailable` rather than
+rendering silently short of its team or credentials.
+
+Two closed unions are gated by allowlist rather than cast from free CMS text:
+`CredentialEntry.id` (`CredentialDocument` styles on `dpdc`) and
+`TeamMember.disclosureStatus` — a member whose clearance status we cannot read is
+dropped, not defaulted. `TeamMember.biography` is an array of paragraphs in the
+component but a single text field in the CMS, so blank lines are the paragraph break,
+and `displayOrder` follows the Content Manager's drag order since there is no field
+for it.
+
+`AboutPage` and `HowWeWorkPage` had their banner and cutout images hardcoded in
+JSX; both now take the Cloudinary URLs from content. `/contact`'s markup moved out
+of the route file into `components/contact/ContactPageBody.tsx`, and `ContactForm`
+takes its labels as props instead of importing the content module — the privacy
+consent wording stays static (`contactConsent`) because it is a legal control, not
+editable copy. The map artwork stays in the component: it is layout, not copy, so
+the `heroVisual` field is not mapped.
+
+Not moved to the CMS, and still static in `lib/content/`: page `title`/`summary`
+(they feed `metadata` and `searchIndex.ts`, matching how `/services` does it) and
+How We Work's `sectionNav`, `audience` and `regulationReferences`. The content
+modules are kept intact as the content-model contract, as `servicesIndex.ts` is.
+
+**Fixed stale seed copy in `cms/src/index.ts`:** `seedContact` carried
+`info@thanelinc.com`, a "Continue in email" submit label and a delivery note
+describing a mailto flow that no longer exists. Corrected to the live `.ng` address,
+"Send message", and the real delivery note. The seed only runs against an empty
+database — **an already-seeded CMS still holds the stale values and must be
+corrected in the Strapi admin.** `about.hero-section`'s primary CTA was also
+realigned to `/about#credentials` to avoid a redirect hop.
+
+Known gap, deliberately left: `CredentialsSection` still hardcodes its "Credential
+overview" heading in JSX and `about.pathways-section` is seeded but unrendered —
+neither has a home in the current schema, so both are follow-ups rather than
+invented fields.
+
 ## 2026-09-02 · /resources and its three explainers now read from the CMS
 
 The last pages still rendering hardcoded copy. As with `/sectors`, the Strapi side

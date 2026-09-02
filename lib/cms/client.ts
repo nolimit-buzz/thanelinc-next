@@ -1,6 +1,7 @@
 // Minimal Strapi 5 fetch layer. Every single type read here (`home`, `services`,
-// `sectors`, `resources`, and the service, sector and resource article detail
-// types) has a public find permission, so this sends no credentials.
+// `sectors`, `resources`, `about`, `credentials`, `team`, `how-we-work`,
+// `contact`, and the service, sector and resource article detail types) has a
+// public find permission, so this sends no credentials.
 
 import { STRAPI_API_URL } from "@/lib/config/site-config";
 
@@ -57,6 +58,52 @@ const RESOURCES_POPULATE_QUERY = [
   "populate[sections][on][resources.hero-section][populate]=*",
   "populate[sections][on][resources.library-section][populate][categories]=true",
   "populate[sections][on][resources.library-section][populate][cards][populate]=*",
+].join("&");
+
+// About cluster. The about page's own sections are flat, but it renders the
+// credentials and team single types inline as its #credentials and #team bands,
+// so all three are fetched together by app/about/page.tsx.
+//
+// `about.pathways-section` is deliberately absent: it is seeded but nothing
+// renders it — /about shows the full team and credentials sections instead of
+// link-out cards.
+const ABOUT_POPULATE_QUERY = [
+  "populate[sections][on][about.hero-section][populate]=*",
+  "populate[sections][on][about.positioning-section][populate]=*",
+  "populate[sections][on][about.process-section][populate]=*",
+  "populate[sections][on][about.closing-cta-section][populate]=*",
+].join("&");
+
+const CREDENTIALS_POPULATE_QUERY = [
+  "populate[sections][on][credentials.hero-section][populate]=*",
+  "populate[sections][on][credentials.credentials-section][populate]=credentials",
+  "populate[sections][on][credentials.proof-section][populate]=*",
+  "populate[sections][on][credentials.closing-cta-section][populate]=*",
+].join("&");
+
+// The credential tags nested inside each member need their own path — the same
+// one-level-of-populate limit as everywhere else.
+const TEAM_POPULATE_QUERY = [
+  "populate[sections][on][team.hero-section][populate]=*",
+  "populate[sections][on][team.introduction-section][populate]=*",
+  "populate[sections][on][team.members-section][populate][members][populate]=credentials",
+  "populate[sections][on][team.bridge-section][populate]=*",
+  "populate[sections][on][team.closing-cta-section][populate]=*",
+].join("&");
+
+// Same again for the rows nested inside each journey stage.
+const HOW_WE_WORK_POPULATE_QUERY = [
+  "populate[sections][on][how-we-work.hero-section][populate]=*",
+  "populate[sections][on][how-we-work.stages-section][populate][stages][populate]=rows",
+  "populate[sections][on][how-we-work.involvement-section][populate]=*",
+  "populate[sections][on][how-we-work.breach-aside-section][populate]=*",
+  "populate[sections][on][how-we-work.closing-cta-section][populate]=*",
+].join("&");
+
+const CONTACT_POPULATE_QUERY = [
+  "populate[sections][on][contact.hero-section][populate]=*",
+  "populate[sections][on][contact.contact-band-section][populate][channels]=true",
+  "populate[sections][on][contact.contact-band-section][populate][formReasons]=true",
 ].join("&");
 
 const MAX_ATTEMPTS = 3;
@@ -230,4 +277,24 @@ function resourceArticlePopulateQuery(namespace: ResourceArticleSlug) {
 
 export async function fetchResourceArticleSections(slug: ResourceArticleSlug): Promise<StrapiSection[] | null> {
   return fetchSections(slug, resourceArticlePopulateQuery(slug));
+}
+
+export async function fetchAboutSections(): Promise<StrapiSection[] | null> {
+  return fetchSections("about", ABOUT_POPULATE_QUERY);
+}
+
+export async function fetchCredentialsSections(): Promise<StrapiSection[] | null> {
+  return fetchSections("credentials", CREDENTIALS_POPULATE_QUERY);
+}
+
+export async function fetchTeamSections(): Promise<StrapiSection[] | null> {
+  return fetchSections("team", TEAM_POPULATE_QUERY);
+}
+
+export async function fetchHowWeWorkSections(): Promise<StrapiSection[] | null> {
+  return fetchSections("how-we-work", HOW_WE_WORK_POPULATE_QUERY);
+}
+
+export async function fetchContactSections(): Promise<StrapiSection[] | null> {
+  return fetchSections("contact", CONTACT_POPULATE_QUERY);
 }

@@ -1,8 +1,8 @@
 import { CredentialSummary } from "@/components/about/CredentialDocument";
-import type { CredentialsPageContent } from "@/lib/content/credentials";
+import type { CredentialsSections } from "@/lib/cms/mapAbout";
 import styles from "@/components/about/about.module.css";
 
-export function CredentialsSection({ content }: { content: CredentialsPageContent }) {
+export function CredentialsSection({ content }: { content: CredentialsSections }) {
   const credentialSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",

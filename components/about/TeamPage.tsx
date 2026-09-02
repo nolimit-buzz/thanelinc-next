@@ -1,8 +1,8 @@
 import { TeamMemberCard } from "@/components/about/TeamMemberCard";
-import type { TeamPageContent } from "@/lib/content/team";
+import type { TeamSections } from "@/lib/cms/mapAbout";
 import styles from "@/components/about/about.module.css";
 
-export function TeamSection({ content }: { content: TeamPageContent }) {
+export function TeamSection({ content }: { content: TeamSections }) {
   const imageLedMembers = content.members.filter(
     (member) => member.disclosureStatus === "cleared" && member.image,
   ).sort((a, b) => a.displayOrder - b.displayOrder);
