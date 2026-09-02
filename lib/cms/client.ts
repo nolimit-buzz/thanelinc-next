@@ -1,6 +1,6 @@
 // Minimal Strapi 5 fetch layer. Every single type read here (`home`, `services`,
-// and the eight service detail types) has a public find permission, so this
-// sends no credentials.
+// `sectors`, `resources`, and the service, sector and resource article detail
+// types) has a public find permission, so this sends no credentials.
 
 import { STRAPI_API_URL } from "@/lib/config/site-config";
 
@@ -49,6 +49,14 @@ const SECTORS_POPULATE_QUERY = [
   "populate[sections][on][sectors.directory-section][populate][cards][populate]=categories",
   "populate[sections][on][sectors.coverage-section][populate]=*",
   "populate[sections][on][sectors.closing-cta-section][populate]=*",
+].join("&");
+
+// Resource library (/resources). `[populate]=*` on the cards picks up the nested
+// audience tags in one path; the categories are flat and only need `=true`.
+const RESOURCES_POPULATE_QUERY = [
+  "populate[sections][on][resources.hero-section][populate]=*",
+  "populate[sections][on][resources.library-section][populate][categories]=true",
+  "populate[sections][on][resources.library-section][populate][cards][populate]=*",
 ].join("&");
 
 const MAX_ATTEMPTS = 3;
@@ -185,4 +193,41 @@ function sectorDetailPopulateQuery(namespace: SectorDetailSlug) {
 
 export async function fetchSectorDetailSections(slug: SectorDetailSlug): Promise<StrapiSection[] | null> {
   return fetchSections(slug, sectorDetailPopulateQuery(slug));
+}
+
+export async function fetchResourcesSections(): Promise<StrapiSection[] | null> {
+  return fetchSections("resources", RESOURCES_POPULATE_QUERY);
+}
+
+/**
+ * The three resource article single types share an identical five-component
+ * shape whose namespace is again the same string as the API endpoint, so one
+ * query builder covers all of them.
+ */
+export const RESOURCE_ARTICLE_SLUGS = [
+  "ndpc-compliance-categories-explained",
+  "ropa-dpia-lia-explained",
+  "vendor-due-diligence",
+] as const;
+
+export type ResourceArticleSlug = (typeof RESOURCE_ARTICLE_SLUGS)[number];
+
+export function isResourceArticleSlug(slug: string): slug is ResourceArticleSlug {
+  return (RESOURCE_ARTICLE_SLUGS as readonly string[]).includes(slug);
+}
+
+function resourceArticlePopulateQuery(namespace: ResourceArticleSlug) {
+  return [
+    `populate[sections][on][${namespace}.hero-section][populate]=audience`,
+    // `[populate]=*` on the body's section items picks up both `paragraphs` and
+    // `points` in one path.
+    `populate[sections][on][${namespace}.body-section][populate][sections][populate]=*`,
+    `populate[sections][on][${namespace}.cta-section][populate]=*`,
+    `populate[sections][on][${namespace}.sidebar-section][populate]=*`,
+    `populate[sections][on][${namespace}.related-section][populate]=relatedSlugs`,
+  ].join("&");
+}
+
+export async function fetchResourceArticleSections(slug: ResourceArticleSlug): Promise<StrapiSection[] | null> {
+  return fetchSections(slug, resourceArticlePopulateQuery(slug));
 }

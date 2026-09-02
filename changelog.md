@@ -6,6 +6,36 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-09-02 · /resources and its three explainers now read from the CMS
+
+The last pages still rendering hardcoded copy. As with `/sectors`, the Strapi side
+was already built and seeded — the `resources` single type plus one single type per
+article (`ndpc-compliance-categories-explained`, `ropa-dpia-lia-explained`,
+`vendor-due-diligence`) — and only the frontend seam was missing.
+
+`lib/cms/client.ts` gains `fetchResourcesSections()` and
+`fetchResourceArticleSections(slug)` on the existing shared fetch/retry loop. The
+three article types share a component shape whose namespace equals the endpoint
+name, so one query builder and one mapper (`lib/cms/mapResourceArticle.ts`) cover
+all three; `lib/cms/mapResources.ts` maps the library index and exports the card
+mapper the article pages reuse.
+
+`ResourcesLibraryPage` and `ArticleSidebar` had hero and newsletter copy hardcoded
+in JSX; both now take it as props, and the nav/footer chrome moved up to the routes
+so the components match how `ServicesDirectory` is composed. `/resources/[slug]`
+keeps `dynamicParams = false` but sources its slugs from the `RESOURCE_ARTICLE_SLUGS`
+union rather than the static content module. An article page fetches its own type
+and the library in parallel: the library cards are the source for the related list,
+resolved against the article's own `relatedSlugs`, and a library failure drops only
+the related block rather than the page.
+
+`lib/content/resources.ts` stays — its types are the content-model contract that
+`mapHome.ts` and the mappers import, and `/design-review/home` still reads its data.
+Only the two live routes stopped reading it. No fallback copy: a failed fetch shows
+`ContentUnavailable`, matching `/services` and `/sectors`.
+
+---
+
 ## 2026-09-02 · /sectors and its three sector pages now read from the CMS
 
 The same gap as `/services`, one page type later. The Strapi side was already
