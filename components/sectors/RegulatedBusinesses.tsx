@@ -11,7 +11,7 @@ import {
   closingCta,
 } from "@/lib/content/sectorsRegulatedBusinesses";
 import type { SectorPageContent } from "@/components/sectors/SectorPageTemplate";
-import { GuidedSectorPageTemplate } from "@/components/sectors/GuidedSectorPageTemplate";
+
 
 // Two-tone split of the closing CTA heading — same wording as
 // `closingCta.h2`, just coloured in two parts (dark + white).
@@ -55,14 +55,8 @@ export const regulatedBusinessesPageContent: SectorPageContent = {
   ],
 };
 
-/**
- * `/sectors/regulated-businesses` — structure follows the approved copy in
- * Content/04-Page-Copy/sectors-regulated-businesses.md verbatim.
- *
- * The page's layout moved into `SectorPageTemplate` on 2026-08-20 so
- * /sectors/tertiary-institutions could share it (W-028). Rendered output is
- * unchanged; this file is now the content binding only.
- */
-export function RegulatedBusinesses() {
-  return <GuidedSectorPageTemplate content={regulatedBusinessesPageContent} />;
-}
+// The `RegulatedBusinesses` component that used to live here was removed when
+// /sectors/regulated-businesses moved onto the CMS — the route now maps Strapi
+// content straight into `GuidedSectorPageTemplate`. `regulatedBusinessesPageContent`
+// above is kept because the two `/design-review/sectors/*` previews still render
+// against it as a fixed sample.

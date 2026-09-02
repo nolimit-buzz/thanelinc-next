@@ -41,6 +41,16 @@ const SERVICES_POPULATE_QUERY = [
   "populate[sections][on][services.closing-cta-section][populate]=*",
 ].join("&");
 
+// Sectors index (/sectors). Same one-level-of-populate limit again: the hero's
+// metrics, the directory cards, and the category chips nested inside each card
+// each need their own path.
+const SECTORS_POPULATE_QUERY = [
+  "populate[sections][on][sectors.hero-section][populate]=metrics",
+  "populate[sections][on][sectors.directory-section][populate][cards][populate]=categories",
+  "populate[sections][on][sectors.coverage-section][populate]=*",
+  "populate[sections][on][sectors.closing-cta-section][populate]=*",
+].join("&");
+
 const MAX_ATTEMPTS = 3;
 const RETRY_DELAY_MS = [400, 900];
 
@@ -139,4 +149,40 @@ function serviceDetailPopulateQuery(namespace: ServiceDetailSlug) {
 
 export async function fetchServiceDetailSections(slug: ServiceDetailSlug): Promise<StrapiSection[] | null> {
   return fetchSections(slug, serviceDetailPopulateQuery(slug));
+}
+
+export async function fetchSectorsSections(): Promise<StrapiSection[] | null> {
+  return fetchSections("sectors", SECTORS_POPULATE_QUERY);
+}
+
+/**
+ * The three sector detail single types share a component shape whose namespace
+ * is again the same string as the API endpoint — with one difference: only
+ * regulated-businesses carries a turnarounds section.
+ */
+export type SectorDetailSlug = "tertiary-institutions" | "regulated-businesses" | "public-sector";
+
+function sectorDetailPopulateQuery(namespace: SectorDetailSlug) {
+  const paths = [
+    `populate[sections][on][${namespace}.hero-section][populate]=*`,
+    `populate[sections][on][${namespace}.credential-section][populate]=reasons`,
+    `populate[sections][on][${namespace}.proof-section][populate]=*`,
+    // `[populate]=*` on the items picks up both `links` and `stages` in one path.
+    `populate[sections][on][${namespace}.accordion-section][populate][items][populate]=*`,
+    `populate[sections][on][${namespace}.section-nav-section][populate]=items`,
+    `populate[sections][on][${namespace}.closing-cta-section][populate]=*`,
+  ];
+
+  // Naming a component that is not in this type's dynamiczone risks a 400, and a
+  // 400 is non-retryable — it would blank the page. So only ask for turnarounds
+  // on the one type that has them.
+  if (namespace === "regulated-businesses") {
+    paths.push(`populate[sections][on][${namespace}.turnarounds-section][populate]=steps`);
+  }
+
+  return paths.join("&");
+}
+
+export async function fetchSectorDetailSections(slug: SectorDetailSlug): Promise<StrapiSection[] | null> {
+  return fetchSections(slug, sectorDetailPopulateQuery(slug));
 }

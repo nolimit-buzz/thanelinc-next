@@ -4,43 +4,39 @@ import { IndexSplitHero } from "@/components/inner/IndexSplitHero";
 import { InnerPageCta } from "@/components/inner/InnerPageCta";
 import { ServiceRowIcon } from "@/components/services/ServiceRowIcon";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
-import {
-  sectorsIndexClosing,
-  sectorsIndexCoverage,
-  sectorsIndexDirectory,
-  sectorsIndexHero,
-} from "@/lib/content/sectorsIndex";
+import type { SectorsPageContent } from "@/lib/cms/mapSectors";
 import styles from "@/components/sectors/sectors-directory.module.css";
 
-export function SectorsDirectory() {
+export function SectorsDirectory({ content }: { content: SectorsPageContent }) {
+  const { hero, directory, coverage, closing } = content;
   return (
     <main>
       <IndexSplitHero
-        eyebrow={sectorsIndexHero.eyebrow}
-        title={sectorsIndexHero.title}
-        titleAccent={sectorsIndexHero.titleAccent}
-        summary={sectorsIndexHero.summary}
-        primaryCta={sectorsIndexHero.primaryCta}
-        secondaryCta={sectorsIndexHero.secondaryCta}
-        metrics={sectorsIndexHero.metrics}
-        image={{ src: "/regulated-businesses-cutout.png", alt: "Thanelinc compliance adviser carrying an NDPC report", width: 500, height: 810 }}
-        floatingPanel={sectorsIndexHero.floatingPanel}
-        credentialPanel={sectorsIndexHero.credentialPanel}
+        eyebrow={hero.eyebrow}
+        title={hero.title}
+        titleAccent={hero.titleAccent}
+        summary={hero.summary}
+        primaryCta={hero.primaryCta}
+        secondaryCta={hero.secondaryCta}
+        metrics={hero.metrics}
+        image={hero.image}
+        floatingPanel={hero.floatingPanel}
+        credentialPanel={hero.credentialPanel}
         variant="sectors"
       />
 
       <section id="sector-directory" className={styles.directorySection}>
         <div className="container">
           <div className={styles.intro}>
-            <div className={`${styles.eyebrow} reveal`}>{sectorsIndexDirectory.eyebrow}</div>
+            <div className={`${styles.eyebrow} reveal`}>{directory.eyebrow}</div>
             <div className="reveal delay-1">
-              <h2>{sectorsIndexDirectory.h2}</h2>
-              <p>{sectorsIndexDirectory.subhead}</p>
+              <h2>{directory.h2}</h2>
+              <p>{directory.subhead}</p>
             </div>
           </div>
 
           <div className={styles.sectorGrid}>
-            {sectorsIndexDirectory.cards.map((card, index) => (
+            {directory.cards.map((card, index) => (
               <article key={card.href} className={`${styles.sectorCard} reveal delay-${index + 1}`}>
                 <div className={styles.cardTop}>
                   <div className={styles.icon}><ServiceRowIcon name={card.icon} size={40} /></div>
@@ -63,23 +59,23 @@ export function SectorsDirectory() {
 
       <section className={styles.coverageSection}>
         <div className={`container ${styles.coverageGrid}`}>
-          <div className={`${styles.coverageEyebrow} reveal`}>{sectorsIndexCoverage.eyebrow}</div>
+          <div className={`${styles.coverageEyebrow} reveal`}>{coverage.eyebrow}</div>
           <div className="reveal delay-1">
-            <h2>{sectorsIndexCoverage.h2}</h2>
-            <p>{sectorsIndexCoverage.body}</p>
-            <Link href={sectorsIndexCoverage.cta.href} className={styles.coverageLink}>
-              <span>{sectorsIndexCoverage.cta.label}</span><ArrowRight aria-hidden />
+            <h2>{coverage.h2}</h2>
+            <p>{coverage.body}</p>
+            <Link href={coverage.cta.href} className={styles.coverageLink}>
+              <span>{coverage.cta.label}</span><ArrowRight aria-hidden />
             </Link>
           </div>
         </div>
       </section>
 
       <InnerPageCta
-        heading={sectorsIndexClosing.heading}
-        primary={sectorsIndexClosing.primary}
-        secondary={sectorsIndexClosing.secondary}
-        backgroundImage="/hero-hologram.jpg"
-        cutoutImage="/services-hero-cutout-bust.png"
+        heading={closing.heading}
+        primary={closing.primary}
+        secondary={closing.secondary}
+        backgroundImage={closing.backgroundImage ?? "/hero-hologram.jpg"}
+        cutoutImage={closing.cutoutImage ?? "/services-hero-cutout-bust.png"}
       />
       <ScrollReveals />
     </main>

@@ -6,6 +6,49 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-09-02 · /sectors and its three sector pages now read from the CMS
+
+The same gap as `/services`, one page type later. The Strapi side was already
+built and seeded — `sectors` plus the `tertiary-institutions`,
+`regulated-businesses` and `public-sector` single types, each a `sections`
+dynamiczone — but the frontend still rendered the hardcoded `lib/content/sectors*`
+modules. All four routes now fetch live copy.
+
+`lib/cms/client.ts` gains `fetchSectorsSections()` and
+`fetchSectorDetailSections(slug)` on the existing shared `fetchSections` loop and
+its retry semantics. The three detail types share one component shape whose
+namespace equals the endpoint name, so a single query builder and a single mapper
+(`lib/cms/mapSectorDetail.ts`) cover them; the one difference is that only
+regulated-businesses has a turnarounds section, so that populate path is added
+conditionally — naming a component a type does not have risks a 400, which is
+non-retryable and would blank the page. `lib/cms/mapSectors.ts` maps the index.
+
+`SectorsDirectory` took no props and imported its content modules directly; it now
+takes a single `content` object, like `ServicesDirectory`. `mapSectorDetail` maps
+onto the existing `SectorPageContent` interface rather than declaring a second
+shape, and keeps `turnarounds`, `reasons`, `proof` and `sectionNav` optional: the
+approved copy genuinely differs per sector, and defaulting a missing section would
+manufacture a claim (AGENTS.md rules 1 and 2). The closing-CTA heading no longer
+needs the string split that `components/sectors/RegulatedBusinesses.tsx` did —
+Strapi has `headingLead` and `headingAccent` as separate fields. That file keeps
+its `regulatedBusinessesPageContent` export, which the two `/design-review/sectors/*`
+previews still render against, but its route component is gone.
+
+Visible change: `/sectors` now lists **three** sector cards. The local
+`sectorsIndex.ts` was stale at two (and a "2 approved sector routes" metric) while
+the seed already had Public Sector & MDAs. `landmark` had to go in the mapper's
+icon allowlist or that card would have been dropped silently.
+
+Page `metadata` still reads from `lib/content/sectors*` — it is evaluated outside
+the request that awaits the fetch, so sourcing it from Strapi would mean a second
+call. Same compromise as the service detail pages, and the reason those modules
+stay in the repo as the content-model contract.
+
+Requires the Public role to have `find` on all four sector single types in Strapi;
+without it every sector page renders `ContentUnavailable`.
+
+---
+
 ## 2026-09-02 · /services and its eight service pages now read from the CMS
 
 The homepage already fetched its copy from Strapi; the services directory and all
