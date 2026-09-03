@@ -4,14 +4,8 @@ import { InnerPageCta } from "@/components/inner/InnerPageCta";
 import { IndexSplitHero } from "@/components/inner/IndexSplitHero";
 import { ServiceRowIcon } from "@/components/services/ServiceRowIcon";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
-import {
-  servicesIndexAudience,
-  servicesIndexClosing,
-  servicesIndexDirectory,
-  servicesIndexHero,
-  servicesIndexProblem,
-  type ServiceRow,
-} from "@/lib/content/servicesIndex";
+import type { ServicesPageContent } from "@/lib/cms/mapServices";
+import type { ServiceRow } from "@/lib/content/servicesIndex";
 import styles from "@/components/services/services-directory.module.css";
 
 function ProblemIcon({ name }: { name: "alert-circle" | "grid" | "shield-alert" }) {
@@ -74,36 +68,39 @@ function ServiceCard({ service, index }: { service: ServiceRow; index: number })
   );
 }
 
-export function ServicesDirectory({ services }: { services: ServiceRow[] }) {
-  const serviceBySlug = new Map(services.map((service) => [service.slug, service]));
+export function ServicesDirectory({ content }: { content: ServicesPageContent }) {
+  const { hero, problem, directory, audience, closing } = content;
+  // The card number runs continuously across the three groups, so it comes from
+  // the flattened order rather than each group's own index.
+  const flatOrder = directory.groups.flatMap((group) => group.services);
 
   return (
     <main>
       <IndexSplitHero
-        eyebrow={servicesIndexHero.eyebrow}
-        title={servicesIndexHero.title}
-        titleAccent={servicesIndexHero.titleAccent}
-        summary={servicesIndexHero.subhead}
-        primaryCta={servicesIndexHero.primaryCta}
-        secondaryCta={servicesIndexHero.secondaryCta}
-        metrics={servicesIndexHero.metrics}
-        image={{ src: "/services-hero-cutout.png", alt: "Thanelinc compliance adviser", width: 640, height: 1074 }}
-        floatingPanel={servicesIndexHero.floatingPanel}
-        credentialPanel={servicesIndexHero.credentialPanel}
+        eyebrow={hero.eyebrow}
+        title={hero.title}
+        titleAccent={hero.titleAccent}
+        summary={hero.subhead}
+        primaryCta={hero.primaryCta}
+        secondaryCta={hero.secondaryCta}
+        metrics={hero.metrics}
+        image={hero.image}
+        floatingPanel={hero.floatingPanel}
+        credentialPanel={hero.credentialPanel}
         variant="services"
       />
 
       <section className={styles.problemSection}>
         <div className="container">
           <div className={styles.problemIntro}>
-            <div className={`${styles.sectionEyebrow} reveal`}>{servicesIndexProblem.eyebrow}</div>
+            <div className={`${styles.sectionEyebrow} reveal`}>{problem.eyebrow}</div>
             <div className="reveal delay-1">
-              <h2>{servicesIndexProblem.h2}</h2>
-              <p>{servicesIndexProblem.description}</p>
+              <h2>{problem.h2}</h2>
+              <p>{problem.description}</p>
             </div>
           </div>
           <div className={styles.problemGrid}>
-            {servicesIndexProblem.cards.map((card, index) => (
+            {problem.cards.map((card, index) => (
               <article key={card.title} className={`${styles.problemCard} reveal delay-${index + 1}`}>
                 <div className={styles.problemIcon}><ProblemIcon name={card.icon} /></div>
                 <h3>{card.title}</h3>
@@ -117,18 +114,16 @@ export function ServicesDirectory({ services }: { services: ServiceRow[] }) {
       <section className={styles.directorySection} id="service-directory">
         <div className="container">
           <div className={styles.directoryIntro}>
-            <div className={`${styles.sectionEyebrow} reveal`}>{servicesIndexDirectory.eyebrow}</div>
+            <div className={`${styles.sectionEyebrow} reveal`}>{directory.eyebrow}</div>
             <div className="reveal delay-1">
-              <h2>{servicesIndexDirectory.h2}</h2>
-              <p>{servicesIndexDirectory.subhead}</p>
+              <h2>{directory.h2}</h2>
+              <p>{directory.subhead}</p>
             </div>
           </div>
 
           <div className={styles.directoryGroups}>
-            {servicesIndexDirectory.groups.map((group) => {
-              const groupServices = group.slugs
-                .map((slug) => serviceBySlug.get(slug))
-                .filter((service): service is ServiceRow => Boolean(service));
+            {directory.groups.map((group) => {
+              const groupServices = group.services;
               return (
                 <section key={group.number} className={styles.directoryGroup} aria-labelledby={`service-group-${group.number}`}>
                   <header className={`${styles.groupHeader} reveal`}>
@@ -137,7 +132,7 @@ export function ServicesDirectory({ services }: { services: ServiceRow[] }) {
                   </header>
                   <div className={styles.serviceGrid}>
                     {groupServices.map((service) => (
-                      <ServiceCard key={service.slug} service={service} index={services.indexOf(service)} />
+                      <ServiceCard key={service.slug} service={service} index={flatOrder.indexOf(service)} />
                     ))}
                   </div>
                 </section>
@@ -150,14 +145,14 @@ export function ServicesDirectory({ services }: { services: ServiceRow[] }) {
       <section className={styles.audienceSection}>
         <div className="container">
           <div className={styles.audienceIntro}>
-            <div className={`${styles.sectionEyebrow} reveal`}>{servicesIndexAudience.eyebrow}</div>
+            <div className={`${styles.sectionEyebrow} reveal`}>{audience.eyebrow}</div>
             <div className="reveal delay-1">
-              <h2>{servicesIndexAudience.h2}</h2>
-              <p>{servicesIndexAudience.subhead}</p>
+              <h2>{audience.h2}</h2>
+              <p>{audience.subhead}</p>
             </div>
           </div>
           <div className={styles.audienceGrid}>
-            {servicesIndexAudience.cards.map((card, index) => (
+            {audience.cards.map((card, index) => (
               <Link href={card.href} key={card.href} className={`${styles.audienceCard} reveal delay-${index + 1}`}>
                 <ServiceRowIcon name={card.icon} size={38} />
                 <div>
@@ -167,21 +162,21 @@ export function ServicesDirectory({ services }: { services: ServiceRow[] }) {
                 <span className={styles.audienceLink}>{card.cta} <ArrowUpRight aria-hidden /></span>
               </Link>
             ))}
-            <Link href={servicesIndexAudience.selfCheck.href} className={`${styles.selfCheckCard} reveal delay-3`}>
-              <div className={styles.selfCheckEyebrow}>{servicesIndexAudience.selfCheck.eyebrow}</div>
-              <h3>{servicesIndexAudience.selfCheck.title}</h3>
-              <p>{servicesIndexAudience.selfCheck.body}</p>
-              <span>{servicesIndexAudience.selfCheck.cta} <ArrowUpRight aria-hidden /></span>
+            <Link href={audience.selfCheck.href} className={`${styles.selfCheckCard} reveal delay-3`}>
+              <div className={styles.selfCheckEyebrow}>{audience.selfCheck.eyebrow}</div>
+              <h3>{audience.selfCheck.title}</h3>
+              <p>{audience.selfCheck.body}</p>
+              <span>{audience.selfCheck.cta} <ArrowUpRight aria-hidden /></span>
             </Link>
           </div>
         </div>
       </section>
 
       <InnerPageCta
-        heading={servicesIndexClosing.heading}
-        primary={servicesIndexClosing.primary}
-        backgroundImage="/hero-hologram.jpg"
-        cutoutImage="/services-hero-cutout-bust.png"
+        heading={closing.heading}
+        primary={closing.primary}
+        backgroundImage={closing.backgroundImage}
+        cutoutImage={closing.cutoutImage}
       />
       <ScrollReveals />
     </main>

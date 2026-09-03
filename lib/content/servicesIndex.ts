@@ -122,6 +122,14 @@ export interface ServiceRow {
   shade: string;
 }
 
+/**
+ * Nav and search only. The rendered /services directory now reads these rows
+ * from the CMS (`services.service-card-item`, mapped in lib/cms/mapServices.ts);
+ * this copy survives because lib/content/navigation.ts and lib/content/
+ * searchIndex.ts build their indexes synchronously and cannot await a fetch.
+ * If a service is added, renamed, or removed in Strapi, mirror it here or the
+ * menu and site search will drift from the page.
+ */
 export const services: ServiceRow[] = [
   {
     slug: "ndpc-registration",

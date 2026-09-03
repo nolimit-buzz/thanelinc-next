@@ -1,7 +1,11 @@
+import { Suspense } from "react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/v5/SiteFooter";
+import { ContentUnavailable } from "@/components/v5/ContentUnavailable";
+import { HomeLoading } from "@/components/v5/HomeLoading";
 import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
-import { ndpcRegistrationContent } from "@/lib/content/services/ndpcRegistration";
+import { fetchServiceDetailSections } from "@/lib/cms/client";
+import { mapServiceDetail } from "@/lib/cms/mapServiceDetail";
 
 export const metadata = {
   title: "NDPC Registration",
@@ -9,7 +13,7 @@ export const metadata = {
 };
 
 /** The certificate/turnaround wording this mark used to carry now lives once,
- *  in the content module's `whatYouGet`. */
+ *  in the CMS `what-you-get-section`. */
 function RegistrationIcon() {
   return (
     <svg width="40" height="40" fill="none" stroke="var(--color-teal-accent)" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden>
@@ -19,13 +23,21 @@ function RegistrationIcon() {
   );
 }
 
+async function Content() {
+  const content = mapServiceDetail(await fetchServiceDetailSections("ndpc-registration"));
+  if (!content) return <ContentUnavailable />;
+  return <ServicePageTemplate content={content} icon={<RegistrationIcon />} />;
+}
+
 export default function NdpcRegistrationPage() {
   return (
     <>
       {/* W-030: matches this page's own light hero (previously defaulted to
           the dark/solid nav, a mismatch predating this plan). */}
       <SiteNav variant="light" />
-      <ServicePageTemplate content={ndpcRegistrationContent} icon={<RegistrationIcon />} />
+      <Suspense fallback={<HomeLoading />}>
+        <Content />
+      </Suspense>
       <SiteFooter />
     </>
   );

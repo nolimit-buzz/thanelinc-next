@@ -1,10 +1,11 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import type { ResourceArticleSidebarContent } from "@/lib/cms/mapResourceArticle";
 import type { ResourceArticle } from "@/lib/content/resources";
 import styles from "@/components/resources/resource-article.module.css";
 
-export function ArticleSidebar({ article }: { article: ResourceArticle }) {
+export function ArticleSidebar({ article, newsletter }: { article: ResourceArticle; newsletter: ResourceArticleSidebarContent }) {
   const [activeId, setActiveId] = useState(article.sections[0]?.id ?? "");
   const [newsletterStatus, setNewsletterStatus] = useState("");
 
@@ -31,9 +32,9 @@ export function ArticleSidebar({ article }: { article: ResourceArticle }) {
   return (
     <aside className={styles.sidebar} aria-label="Article tools">
       <div className={styles.newsletter}>
-        <p className={styles.sideLabel}>Compliance notes</p>
-        <h2>Stay close to the updates that matter.</h2>
-        <p>Practical explainers, guidance updates, and deadlines for compliance owners.</p>
+        <p className={styles.sideLabel}>{newsletter.newsletterLabel}</p>
+        <h2>{newsletter.newsletterHeading}</h2>
+        <p>{newsletter.newsletterBody}</p>
         <form onSubmit={handleNewsletterSubmit}>
           <label className="sr-only" htmlFor="resource-newsletter-email">Email address</label>
           <input id="resource-newsletter-email" name="email" type="email" autoComplete="email" required placeholder="Your email address" />

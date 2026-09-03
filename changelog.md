@@ -6,6 +6,196 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-09-02 · /about, /how-we-work and /contact now read from the CMS
+
+The last routes still rendering hardcoded copy. Same story as `/resources`: the
+Strapi side was already built and seeded — the `about`, `credentials`, `team`,
+`how-we-work` and `contact` single types — and only the frontend seam was missing.
+
+`lib/cms/client.ts` gains five populate queries and their fetchers on the existing
+shared fetch/retry loop. Three new mappers: `mapAbout.ts` (all three of the about
+cluster's types, since /about renders credentials and team inline as its
+`#credentials` and `#team` bands — `/about/credentials` and `/about/team` remain
+redirects to those anchors), `mapHowWeWork.ts` and `mapContact.ts`. All three
+routes now use the Suspense + `ContentUnavailable` shell that `/services` uses.
+`/about` fetches its three types in parallel and treats them as one editorial unit:
+if any fails to map, the whole page shows `ContentUnavailable` rather than
+rendering silently short of its team or credentials.
+
+Two closed unions are gated by allowlist rather than cast from free CMS text:
+`CredentialEntry.id` (`CredentialDocument` styles on `dpdc`) and
+`TeamMember.disclosureStatus` — a member whose clearance status we cannot read is
+dropped, not defaulted. `TeamMember.biography` is an array of paragraphs in the
+component but a single text field in the CMS, so blank lines are the paragraph break,
+and `displayOrder` follows the Content Manager's drag order since there is no field
+for it.
+
+`AboutPage` and `HowWeWorkPage` had their banner and cutout images hardcoded in
+JSX; both now take the Cloudinary URLs from content. `/contact`'s markup moved out
+of the route file into `components/contact/ContactPageBody.tsx`, and `ContactForm`
+takes its labels as props instead of importing the content module — the privacy
+consent wording stays static (`contactConsent`) because it is a legal control, not
+editable copy. The map artwork stays in the component: it is layout, not copy, so
+the `heroVisual` field is not mapped.
+
+Not moved to the CMS, and still static in `lib/content/`: page `title`/`summary`
+(they feed `metadata` and `searchIndex.ts`, matching how `/services` does it) and
+How We Work's `sectionNav`, `audience` and `regulationReferences`. The content
+modules are kept intact as the content-model contract, as `servicesIndex.ts` is.
+
+**Fixed stale seed copy in `cms/src/index.ts`:** `seedContact` carried
+`info@thanelinc.com`, a "Continue in email" submit label and a delivery note
+describing a mailto flow that no longer exists. Corrected to the live `.ng` address,
+"Send message", and the real delivery note. The seed only runs against an empty
+database — **an already-seeded CMS still holds the stale values and must be
+corrected in the Strapi admin.** `about.hero-section`'s primary CTA was also
+realigned to `/about#credentials` to avoid a redirect hop.
+
+Known gap, deliberately left: `CredentialsSection` still hardcodes its "Credential
+overview" heading in JSX and `about.pathways-section` is seeded but unrendered —
+neither has a home in the current schema, so both are follow-ups rather than
+invented fields.
+
+## 2026-09-02 · /resources and its three explainers now read from the CMS
+
+The last pages still rendering hardcoded copy. As with `/sectors`, the Strapi side
+was already built and seeded — the `resources` single type plus one single type per
+article (`ndpc-compliance-categories-explained`, `ropa-dpia-lia-explained`,
+`vendor-due-diligence`) — and only the frontend seam was missing.
+
+`lib/cms/client.ts` gains `fetchResourcesSections()` and
+`fetchResourceArticleSections(slug)` on the existing shared fetch/retry loop. The
+three article types share a component shape whose namespace equals the endpoint
+name, so one query builder and one mapper (`lib/cms/mapResourceArticle.ts`) cover
+all three; `lib/cms/mapResources.ts` maps the library index and exports the card
+mapper the article pages reuse.
+
+`ResourcesLibraryPage` and `ArticleSidebar` had hero and newsletter copy hardcoded
+in JSX; both now take it as props, and the nav/footer chrome moved up to the routes
+so the components match how `ServicesDirectory` is composed. `/resources/[slug]`
+keeps `dynamicParams = false` but sources its slugs from the `RESOURCE_ARTICLE_SLUGS`
+union rather than the static content module. An article page fetches its own type
+and the library in parallel: the library cards are the source for the related list,
+resolved against the article's own `relatedSlugs`, and a library failure drops only
+the related block rather than the page.
+
+`lib/content/resources.ts` stays — its types are the content-model contract that
+`mapHome.ts` and the mappers import, and `/design-review/home` still reads its data.
+Only the two live routes stopped reading it. No fallback copy: a failed fetch shows
+`ContentUnavailable`, matching `/services` and `/sectors`.
+
+---
+
+## 2026-09-02 · /sectors and its three sector pages now read from the CMS
+
+The same gap as `/services`, one page type later. The Strapi side was already
+built and seeded — `sectors` plus the `tertiary-institutions`,
+`regulated-businesses` and `public-sector` single types, each a `sections`
+dynamiczone — but the frontend still rendered the hardcoded `lib/content/sectors*`
+modules. All four routes now fetch live copy.
+
+`lib/cms/client.ts` gains `fetchSectorsSections()` and
+`fetchSectorDetailSections(slug)` on the existing shared `fetchSections` loop and
+its retry semantics. The three detail types share one component shape whose
+namespace equals the endpoint name, so a single query builder and a single mapper
+(`lib/cms/mapSectorDetail.ts`) cover them; the one difference is that only
+regulated-businesses has a turnarounds section, so that populate path is added
+conditionally — naming a component a type does not have risks a 400, which is
+non-retryable and would blank the page. `lib/cms/mapSectors.ts` maps the index.
+
+`SectorsDirectory` took no props and imported its content modules directly; it now
+takes a single `content` object, like `ServicesDirectory`. `mapSectorDetail` maps
+onto the existing `SectorPageContent` interface rather than declaring a second
+shape, and keeps `turnarounds`, `reasons`, `proof` and `sectionNav` optional: the
+approved copy genuinely differs per sector, and defaulting a missing section would
+manufacture a claim (AGENTS.md rules 1 and 2). The closing-CTA heading no longer
+needs the string split that `components/sectors/RegulatedBusinesses.tsx` did —
+Strapi has `headingLead` and `headingAccent` as separate fields. That file keeps
+its `regulatedBusinessesPageContent` export, which the two `/design-review/sectors/*`
+previews still render against, but its route component is gone.
+
+Visible change: `/sectors` now lists **three** sector cards. The local
+`sectorsIndex.ts` was stale at two (and a "2 approved sector routes" metric) while
+the seed already had Public Sector & MDAs. `landmark` had to go in the mapper's
+icon allowlist or that card would have been dropped silently.
+
+Page `metadata` still reads from `lib/content/sectors*` — it is evaluated outside
+the request that awaits the fetch, so sourcing it from Strapi would mean a second
+call. Same compromise as the service detail pages, and the reason those modules
+stay in the repo as the content-model contract.
+
+Requires the Public role to have `find` on all four sector single types in Strapi;
+without it every sector page renders `ContentUnavailable`.
+
+---
+
+## 2026-09-02 · /services and its eight service pages now read from the CMS
+
+The homepage already fetched its copy from Strapi; the services directory and all
+eight service detail pages still rendered the hardcoded modules in
+`lib/content/services*`, even though the CMS side was fully built and seeded
+(`services` plus the eight detail single types, each a `sections` dynamiczone).
+This closes that gap using the same pattern, so the client can edit service copy
+without a deploy.
+
+`lib/cms/client.ts` keeps its retry semantics (3 attempts, 5xx/network only —
+a 4xx is our own request's fault and would blank the page) but the loop is now a
+shared `fetchSections(endpoint, populateQuery)`. `fetchHomeSections()` is
+unchanged for callers; `fetchServicesSections()` and
+`fetchServiceDetailSections(slug)` join it. The eight detail types share one
+five-component shape and differ only in namespace — which equals the endpoint
+name — so one query builder and one mapper (`lib/cms/mapServiceDetail.ts`) cover
+all eight. `lib/cms/mapServices.ts` maps the directory page.
+
+`ServicesDirectory` previously imported its five content modules directly,
+against the rule that components take content as props; it now takes a single
+`content` object. The nine pages are async server components wrapped in Suspense
+with **no fallback copy** — a failed fetch renders `ContentUnavailable`, matching
+the homepage. Stale compliance copy is worse than none.
+
+New CMS components `services.service-card-item` and `services.bullet-item`, added
+to `services.directory-group-item` as `cards`, so the eight directory rows
+(including each one's deliverable and turnaround, W-005) are editable too.
+`slugs` stays on the group for backward compatibility.
+
+`lib/content/servicesIndex.ts` and `lib/content/services/*.ts` are retained but
+no longer rendered: `lib/content/navigation.ts` and `lib/content/searchIndex.ts`
+build their indexes synchronously and cannot await a fetch, so the `services`
+array still feeds the menu and site search. A service added or renamed in Strapi
+must be mirrored there or the two will drift.
+
+The Public role's missing `find` permission on `data-mapping-ropa`,
+`compliance-audit-filing` and `ongoing-monitoring` (403 on those three) was
+granted in the Strapi admin; all nine routes now render live copy.
+
+Known follow-up: the seeded CMS copy for NDPC Registration still describes
+filing Compliance Audit Returns, wording the local module had dropped — it now
+renders again and needs correcting in the admin. Compliance Audit & Filing's
+CMS subhead is likewise looser than the local copy ("filed through a licensed
+DPCO" vs "prepared and verified by a licensed DPCO before filing").
+
+## 2026-09-02 · lib/mail/config.test.ts rewritten to match the implemented module
+
+The test imported `getMailConfig` — a validating, lazily-evaluated function that
+does not exist and appears never to have shipped; `config.ts` exports a
+`mailConfig` const. This failed `tsc`, so `npm run build` had been broken on
+main.
+
+Fixed by correcting the test, not the module, because the module's design is
+deliberate: validation lives in `sendMail.ts`'s `assertMailEnv()` at send time
+precisely so that importing the config cannot throw during `next build` in an
+environment without a full env file — the comment there says so. The stale test
+also asserted `SMTP_PORT=465`/`secure=true` as the valid configuration, which is
+the blocked implicit-TLS port that fails as a 20s ETIMEDOUT; the working setup is
+587 + STARTTLS.
+
+The test now covers what the module actually does: reading each variable, the
+587 port default, `SMTP_SECURE` being true only for the exact string `"true"`,
+and the empty-string fallbacks. Since `mailConfig` reads `process.env` once at
+module evaluation, each case re-imports it via `vi.resetModules()` against a
+fresh environment, restoring any pre-existing values afterwards. No runtime
+behaviour changed.
+
 ## 2026-09-02 · SMTP and Strapi URL moved from source into environment variables
 
 `lib/mail/config.ts` held the SMTP host, user and **plaintext password**, and

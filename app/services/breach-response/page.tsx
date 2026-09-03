@@ -1,7 +1,11 @@
+import { Suspense } from "react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/v5/SiteFooter";
+import { ContentUnavailable } from "@/components/v5/ContentUnavailable";
+import { HomeLoading } from "@/components/v5/HomeLoading";
 import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
-import { breachResponseContent } from "@/lib/content/services/breachResponse";
+import { fetchServiceDetailSections } from "@/lib/cms/client";
+import { mapServiceDetail } from "@/lib/cms/mapServiceDetail";
 
 export const metadata = {
   title: "Breach Response",
@@ -11,7 +15,9 @@ export const metadata = {
 /** Unlike registration's, this block restated nothing — the number and the
  *  out-of-hours sentence appear nowhere else — so it moves into the merged
  *  "What you get" card verbatim rather than being dropped. Colours flip for
- *  that card's dark ground; W-007 keeps the number the loudest element. */
+ *  that card's dark ground; W-007 keeps the number the loudest element.
+ *  Stays local rather than moving to the CMS: it is a rendered block, not a
+ *  field of the shared service schema. */
 function BreachCallBlock() {
   return (
     <div>
@@ -29,11 +35,19 @@ function BreachCallBlock() {
   );
 }
 
+async function Content() {
+  const content = mapServiceDetail(await fetchServiceDetailSections("breach-response"));
+  if (!content) return <ContentUnavailable />;
+  return <ServicePageTemplate content={content} icon={<BreachCallBlock />} />;
+}
+
 export default function BreachResponsePage() {
   return (
     <>
       <SiteNav />
-      <ServicePageTemplate content={breachResponseContent} icon={<BreachCallBlock />} />
+      <Suspense fallback={<HomeLoading />}>
+        <Content />
+      </Suspense>
       <SiteFooter />
     </>
   );

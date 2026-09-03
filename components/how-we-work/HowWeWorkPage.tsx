@@ -4,10 +4,18 @@ import { InnerPageCta } from "@/components/inner/InnerPageCta";
 import { SectionNav } from "@/components/sectors/SectionNav";
 import { ScrollReveals } from "@/components/v5/ScrollReveals";
 import { JourneyStageGroup } from "@/components/how-we-work/JourneyStageGroup";
+import type { HowWeWorkSections } from "@/lib/cms/mapHowWeWork";
 import type { HowWeWorkPageContent } from "@/lib/content/howWeWork";
 import styles from "@/components/how-we-work/how-we-work.module.css";
 
-export function HowWeWorkPage({ content }: { content: HowWeWorkPageContent }) {
+/** `sectionNav` has no CMS field — the route supplies it alongside the mapped copy. */
+export function HowWeWorkPage({
+  content,
+  sectionNav,
+}: {
+  content: HowWeWorkSections;
+  sectionNav: HowWeWorkPageContent["sectionNav"];
+}) {
   return (
     <main className={styles.page}>
       <div id="overview">
@@ -18,13 +26,13 @@ export function HowWeWorkPage({ content }: { content: HowWeWorkPageContent }) {
           summary={content.hero.summary}
           primaryCta={content.hero.primaryCta}
           secondaryCta={content.hero.secondaryCta}
-          bannerImage="/hero-portrait-audit.jpg"
-          bannerAlt=""
+          bannerImage={content.hero.bannerImage}
+          bannerAlt={content.hero.bannerAlt}
           bannerPosition="50% 46%"
         />
       </div>
 
-      <SectionNav sections={content.sectionNav} />
+      <SectionNav sections={sectionNav} />
 
       <section id="six-stages" className={styles.stagesSection}>
         <div className={`container ${styles.readingWidth}`}>
@@ -58,7 +66,7 @@ export function HowWeWorkPage({ content }: { content: HowWeWorkPageContent }) {
       </section>
 
       <div id="get-started">
-        <InnerPageCta heading={content.closingCta.heading} primary={content.closingCta.primary} secondary={content.closingCta.secondary} cutoutImage="/services-hero-cutout-bust.png" />
+        <InnerPageCta heading={content.closingCta.heading} primary={content.closingCta.primary} secondary={content.closingCta.secondary} cutoutImage={content.closingCta.cutoutImage} />
       </div>
       <ScrollReveals />
     </main>
