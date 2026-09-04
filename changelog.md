@@ -6,6 +6,59 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-09-04 · Round-6 client copy: homepage widens from "high-exposure sectors" to every organisation in scope
+
+The client's marked-up copy document reframes the homepage's positioning. The page read as
+built *"strictly for Nigeria's high-exposure sectors"* — UHL and EHL only. It now reads as
+covering every organisation the NDPC's registration framework reaches, OHL included, and
+says plainly that private businesses and SMEs can qualify **by data volume** rather than by
+statutory name. That was the client's core note: the old wording was turning away readers
+who are in fact in scope.
+
+**Homepage (Strapi).** Hero lede rewritten to lead with "organisations of every size"; hero
+CTA "AM I COVERED?" → "AM I REQUIRED TO REGISTER?", which asks the question the visitor
+actually has. Self-check heading and diagnostic title corrected from NDPC to **NDPA** — the
+Commission is the regulator, the Act is what applies to you, and the page had them
+confused. The third trust item drops its "· NDPC GAID 2025" suffix to plain "Licensed DPCO".
+Track-record and resources bodies rewritten; the resources body now states outright that
+blog, news and training are still to come rather than gesturing at "room for" them.
+
+**Sector accordion, re-mapped.** The four cards were an ad-hoc grouping (Tertiary
+Institutions / Private Sector & SME's / Hospitality Industry / Healthcare & Public Sector)
+that matched nothing else on the site. They now mirror the four approved sector routes the
+`/sectors` directory already uses: Tertiary Institutions, Public Sector & MDAs, Mid-Size
+Organisations & Financial Institutions, Regulated Businesses — each drawer hook stating
+which organisations qualify by name and which join by volume. Card CTAs now go to the real
+sector pages instead of the `#check` anchor. Hospitality is no longer a tier of its own; it
+appears inside Regulated Businesses as a by-volume category. Per the client, **card artwork
+was not reassigned** — each slot keeps the image it had.
+
+**Not touched:** the hero carousel's four slides still carry two retired sector names
+(`Hospitality Industry`, `Healthcare & Public Sector`). The client scoped them out of this
+round. Flagging it — the hero and the accordion directly below it now disagree.
+
+**Footer and nav (frontend).** Footer CTA and the `home.ts` hero/footer CTAs become "Am I
+Required to Register? — 2-Minute Check". The credential pill becomes "Licensed DPCO — Check
+the NDPC Register"; the client asked for the label only, so it still links to
+`/about#credentials` rather than out to the NDPC's register.
+
+`navigation.ts` `sectorsMenu.columns[0]` ("By Category") is reordered and relabelled to the
+four tiers above — retiring "Higher Institutions (EHL)" — which also updates the footer's
+"Priority Sectors" column, since `footerColumns[1]` maps that same list. `columns[1]`
+("Who's Covered") collapses from eight rows to six (hospitals join microfinance/mortgage
+banks; banks join telecoms/fintech) and each label now names its tier in parentheses, so
+three rows share the `/sectors/regulated-businesses` href. No key change was needed:
+`MegaMenu.tsx:212` and `MobileNavDrawer.tsx:99,186` already key on `href + label`, and the
+footer only consumes `columns[0]`, whose hrefs stay unique.
+
+**CMS mechanics.** Homepage copy renders from Strapi with no frontend fallback, and the
+bootstrap seed only runs against an empty content type — so `cms/src/index.ts` and the new
+`cms/scripts/update-home-copy-r6.ts` were changed together, per the rule
+`update-sector-content.ts` set. The script uses `loadEntryGuarded` with every one of the
+nine `home.*` components and every nested repeatable named, for the reason recorded in the
+entry below. `frontend/lib/cms/defaultHomeContent.ts` was deliberately left alone: it is no
+longer imported by `app/page.tsx` and editing it would only create a second stale copy.
+
 ## 2026-09-04 · Homepage destroyed by a bad update script, restored from seed
 
 `scripts/update-tier-names.ts` deleted eight of the homepage's nine sections on the live

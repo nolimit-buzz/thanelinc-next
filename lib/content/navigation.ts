@@ -109,34 +109,38 @@ export const sectorsMenu: MegaMenu = {
   columns: [
     {
       eyebrow: "By Category",
+      // Order is the client's (r6): the two by-name-only tiers first, then the
+      // two that private organisations and SMEs can also reach by data volume.
+      // This list also renders as the footer's "Priority Sectors" column via
+      // `footerColumns[1]` below, so the two can't drift.
       items: [
         {
-          label: "Higher Institutions (EHL)",
+          label: "Tertiary Institutions",
           href: "/sectors/tertiary-institutions",
           status: "live",
-          description: "Universities and tertiary institutions — EHL by name, not by size.",
+          description: "Universities, polytechnics and colleges — EHL by name, not by size.",
           icon: "graduation-cap",
-        },
-        {
-          label: "Regulated Businesses (UHL)",
-          href: "/sectors/regulated-businesses",
-          status: "live",
-          description: "Fintech, telecoms, insurance, retail, health, logistics.",
-          icon: "building",
         },
         {
           label: "Public Sector & MDAs",
           href: "/sectors/public-sector",
           status: "live",
-          description: "Ministries, departments and agencies.",
+          description: "Federal and state ministries and agencies.",
           icon: "landmark",
         },
         {
-          label: "Organisations & Financial Institutions (EHL)",
+          label: "Mid-Size Organisations & Financial Institutions (EHL)",
           href: "/sectors/mid-size-organizations",
           status: "live",
-          description: "Hospitals, microfinance and mortgage banks — or EHL by data volume.",
+          description: "Hospitals, microfinance and mortgage banks, or SMEs by data volume.",
           icon: "layers",
+        },
+        {
+          label: "Regulated Businesses (UHL)",
+          href: "/sectors/regulated-businesses",
+          status: "live",
+          description: "Banks, telecoms, insurance and fintech, or SMEs by data volume.",
+          icon: "building",
         },
       ],
     },
@@ -148,17 +152,25 @@ export const sectorsMenu: MegaMenu = {
     // Revised 2026-09-04 with the client's reclassification: mortgage banks are
     // an EHL category and now route to /sectors/mid-size-organizations, while
     // banks stay UHL. Retail/health/logistics reach UHL by volume, not by name.
+    //
+    // Revised again 2026-09-04 (r6): eight rows collapse to six — hospitals join
+    // microfinance/mortgage banks, and banks join telecoms/fintech — and each
+    // row now names its tier in parentheses, so a reader who lands here without
+    // having read the "By Category" column still knows where the link goes.
+    // Several rows deliberately share a href; keys are by label, not href.
     {
       eyebrow: "Who's Covered",
       items: [
-        { label: "Universities & Colleges", href: "/sectors/tertiary-institutions", status: "live" },
-        { label: "Banks & Fintech", href: "/sectors/regulated-businesses", status: "live" },
-        { label: "Telecoms & Payments", href: "/sectors/regulated-businesses", status: "live" },
-        { label: "Insurance & Oil and Gas", href: "/sectors/regulated-businesses", status: "live" },
-        { label: "Retail, Health & Logistics", href: "/sectors/regulated-businesses", status: "live" },
-        { label: "Hospitals", href: "/sectors/mid-size-organizations", status: "live" },
-        { label: "Microfinance & Mortgage Banks", href: "/sectors/mid-size-organizations", status: "live" },
-        { label: "Ministries & Agencies", href: "/sectors/public-sector#ministries-agencies", status: "live" },
+        { label: "Universities & Colleges (Tertiary Institutions)", href: "/sectors/tertiary-institutions", status: "live" },
+        { label: "Ministries & Agencies (Public Sector & MDAs)", href: "/sectors/public-sector#ministries-agencies", status: "live" },
+        {
+          label: "Hospitals, Microfinance & Mortgage Banks (Mid-Size Organisations & Financial Institutions)",
+          href: "/sectors/mid-size-organizations",
+          status: "live",
+        },
+        { label: "Banks, Telecoms & Fintech (Regulated Businesses)", href: "/sectors/regulated-businesses", status: "live" },
+        { label: "Insurers & Oil and Gas (Regulated Businesses)", href: "/sectors/regulated-businesses", status: "live" },
+        { label: "Retail, Health & Logistics (Regulated Businesses)", href: "/sectors/regulated-businesses", status: "live" },
       ],
     },
   ],
