@@ -14,7 +14,7 @@ import {
   type ResourceArticleSlug,
 } from "@/lib/cms/client";
 import { mapResourceArticlePage } from "@/lib/cms/mapResourceArticle";
-import { mapResourceCards } from "@/lib/cms/mapResources";
+import { mapResourceCardLabels, mapResourceCards } from "@/lib/cms/mapResources";
 
 export const dynamicParams = false;
 
@@ -52,7 +52,9 @@ async function ArticleContent({ slug }: { slug: ResourceArticleSlug }) {
     (card) => card.slug !== slug && (relatedSlugs.length === 0 || relatedSlugs.includes(card.slug)),
   );
 
-  return <ResourceArticlePage content={content} related={related} />;
+  return (
+    <ResourceArticlePage content={content} related={related} cardLabels={mapResourceCardLabels(librarySections)} />
+  );
 }
 
 export default async function ResourceArticleRoute({ params }: { params: Promise<{ slug: string }> }) {

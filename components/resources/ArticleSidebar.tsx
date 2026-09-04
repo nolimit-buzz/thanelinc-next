@@ -5,7 +5,7 @@ import type { ResourceArticleSidebarContent } from "@/lib/cms/mapResourceArticle
 import type { ResourceArticle } from "@/lib/content/resources";
 import styles from "@/components/resources/resource-article.module.css";
 
-export function ArticleSidebar({ article, newsletter }: { article: ResourceArticle; newsletter: ResourceArticleSidebarContent }) {
+export function ArticleSidebar({ article, sidebar }: { article: ResourceArticle; sidebar: ResourceArticleSidebarContent }) {
   const [activeId, setActiveId] = useState(article.sections[0]?.id ?? "");
   const [newsletterStatus, setNewsletterStatus] = useState("");
 
@@ -26,24 +26,24 @@ export function ArticleSidebar({ article, newsletter }: { article: ResourceArtic
 
   function handleNewsletterSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setNewsletterStatus("Newsletter delivery will open when the approved subscription backend is connected.");
+    setNewsletterStatus(sidebar.newsletterSubmittedStatus);
   }
 
   return (
-    <aside className={styles.sidebar} aria-label="Article tools">
+    <aside className={styles.sidebar} aria-label={sidebar.sidebarAriaLabel}>
       <div className={styles.newsletter}>
-        <p className={styles.sideLabel}>{newsletter.newsletterLabel}</p>
-        <h2>{newsletter.newsletterHeading}</h2>
-        <p>{newsletter.newsletterBody}</p>
+        <p className={styles.sideLabel}>{sidebar.newsletterLabel}</p>
+        <h2>{sidebar.newsletterHeading}</h2>
+        <p>{sidebar.newsletterBody}</p>
         <form onSubmit={handleNewsletterSubmit}>
-          <label className="sr-only" htmlFor="resource-newsletter-email">Email address</label>
-          <input id="resource-newsletter-email" name="email" type="email" autoComplete="email" required placeholder="Your email address" />
-          <button type="submit">Subscribe <span aria-hidden>→</span></button>
+          <label className="sr-only" htmlFor="resource-newsletter-email">{sidebar.newsletterEmailLabel}</label>
+          <input id="resource-newsletter-email" name="email" type="email" autoComplete="email" required placeholder={sidebar.newsletterEmailPlaceholder} />
+          <button type="submit">{sidebar.newsletterSubmitLabel} <span aria-hidden>→</span></button>
         </form>
-        <p className={styles.formStatus} aria-live="polite">{newsletterStatus || "Subscription delivery will be enabled with the approved backend."}</p>
+        <p className={styles.formStatus} aria-live="polite">{newsletterStatus || sidebar.newsletterIdleStatus}</p>
       </div>
       <div className={styles.toc}>
-        <p className={styles.sideLabel}>Table of contents</p>
+        <p className={styles.sideLabel}>{sidebar.tocLabel}</p>
         <nav>
           {article.sections.map((section, index) => (
             <a key={section.id} href={`#${section.id}`} className={activeId === section.id ? styles.active : undefined} aria-current={activeId === section.id ? "location" : undefined}>

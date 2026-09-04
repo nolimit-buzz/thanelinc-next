@@ -8,6 +8,7 @@ import { credentialsPageContent } from "@/lib/content/credentials";
 import { teamPageContent } from "@/lib/content/team";
 import { howWeWorkContent } from "@/lib/content/howWeWork";
 import { sectorsPublicSectorContent, publicSectorPage } from "@/lib/content/sectorsPublicSector";
+import { midSizeOrganizationsPage } from "@/lib/content/sectorsMidSizeOrganizations";
 import { legalDocuments } from "@/lib/content/legal";
 import type { NavStatus } from "@/lib/content/navigation";
 
@@ -72,6 +73,14 @@ const sectorEntries: SearchEntry[] = [
     label: "Public Sector & MDAs",
     description: `${sectorsPublicSectorContent.summary} ${publicSectorPage.hero.subhead}`,
     href: "/sectors/public-sector",
+    status: "live",
+    group: "Sectors",
+  },
+  {
+    id: "/sectors/mid-size-organizations",
+    label: "Organisations & Financial Institutions (EHL)",
+    description: `${midSizeOrganizationsPage.hero.subhead} ${midSizeOrganizationsPage.reasons?.map((r) => `${r.title}. ${r.body}`).join(" ") ?? ""}`,
+    href: "/sectors/mid-size-organizations",
     status: "live",
     group: "Sectors",
   },

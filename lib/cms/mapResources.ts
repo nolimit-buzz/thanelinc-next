@@ -12,6 +12,8 @@ export interface ResourcesHeroContent {
   eyebrow: string;
   h1: string;
   subhead: string;
+  metaTitle: string;
+  metaDescription: string;
 }
 
 export interface ResourcesLibrarySectionContent {
@@ -19,6 +21,10 @@ export interface ResourcesLibrarySectionContent {
   listHeaderHeading: string;
   suggestTopicLabel: string;
   suggestTopicHref: string;
+  stateLiveLabel: string;
+  stateComingSoonLabel: string;
+  cardReadLabel: string;
+  cardReviewedLabel: string;
   categories: { id: string; label: string; detail: string; state: CategoryState }[];
   cards: ResourceCardItem[];
 }
@@ -33,6 +39,27 @@ export interface ResourcesLibraryContent {
 // category, matching mapServices.ts's icon allowlists.
 const CATEGORY_STATES = ["live", "coming-soon"] as const;
 type CategoryState = (typeof CATEGORY_STATES)[number];
+
+/**
+ * Added to the components after the entry was seeded, so these read empty until
+ * the CMS is backfilled. They are chrome rather than the page's own copy, and a
+ * blank badge or aria-label is a worse failure than a stale default, so each one
+ * falls back to the wording it had when it lived in the JSX. The defaults live
+ * here, not in the components, so the "no copy in JSX" rule still holds.
+ */
+const DEFAULTS = {
+  metaTitle: "Resource Library",
+  metaDescription: "Explainers, articles, news and training updates for compliance owners.",
+  stateLiveLabel: "Published now",
+  stateComingSoonLabel: "Coming soon",
+  cardReadLabel: "Read",
+  cardReviewedLabel: "Reviewed",
+} as const;
+
+/** CMS value when set, else the pre-CMS wording. Never returns an empty string. */
+function text(value: unknown, fallback: string): string {
+  return String(value ?? "").trim() || fallback;
+}
 
 function isOneOf<T extends readonly string[]>(allowed: T, value: unknown): value is T[number] {
   return typeof value === "string" && (allowed as readonly string[]).includes(value);
@@ -77,6 +104,8 @@ function mapHero(sections: StrapiSection[] | null): ResourcesHeroContent | null 
     eyebrow: String(section.eyebrow ?? ""),
     h1: String(section.h1),
     subhead: String(section.subhead ?? ""),
+    metaTitle: text(section.metaTitle, DEFAULTS.metaTitle),
+    metaDescription: text(section.metaDescription, DEFAULTS.metaDescription),
   };
 }
 
@@ -94,6 +123,10 @@ function mapLibrary(sections: StrapiSection[] | null): ResourcesLibrarySectionCo
     listHeaderHeading: String(section.listHeaderHeading ?? ""),
     suggestTopicLabel: String(section.suggestTopicLabel ?? ""),
     suggestTopicHref: String(section.suggestTopicHref ?? ""),
+    stateLiveLabel: text(section.stateLiveLabel, DEFAULTS.stateLiveLabel),
+    stateComingSoonLabel: text(section.stateComingSoonLabel, DEFAULTS.stateComingSoonLabel),
+    cardReadLabel: text(section.cardReadLabel, DEFAULTS.cardReadLabel),
+    cardReviewedLabel: text(section.cardReviewedLabel, DEFAULTS.cardReviewedLabel),
     categories: (categories ?? [])
       .filter((category) => isOneOf(CATEGORY_STATES, category.state))
       .map((category) => ({
@@ -117,4 +150,22 @@ export function mapResourcesPage(sections: StrapiSection[] | null): ResourcesLib
 /** The library cards double as the source for an article page's related list. */
 export function mapResourceCards(sections: StrapiSection[] | null): ResourceCardItem[] {
   return mapLibrary(sections)?.cards ?? [];
+}
+
+export interface ResourceCardLabels {
+  readLabel: string;
+  reviewedLabel: string;
+}
+
+/**
+ * The card labels belong to the library section, so the article page's related
+ * list takes them from there too rather than from the article's own chrome.
+ * Falls back to the defaults when the library fetch failed.
+ */
+export function mapResourceCardLabels(sections: StrapiSection[] | null): ResourceCardLabels {
+  const library = mapLibrary(sections);
+  return {
+    readLabel: library?.cardReadLabel ?? DEFAULTS.cardReadLabel,
+    reviewedLabel: library?.cardReviewedLabel ?? DEFAULTS.cardReviewedLabel,
+  };
 }

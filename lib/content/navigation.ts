@@ -131,24 +131,33 @@ export const sectorsMenu: MegaMenu = {
           description: "Ministries, departments and agencies.",
           icon: "landmark",
         },
+        {
+          label: "Organisations & Financial Institutions (EHL)",
+          href: "/sectors/mid-size-organizations",
+          status: "live",
+          description: "Hospitals, microfinance and mortgage banks — or EHL by data volume.",
+          icon: "layers",
+        },
       ],
     },
     // Named UHL/EHL categories, one level down — sourced verbatim from each
-    // sector page's own approved copy (tertiaryInstitutionsPage hero:
-    // "university, polytechnic, or college"; sectorsRegulatedBusinesses'
-    // categorySection: "Banks, mortgage banks, telecoms, fintech and payments
-    // companies, insurers, and oil & gas companies"; home.ts sectorDoors adds
-    // retail/health/logistics). No new claim — just the existing category
-    // list surfaced as its own column so the menu shows who's actually
-    // covered, not just three link labels.
+    // sector page's own approved copy and from the /sectors directory cards.
+    // No new claim: just the existing category lists surfaced as their own
+    // column so the menu shows who's actually covered, not just link labels.
+    //
+    // Revised 2026-09-04 with the client's reclassification: mortgage banks are
+    // an EHL category and now route to /sectors/mid-size-organizations, while
+    // banks stay UHL. Retail/health/logistics reach UHL by volume, not by name.
     {
       eyebrow: "Who's Covered",
       items: [
         { label: "Universities & Colleges", href: "/sectors/tertiary-institutions", status: "live" },
-        { label: "Banks & Mortgage Banks", href: "/sectors/regulated-businesses", status: "live" },
-        { label: "Telecoms, Fintech & Payments", href: "/sectors/regulated-businesses", status: "live" },
-        { label: "Insurers & Oil and Gas", href: "/sectors/regulated-businesses", status: "live" },
+        { label: "Banks & Fintech", href: "/sectors/regulated-businesses", status: "live" },
+        { label: "Telecoms & Payments", href: "/sectors/regulated-businesses", status: "live" },
+        { label: "Insurance & Oil and Gas", href: "/sectors/regulated-businesses", status: "live" },
         { label: "Retail, Health & Logistics", href: "/sectors/regulated-businesses", status: "live" },
+        { label: "Hospitals", href: "/sectors/mid-size-organizations", status: "live" },
+        { label: "Microfinance & Mortgage Banks", href: "/sectors/mid-size-organizations", status: "live" },
         { label: "Ministries & Agencies", href: "/sectors/public-sector#ministries-agencies", status: "live" },
       ],
     },

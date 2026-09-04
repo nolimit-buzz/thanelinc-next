@@ -6,6 +6,247 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-09-04 · Homepage destroyed by a bad update script, restored from seed
+
+`scripts/update-tier-names.ts` deleted eight of the homepage's nine sections on the live
+database. Fixing the tier name in the sector-accordion drawer was a one-field change; the
+script fetched `api::home.home` with a populate naming only that one component, and a
+Strapi 5 `on` filter returns **only** the components it names. The other eight sections
+were absent from the payload, and writing `sections` back deleted them. Nothing failed —
+the script reported success.
+
+The page did not go blank, which is why it was not caught immediately: `app/page.tsx`
+renders each band only if its mapper returns non-null, and `allMissing` stays false while
+any one section survives. The homepage simply rendered short.
+
+**Recovery.** No content history (the endpoint 404s) and no database backup, so the
+bootstrap seed was the source. The surviving section matched `seedHome` byte-for-byte and
+no admin-panel edits had been made, so the seed restored the page as it was.
+`scripts/restore-home.ts` deletes the damaged entry and re-seeds in one run, gated to
+refuse unless it finds exactly the damaged shape — verified: it restores 9 published
+sections, and refuses on a second run. Cloudinary assets were reused via
+`getOrUploadHomeLocalAsset`, so image URLs are unchanged and nothing was re-uploaded.
+Nested content came back intact: 4 hero slides, 9 logos, 3 process steps with their
+checklist rows, 4 service cards with chips, 4 accordion cards with sublinks.
+
+**A latent bug found while fixing it.** `seedHome` was the only seed not passing
+`status: "published"` to `create()`. A fresh seed would have left the homepage as a draft
+with the public API returning nothing — a blank page rather than a short one. Now fixed.
+
+**Prevention.** The root cause is structural: a partial read followed by a whole-dynamiczone
+write, which no amount of care reliably prevents. `scripts/_shared/entry-io.ts` now holds
+the helpers the three update scripts had each copied (`sanitize`, `setText`, the drift
+`Ctx`, and a shared `commit`), plus `loadEntryGuarded`. It reads the entry twice — once
+shallow, which returns every component, once with the caller's detailed populate — and
+throws if they disagree on the component list, naming exactly what would have been lost.
+All three scripts now use it. Verified against the original bad populate: the guard fires
+and lists all eight missing sections. All three still report "Nothing to do".
+
+`update-tier-names.ts` keeps a note of what it did, so the next person reading it sees the
+history rather than repeating it.
+
+## 2026-09-04 · One name per NDPC tier, site-wide
+
+The sector copy pass below renamed EHL from "Enhanced High Level" to **"Extra-High
+Level"**, but the client's doc only covered the sector pages. That left the site giving
+two different names for the same statutory tier, on pages that link to each other — the
+sector pages said one thing, the self-check they link to said another. Applying the
+correction everywhere was a call made here, not in the client's doc; it needs the same
+claims-register logging as the Schedule 3 → Schedule 7 change.
+
+A second, older split is fixed at the same time: the resources explainer was corrected to
+**"Ultra-High Level"** in the earlier resources pass, but the self-check still said "Upper
+High Level". That one predates this round.
+
+**Live surfaces changed.** `lib/content/amICovered.ts` (four strings — both tier bodies
+and both `categoryDisplayName` labels), and the homepage sector-accordion drawer hook,
+which lives in Strapi and is mirrored in `lib/cms/defaultHomeContent.ts` as the
+fetch-failure fallback. Only the tier names moved: the 1,000–4,999 volume band, the named
+EHL categories and the CAR filing obligation are all byte-identical.
+
+`/am-i-covered` reads its content module directly rather than the CMS, so it needed no
+database write. The `self-check` single type carries the same strings but nothing renders
+it, so `seedSelfCheck` was updated for a fresh database and deliberately left out of the
+update script — there is a comment in place saying so.
+
+**Applied to the live database** by `cms/scripts/update-tier-names.ts`, same guarded
+pattern as the sector script: one edit, addressed by `sectorId` rather than array index
+so admin reordering can't misdirect it. Verified idempotent, and re-running
+`update-sector-content.js` afterwards still reports "Nothing to do".
+
+**Left with the old wording, deliberately.** `components/services/IndustrySectors.tsx` and
+`components/v5/TertiaryView.tsx` are both unreachable — `TertiaryView` is the retained v5
+port, and `IndustrySectors` is only used by `ServicesArchive.tsx`, which has no consumers
+at all. That orphan looks unintentional and is worth a separate look. The
+"Enhanced High Level" strings in `cms/scripts/update-resources-content.ts` and
+`update-sector-content.ts` are expected-previous-value guards recording what the database
+used to hold; editing them would break both scripts' idempotency.
+
+## 2026-09-04 · Sector copy revisions and a fourth sector route
+
+The client's copy pass on `/sectors` and the three sector detail pages, plus a new
+`/sectors/mid-size-organizations` route for Mid-Size Organisations & Financial
+Institutions.
+
+**Copy.** `/sectors` gains a rewritten hero summary, credential panel and directory
+intro, and its directory grows from three cards to four (mid-size, regulated
+businesses, tertiary institutions, public sector — in that order, per the doc), with
+the hero metric moving from "3 approved sector routes" to "4". The three detail pages
+take revised hero, reason and accordion copy. Two statutory references change
+site-wide on these pages, as client-supplied corrections: **GAID 2025 Schedule 3 →
+Schedule 7**, and **"Enhanced High Level" → "Extra-High Level"**. Both need logging
+against the claims register in the handover workspace. The NDPA s.49 penalty sentence
+is unchanged wherever it appears.
+
+`regulated-businesses.proof-section` no longer names Levitate; it now reads as an
+"End-to-End Delivery" statement.
+
+**New route.** `/sectors/mid-size-organizations` (short slug — the doc's
+`mid-size-organizations-&-financial-institutions` is not URL-safe). It clones the
+regulated-businesses shape, which is the only one carrying a turnarounds section, and
+needs no mapper or template change: `mapSectorDetail` reads the component namespace
+off the payload. In `lib/cms/client.ts` the turnarounds special case becomes a set
+membership test, since two namespaces now have that component. No proof section —
+there is no cleared client for this page, and inventing one would breach AGENTS.md
+rule 2.
+
+**Applying it.** Live copy lives in Strapi and the bootstrap seed only runs against an
+empty content type, so the edits ship twice: in `cms/src/index.ts` for a fresh
+database, and in `cms/scripts/update-sector-content.ts` for already-seeded
+environments. Every edit in the script is guarded by its expected previous value and
+the run aborts before any write on drift. The new single type needs no script — it is
+empty everywhere, so the seed fills it on first boot — but its **public `find`
+permission must be granted by hand** in Strapi admin, or the route renders
+`ContentUnavailable`.
+
+**Wired in.** The route now follows the sibling pattern: a new typed content module,
+`lib/content/sectorsMidSizeOrganizations.ts`, supplies its `metadata` the way
+tertiary-institutions and public-sector do, and it is registered in
+`lib/content/searchIndex.ts` so the page is findable in site search. `lib/content/types.ts`
+gains one member on each of two unions — `Audience: "mid-size-organisation"` and
+`Sector: "financial-services"` — since neither had a value that fits deposit-taking
+institutions.
+
+`lib/content/navigation.ts` gets a fourth "By Category" item, and its "Who's Covered"
+column is corrected for the reclassification the copy pass implies: **mortgage banks are
+EHL** and now route to the new page, while banks stay UHL. Hospitals and microfinance
+are added on the same route.
+
+**Unregistered claims.** Two statements on the new page have no claims register ID —
+"microfinance and mortgage banks are named EHL categories" and the 1,000-data-subject
+threshold. Neither was given an invented ID; both are flagged in the new module's header
+comment. `regulatoryDriver` cites only C-012, C-014 and C-022, which genuinely apply.
+
+**Stale modules synced.** `sectorsIndex.ts`, `sectorsTertiaryInstitutions.ts`,
+`sectorsRegulatedBusinesses.ts` and `sectorsPublicSector.ts` now carry the same copy as
+Strapi. This mattered more than it looked: `searchIndex.ts` builds site-search
+descriptions from these modules, so their stale text was user-visible. The
+regulated-businesses `proofItems` entry for Levitate is removed, since that band no
+longer names a client.
+
+**Not touched.** `components/sectors/RegulatedBusinesses.tsx` holds a fifth copy of the
+same content, used only by the internal `/design-review/sectors/*` previews; its own
+comment marks it as a deliberately retained superseded port. Levitate remains on the
+homepage track record — the copy pass only removed it from the sector proof band.
+
+**Terminology.** "Extra-High Level" initially landed on the sector pages only, leaving the
+self-check and homepage drawer on the old name. Resolved the same day — see the entry
+above.
+
+## 2026-09-04 · Resources routes: the last hardcoded copy moves into the CMS
+
+`/resources` and `/resources/[slug]` already read their content from Strapi, but a
+layer of chrome never made it in and was frozen as literal strings in JSX — against the
+`AGENTS.md` rule. `ArticleSidebar` was the worst of it: an entire newsletter form,
+its two status messages, and the "Table of contents" heading, none of it editable.
+
+Now CMS-driven: the newsletter form (sr-only label, placeholder, Subscribe button, idle
+and submitted status), "Table of contents", the sidebar `aria-label`, the article
+breadcrumb label and href, the "Reviewed" and "Read" prefixes, the "Published now" /
+"Coming soon" category badges, and the `/resources` page title and description — that
+last one moving from a static `metadata` export to `generateMetadata`, matching what
+the `[slug]` route already did.
+
+New fields land on `resources.hero-section` and `resources.library-section`, plus
+`hero-section` and `sidebar-section` in **all three** article namespaces, which are
+separate component sets and had to be kept identical. `ArticleSidebar`'s `newsletter`
+prop is renamed `sidebar` now that it carries more than newsletter copy.
+
+**Defaults live in the mappers, not the JSX.** A schema change adds nullable columns, so
+these fields read empty until the CMS is backfilled — and a blank Subscribe button is a
+worse failure than a stale default. Each new field maps through a `text(value, fallback)`
+helper against a `DEFAULTS` block holding the exact pre-CMS wording. None of them are
+required, so a missing one can never return `null` and blank the page. This is what lets
+the frontend deploy independently of the CMS.
+
+`ResourceCards` is shared with the homepage, so its two new label props are optional and
+default to the old strings — the homepage is untouched. The article page's related list
+takes its labels from the library section via a new `mapResourceCardLabels`, since that
+section owns the cards' copy, rather than borrowing the article's own chrome.
+
+Also hardened `resourceArticlePopulateQuery`: the hero populate named `audience`
+explicitly, so a namespace missing that field would 400 — non-retryable — and blank the
+whole article. It now uses `*`, matching the deliberate pattern the home query already
+documents.
+
+Backfill via `cms/scripts/update-resources-chrome.ts` (`npm run
+content:update-resources-chrome`), modelled on the content script from batch 1. It
+differs in its guard: it writes a field **only when that field is empty**, so it can
+never overwrite wording an editor typed. 36 fields filled across the four entries.
+
+**Deployment note:** the fields are in the database, but `cms.thanelinc.ng` still runs
+the previously compiled schema and so does not yet expose them over its API. The CMS
+needs a redeploy. Until then the mapper defaults render the identical wording — verified
+by a clean `npm run build` against the live CMS — so nothing on the site changes either
+way.
+
+---
+
+## 2026-09-03 · Resources copy revisions from the client (batch 1)
+
+First of a page-by-page pass over the client's redesign document. This batch covers
+`/resources` and the `ndpc-compliance-categories-explained` explainer only.
+
+The compliance tier names were wrong. They now read **Ultra-High Level, Extra-High
+Level, and Ordinary-High Level** — not Upper/Enhanced/Ordinary. The `UHL by category`
+and `OHL by category` bullets pick up the categories that were missing from them
+(electricity distribution, multinationals, payment gateway providers, and the named
+app/device developers on UHL; the 200-data-subject sensitive-data processor route on
+OHL). `EHL by category` is unchanged — the client did not revise it.
+
+The third body section, previously "There's also a four-factor test", is now
+"Category isn't the whole picture" and says something materially different: the four
+factors no longer move an organisation between tiers, they trigger obligations of
+their own (a DPIA for sensitive or cross-border processing; separate duties for
+third-party processing). Its `sectionId` stays `four-factor-test` so the in-page
+anchor does not break; the rendered section number comes from the array index.
+
+Audience tags on the library cards move from personas to sectors: the categories
+explainer is now tagged Tertiary Institutions · Public Sector & MDAs · Mid-Size
+Organisations & Financial Institutions · Regulated Businesses (that last sector page
+does not exist yet — the tag is a plain label, not a link). The vendor due diligence
+card keeps its two tags with "Regulated Businesses" capitalised. Card and article-hero
+tag lists are duplicated in the CMS and were updated in both places.
+
+Changed in `lib/content/resources.ts` (the CMS-unavailable fallback, and the source
+site search reads) and in the Strapi seed `cms/src/index.ts`, which must stay
+identical or the copy flips depending on CMS reachability.
+
+Because the seed only runs against an empty content type, already-seeded environments
+need `cms/scripts/update-resources-content.ts` (run via
+`npm run content:update-resources` in `cms/`). It is guarded rather than blind: every
+edit asserts its expected previous value, a field already holding the new text is
+skipped, and any other value aborts the run before a single write, so admin-panel
+edits are never clobbered. Re-running it is a no-op.
+
+**Flagged, not changed:** the new section-03 copy contradicts `lib/self-check/resolve.ts`,
+which escalates a sub-200 organisation to OHL on a four-factor trigger (open question
+Q-009), and the matching result copy in `lib/content/amICovered.ts`. If the new article
+wording is right, the self-check logic is wrong. Needs client confirmation before
+either is touched.
+
+---
+
 ## 2026-09-02 · /about, /how-we-work and /contact now read from the CMS
 
 The last routes still rendering hardcoded copy. Same story as `/resources`: the

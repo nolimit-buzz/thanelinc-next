@@ -44,21 +44,26 @@ export const resourceArticles: ResourceArticle[] = [
       src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1600&q=85",
       alt: "Colleagues discussing work at a table",
     },
-    audience: ["Compliance owners", "Higher institutions", "Regulated businesses"],
+    audience: [
+      "Tertiary Institutions",
+      "Public Sector & MDAs",
+      "Mid-Size Organisations & Financial Institutions",
+      "Regulated Businesses",
+    ],
     sections: [
       {
         id: "two-ways",
         title: "Two ways an organisation lands in a category",
         paragraphs: [
-          "If you've come across ‘UHL’ or ‘EHL’ while researching NDPA compliance, these are the NDPC's own tiers for classifying data controllers and processors — Upper High Level, Enhanced High Level, and Ordinary High Level. Which one applies to you decides what you're required to do and by when.",
+          "If you've come across ‘UHL’ or ‘EHL’ while researching NDPA compliance, these are the NDPC's own tiers for classifying data controllers and processors: Ultra-High Level, Extra-High Level, and Ordinary-High Level. Which one applies to you determines what you're required to do and by when.",
           "By what you are. The NDPC's own schedule names specific categories outright, regardless of size.",
           "By volume. If your organisation type isn't named above, category is decided by how many people's personal data you've handled in a rolling six months. Higher volumes mean a higher category.",
           "Category-by-name always wins. A named category applies regardless of volume — a small university is still EHL, not OHL, no matter how few students it has.",
         ],
         points: [
-          { label: "UHL by category", body: "Banks, telecoms, fintech and payment companies, insurers, and oil & gas companies." },
+          { label: "UHL by category", body: "Banks, telecoms, insurers, oil & gas companies, electricity distribution companies, multinational companies, payment gateway providers, and fintechs. Also named outright: public social media app developers, public e-mail app developers, and communication device manufacturers." },
           { label: "EHL by category", body: "Higher institutions, MDAs of government, microfinance and mortgage banks, and hospitals providing tertiary or secondary care." },
-          { label: "OHL by category", body: "Primary and secondary schools, corporate training providers, primary health centres, independent medical laboratories, and hotels under 50 suites." },
+          { label: "OHL by category", body: "Primary and secondary schools, corporate training providers, primary health centres, independent medical laboratories, hotels under 50 suites, and processors handling sensitive personal data of more than 200 data subjects for commercial purposes." },
         ],
       },
       {
@@ -72,10 +77,10 @@ export const resourceArticles: ResourceArticle[] = [
       },
       {
         id: "four-factor-test",
-        title: "There's also a four-factor test",
+        title: "Category isn't the whole picture",
         paragraphs: [
-          "Below the volume thresholds, four factors can still pull an organisation into a higher category: whether you process sensitive personal data, whether you transfer data across borders, whether a third party or cloud provider processes data on your behalf, and your overall data volume trend.",
-          "None of these factors work in isolation — an organisation should never assume it's exempt on low volume alone.",
+          "Your UHL, EHL, or OHL classification is decided by name or by volume alone, nothing else changes which tier you're in. But several factors trigger obligations of their own regardless of category: processing sensitive personal data or transferring data across borders can require a Data Protection Impact Assessment (DPIA), and engaging a third party or cloud provider carries its own compliance obligations under the Act.",
+          "An organisation should never assume it's exempt just because its category feels low-risk.",
         ],
       },
       {
@@ -145,7 +150,7 @@ export const resourceArticles: ResourceArticle[] = [
       src: "https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1600&q=85",
       alt: "Professionals reviewing a document together",
     },
-    audience: ["Compliance owners", "Regulated businesses"],
+    audience: ["Compliance owners", "Regulated Businesses"],
     sections: [
       {
         id: "why-it-matters",

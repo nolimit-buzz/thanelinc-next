@@ -67,7 +67,7 @@ export const defaultSectorAccordion: SectorAccordionContent = {
       imageAlt: "Tertiary Institutions Compliance",
       collapsedTitle: "Tertiary Institutions",
       drawerTitle: "Tertiary Institutions",
-      drawerHook: "Classed as Enhanced High Level (EHL) outright by the NDPC—by name, not by student volume.",
+      drawerHook: "Classed as Extra-High Level (EHL) outright by the NDPC—by name, not by student volume.",
       sublinks: [
         { label: "Universities", href: "#check" },
         { label: "Polytechnics", href: "#check" },

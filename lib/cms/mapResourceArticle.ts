@@ -13,6 +13,47 @@ export interface ResourceArticleSidebarContent {
   newsletterLabel: string;
   newsletterHeading: string;
   newsletterBody: string;
+  newsletterEmailLabel: string;
+  newsletterEmailPlaceholder: string;
+  newsletterSubmitLabel: string;
+  newsletterIdleStatus: string;
+  newsletterSubmittedStatus: string;
+  tocLabel: string;
+  sidebarAriaLabel: string;
+}
+
+/** Small labels the article page frames its CMS content with. */
+export interface ResourceArticleChromeContent {
+  reviewedLabel: string;
+  backLabel: string;
+  backHref: string;
+}
+
+/**
+ * These fields were added to the article components after the entries were first
+ * seeded, so they read empty until the CMS is backfilled. They are chrome, not
+ * copy the page is about: a blank Subscribe button or an empty `aria-label` is a
+ * worse failure than a stale default, so each one falls back to the wording it
+ * had when it lived in the JSX. Keeping the defaults here rather than in the
+ * components honours the "no copy in JSX" rule while staying safe to deploy
+ * ahead of the backfill.
+ */
+const DEFAULTS = {
+  newsletterEmailLabel: "Email address",
+  newsletterEmailPlaceholder: "Your email address",
+  newsletterSubmitLabel: "Subscribe",
+  newsletterIdleStatus: "Subscription delivery will be enabled with the approved backend.",
+  newsletterSubmittedStatus: "Newsletter delivery will open when the approved subscription backend is connected.",
+  tocLabel: "Table of contents",
+  sidebarAriaLabel: "Article tools",
+  reviewedLabel: "Reviewed",
+  backLabel: "Resources",
+  backHref: "/resources",
+} as const;
+
+/** CMS value when set, else the pre-CMS wording. Never returns an empty string. */
+function text(value: unknown, fallback: string): string {
+  return String(value ?? "").trim() || fallback;
 }
 
 export interface ResourceArticleRelatedContent {
@@ -29,6 +70,7 @@ export interface ResourceArticleContent {
   cta: { label: string; heading: string };
   sidebar: ResourceArticleSidebarContent;
   related: ResourceArticleRelatedContent;
+  chrome: ResourceArticleChromeContent;
 }
 
 // `kind` is rendered as a taxonomy label and typed as a closed union, so an
@@ -102,6 +144,18 @@ export function mapResourceArticlePage(
       newsletterLabel: String(sidebar?.newsletterLabel ?? ""),
       newsletterHeading: String(sidebar?.newsletterHeading ?? ""),
       newsletterBody: String(sidebar?.newsletterBody ?? ""),
+      newsletterEmailLabel: text(sidebar?.newsletterEmailLabel, DEFAULTS.newsletterEmailLabel),
+      newsletterEmailPlaceholder: text(sidebar?.newsletterEmailPlaceholder, DEFAULTS.newsletterEmailPlaceholder),
+      newsletterSubmitLabel: text(sidebar?.newsletterSubmitLabel, DEFAULTS.newsletterSubmitLabel),
+      newsletterIdleStatus: text(sidebar?.newsletterIdleStatus, DEFAULTS.newsletterIdleStatus),
+      newsletterSubmittedStatus: text(sidebar?.newsletterSubmittedStatus, DEFAULTS.newsletterSubmittedStatus),
+      tocLabel: text(sidebar?.tocLabel, DEFAULTS.tocLabel),
+      sidebarAriaLabel: text(sidebar?.sidebarAriaLabel, DEFAULTS.sidebarAriaLabel),
+    },
+    chrome: {
+      reviewedLabel: text(hero.reviewedLabel, DEFAULTS.reviewedLabel),
+      backLabel: text(hero.backLabel, DEFAULTS.backLabel),
+      backHref: text(hero.backHref, DEFAULTS.backHref),
     },
     related: {
       kindLabel: String(related?.kindLabel ?? ""),

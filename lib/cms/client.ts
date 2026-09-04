@@ -211,11 +211,20 @@ export async function fetchSectorsSections(): Promise<StrapiSection[] | null> {
 }
 
 /**
- * The three sector detail single types share a component shape whose namespace
- * is again the same string as the API endpoint — with one difference: only
- * regulated-businesses carries a turnarounds section.
+ * The four sector detail single types share a component shape whose namespace
+ * is again the same string as the API endpoint — with one difference: only the
+ * two commercial routes carry a turnarounds section.
  */
-export type SectorDetailSlug = "tertiary-institutions" | "regulated-businesses" | "public-sector";
+export type SectorDetailSlug =
+  | "tertiary-institutions"
+  | "regulated-businesses"
+  | "public-sector"
+  | "mid-size-organizations";
+
+const NAMESPACES_WITH_TURNAROUNDS: ReadonlySet<string> = new Set([
+  "regulated-businesses",
+  "mid-size-organizations",
+]);
 
 function sectorDetailPopulateQuery(namespace: SectorDetailSlug) {
   const paths = [
@@ -230,8 +239,8 @@ function sectorDetailPopulateQuery(namespace: SectorDetailSlug) {
 
   // Naming a component that is not in this type's dynamiczone risks a 400, and a
   // 400 is non-retryable — it would blank the page. So only ask for turnarounds
-  // on the one type that has them.
-  if (namespace === "regulated-businesses") {
+  // on the types that have them.
+  if (NAMESPACES_WITH_TURNAROUNDS.has(namespace)) {
     paths.push(`populate[sections][on][${namespace}.turnarounds-section][populate]=steps`);
   }
 
@@ -265,7 +274,11 @@ export function isResourceArticleSlug(slug: string): slug is ResourceArticleSlug
 
 function resourceArticlePopulateQuery(namespace: ResourceArticleSlug) {
   return [
-    `populate[sections][on][${namespace}.hero-section][populate]=audience`,
+    // `[populate]=*` rather than naming `audience`, for the same reason as the
+    // home query above: a 400 on an unknown populate key is non-retryable and
+    // would blank the whole article. The wildcard also picks up the hero's
+    // reviewedLabel/backLabel/backHref once they are deployed.
+    `populate[sections][on][${namespace}.hero-section][populate]=*`,
     // `[populate]=*` on the body's section items picks up both `paragraphs` and
     // `points` in one path.
     `populate[sections][on][${namespace}.body-section][populate][sections][populate]=*`,

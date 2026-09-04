@@ -20,15 +20,10 @@ export const sectorsRegulatedBusinessesContent: SectorPage = {
     "/services/gap-assessment-dpia",
     "/services/ndpc-registration",
   ],
-  proofItems: [
-    {
-      clientName: "Levitate",
-      disclosureStatus: "cleared",
-      sector: "fintech",
-      servicesDelivered: ["Full NDPA engagement — letter of engagement through delivery"],
-      engagementStatus: "delivered",
-    },
-  ],
+  // Client direction 2026-09-04: the proof band no longer names Levitate — it
+  // now reads as a capability statement ("End-to-End Delivery"), so there is no
+  // named engagement left to record here.
+  proofItems: [],
   regulatoryDriver: [
     { claimId: "C-012", instrument: "NDPA 2023 s.49" },
     { claimId: "C-014", instrument: "GAID 2025 Art.10(14)" },
@@ -40,9 +35,9 @@ export const sectorsRegulatedBusinessesContent: SectorPage = {
 };
 
 export const hero = {
-  h1: "Are you actually in scope — or is this for bigger companies?",
+  h1: "Are you actually in scope, or is this for bigger companies?",
   subhead:
-    "Fintech, telecoms, insurance, retail, health, and logistics businesses are named UHL categories under the NDPC's own schedule. Most companies asking this question already are. Find out in two minutes, no commitment.",
+    "Fintech, telecoms, and insurance businesses are named UHL categories under the NDPC's own schedule. Retail, health, and logistics join this tier once data volume crosses the threshold. Most companies asking this question already are. Find out in two minutes, no commitment.",
   primaryCta: { label: "Check if you're in scope", href: "/am-i-covered" },
   secondaryCta: { label: "Talk to us", href: "/contact" },
 };
@@ -71,11 +66,11 @@ export const reasons = [
   },
   {
     title: "Due diligence",
-    body: "An investor, acquirer, or enterprise customer has asked for NDPA evidence — and “we're working on it” is not an answer that survives a data room.",
+    body: "An investor or acquirer has asked for NDPA evidence, and “we're working on it” is not an answer that survives a data room.",
   },
   {
     title: "Contractual demand",
-    body: "A partner or enterprise contract now carries NDPA warranties you need to be able to stand behind.",
+    body: "An enterprise customer or partner contract now carries NDPA warranties you need to be able to stand behind.",
   },
   {
     title: "A breach, or a near-miss",
@@ -86,13 +81,13 @@ export const reasons = [
 
 export const categorySection = {
   heading: "Are you UHL by category or by volume?",
-  body: "Banks, mortgage banks, telecoms, fintech and payments companies, insurers, and oil & gas companies are named UHL categories outright under GAID Schedule 3 — the classification applies regardless of how many customer records you hold. Other companies reach UHL by volume: over 5,000 people's data handled in a rolling six months.\n\nEither way, UHL carries the same obligation: annual Compliance Audit Returns filed through an NDPC-licensed DPCO, due 31 March each year (or within 15 months of establishment, for newer entities).",
+  body: "Banks, telecoms, fintech and payments companies, insurers, and oil & gas companies are named UHL categories outright under GAID Schedule 7, the classification applies regardless of how many customer records you hold. Other companies reach UHL by volume: over 5,000 people's data handled in a rolling six months.\n\nEither way, UHL carries the same obligation: annual Compliance Audit Returns filed through an NDPC-licensed DPCO, due 31 March each year (or within 15 months of establishment, for newer entities).",
   cta: { label: "Get your exact category", href: "/am-i-covered" },
 };
 
 export const dpoSection = {
   heading: "We need a DPO but can't justify a hire",
-  body: "Most companies at this stage don't need a full-time Data Protection Officer — they need the role covered, credibly, without adding headcount. Thanelinc's outsourced DPO service places a qualified DPO of record against your organisation, handling reporting, oversight, and NDPC liaison.",
+  body: "Most companies at this stage don't need a full-time Data Protection Officer; they need the role covered, credibly, without adding headcount. Thanelinc is formally appointed as your organisation's DPO of record, handling reporting, oversight, and NDPC liaison.",
   cta: { label: "See the outsourced DPO service", href: "/services/outsourced-dpo" },
 };
 
@@ -102,8 +97,8 @@ export const filingSection = {
 };
 
 export const proof = {
-  clientName: "Levitate",
-  body: "a full NDPA engagement, from letter of engagement through to the compliance work itself.",
+  clientName: "End-to-End Delivery",
+  body: "A full NDPA engagement, from letter of engagement through to the compliance work itself.",
   cta: { label: "Read how we work", href: "/how-we-work" },
 };
 

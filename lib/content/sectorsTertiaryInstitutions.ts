@@ -44,9 +44,10 @@ export const sectorsTertiaryInstitutionsContent: SectorPage = {
 
 export const tertiaryInstitutionsPage: SectorPageContent = {
   // Traceable to the page copy's own regulatory_driver and Section 1:
-  // "Section 3(c)(iii) of the GAID 2025 Schedule 3 names Higher Institutions
-  // as an EHL category outright."
-  badge: "EHL BY NAME — GAID 2025 SCH.3 ¶3(C)(III)",
+  // "Section 3(c)(iii) of the GAID 2025 Schedule 7 names Higher Institutions
+  // as an EHL category outright." Schedule reference and the "Extra-High Level"
+  // wording corrected by the client 2026-09-04.
+  badge: "CLASSIFIED BY NAME - NDPC GAID 2025",
   guidedLabels: {
     credential: "Licensed DPCO",
     sequence: "What happens next",
@@ -54,9 +55,9 @@ export const tertiaryInstitutionsPage: SectorPageContent = {
     reasonsFallback: "Why this matters",
   },
   hero: {
-    h1: "Your institution is an EHL organisation. Not by size — by name.",
+    h1: "Universities and tertiary institutions are Extra-High Level.",
     subhead:
-      "Under the NDPC's own schedule, every higher institution — university, polytechnic, or college — is classed Enhanced High Level, regardless of student numbers. That means an annual filing obligation, and a legal requirement to file through a licensed Data Protection Compliance Organization.",
+      "Under the NDPC's own framework, every higher institution- university, polytechnic, or college- is classed Extra-High Level, regardless of student numbers. That means an annual filing obligation, and a legal requirement to file through a licensed Data Protection Compliance Organization.",
     primaryCta: { label: "Check your exact filing deadline", href: "/am-i-covered" },
     secondaryCta: { label: "Get in touch", href: "/contact" },
   },
@@ -87,8 +88,8 @@ export const tertiaryInstitutionsPage: SectorPageContent = {
       body: "Under section 49 of the Nigeria Data Protection Act, an organisation of major importance that breaches the Act can face a penalty of up to the greater of ₦10 million or 2% of its annual gross revenue for the preceding year.",
     },
     {
-      title: "A regulatory sweep already under way",
-      body: "A public regulatory sweep on universities is already under way. Being named in it, unprepared, in front of a governing council, is the risk that brings most registrars to this page.",
+      title: "Public exposure is a real risk, not a hypothetical one",
+      body: "The NDPC has a track record of publicly naming non-compliant institutions in sector-wide compliance sweeps. Being named unprepared, in front of a governing council, the media, or your own students is the risk that brings most registrars to this page.",
     },
     {
       title: "Your data footprint is wider than it looks",
@@ -96,7 +97,7 @@ export const tertiaryInstitutionsPage: SectorPageContent = {
     },
     {
       title: "Trust with students, parents and accreditors",
-      body: "The audience that matters here isn't an investor or an enterprise customer — it's a governing council, an accreditation body, and the families entrusting you with their children's data. That's what this protects.",
+      body: "The audience that matters here isn't a shareholder or a corporate client — it's a governing council, an accreditation body, and the families entrusting you with their children's data.",
     },
   ],
   // Wider than the 780px default — row 3's StageTable needs the room; the
@@ -106,18 +107,18 @@ export const tertiaryInstitutionsPage: SectorPageContent = {
     {
       number: "01",
       heading: "Does this actually apply to us?",
-      body: "Yes. Section 3(c)(iii) of the GAID 2025 Schedule 3 names Higher Institutions as an EHL category outright. This is not a volume threshold you might sit under — it is a category assignment by what your institution is. A 400-student college and a 40,000-student federal university are both EHL.\n\nThat means:\n• You're required to file annual Compliance Audit Returns (CAR) through an NDPC-licensed DPCO (GAID Art.10(14)). Thanelinc holds that licence.\n• If your institution was established before 12 June 2023, your CAR is due 31 March every year. If established after, it's due within 15 months of establishment, then annually.",
+      body: "Yes. Section 3(c)(iii) of the GAID 2025 Schedule 7 names Higher Institutions as an EHL category outright. This is not a volume threshold you might sit under — it is a category assignment by what your institution is. A 400-student college and a 40,000-student federal university are both EHL.\n\nThat means:\n• You're required to file annual Compliance Audit Returns (CAR) through an NDPC-licensed DPCO (GAID Art.10(14)). Thanelinc holds that licence.\n• If your institution was established before 12 June 2023, your CAR is due 31 March every year. If established after, it's due within 15 months of establishment, then annually.",
       cta: { label: "Confirm your exact category and deadline", href: "/am-i-covered" },
     },
     {
       number: "02",
       heading: "What happens if we don't?",
-      body: "Under section 49 of the Nigeria Data Protection Act, an organisation of major importance that breaches the Act can face a penalty of up to the greater of ₦10 million or 2% of its annual gross revenue for the preceding year.\n\nMore immediately: a public regulatory sweep on universities is already under way. Being named in it, unprepared, in front of a governing council, is the risk that brings most registrars to this page.",
+      body: "Under section 49 of the Nigeria Data Protection Act, an organisation of major importance that breaches the Act can face a penalty of up to the greater of ₦10 million or 2% of its annual gross revenue for the preceding year. Beyond the fine, non-compliance surfaces publicly - the NDPC has repeatedly named institutions in sector-wide sweeps, and few registrars want that discovery happening in front of their governing council or student body.",
     },
     {
       number: "03",
       heading: "Where would we even start?",
-      body: "Institutions typically arrive holding student, staff, and alumni data across a dozen disconnected systems — admissions, HR, the LMS, the library, alumni relations — with no single map of where it all sits or who can access it.\n\nThanelinc's engagement starts there:",
+      body: "Institutions typically arrive holding student, staff, and alumni data across a dozen disconnected systems: admissions, HR, the LMS, the library, alumni relations, with no single map of where it all sits or who can access it. That's exactly where we start: a structured data-mapping exercise that turns this fragmented picture into a single Record of Processing Activities (ROPA) - the foundation everything else builds on.",
       // 6-stage model, client direction 2026-08-20 (superseded the earlier
       // 9-step numbered list; see changelog and DECISIONS.md W-029). Each
       // stage groups 1–3 of the original granular steps — none were dropped,
@@ -166,13 +167,13 @@ export const tertiaryInstitutionsPage: SectorPageContent = {
     },
     {
       number: "04",
-      heading: "Can this fit around our academic calendar?",
-      body: "Engagements are scoped around your term structure — admissions cycles, examination periods, and ICT capacity are accounted for at intake, not discovered mid-project. This is confirmed at the scoping call, not promised generically here.",
+      heading: "Can this fit around our academic calendar and operational readiness?",
+      body: "Engagements are scoped around your institution's realities: admissions cycles, examination periods, and ICT capacity are accounted for at intake, not discovered mid-project. This is confirmed at the scoping call, not promised generically here.",
     },
     {
       number: "05",
-      heading: "Will this survive procurement and council scrutiny?",
-      body: "Thanelinc is a licensed DPCO — not a consultancy offering an opinion, but the category of firm the NDPC requires EHL organisations to use. The credential status and its distinction from a Data Controller/Processor registration are clearly explained.\n\nRequest the Thanelinc company profile — a procurement-ready document you can circulate to your committee.",
+      heading: "Will this survive council and committee scrutiny?",
+      body: "Thanelinc is a licensed DPCO, not a consultancy offering an opinion, but the category of firm the NDPC requires EHL organisations to use. The credential status and its distinction from a Data Controller/Processor registration are clearly explained.\n\nRequest the Thanelinc company profile, a document you can circulate to your governing council or vendor-vetting committee.",
       cta: { label: "See the credential details", href: "/about#credentials" },
     },
   ],

@@ -26,7 +26,12 @@ export type Audience =
   | "tertiary-institution"
   | "regulated-business"
   | "compliance-owner"
-  | "public-sector";
+  | "public-sector"
+  // Added 2026-09-04 for /sectors/mid-size-organizations. Distinct from
+  // "regulated-business": these organisations reach EHL by name (microfinance
+  // and mortgage banks, hospitals) or by the 1,000-data-subject threshold,
+  // not by the UHL category list.
+  | "mid-size-organisation";
 
 /**
  * Maps 1:1 onto Thanelinc's 6-stage client journey (2026-08-20, DECISIONS.md
@@ -53,6 +58,9 @@ export type Sector =
   | "telecoms"
   | "public-sector"
   | "professional-bodies"
+  // Added 2026-09-04: deposit-taking and lending institutions named as EHL
+  // categories — microfinance and mortgage banks. "fintech" does not cover them.
+  | "financial-services"
   | "general";
 
 export type ContentType =

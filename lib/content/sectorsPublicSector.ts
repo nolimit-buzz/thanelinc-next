@@ -29,7 +29,7 @@ export const sectorsPublicSectorContent: SectorPage = {
     },
   ],
   regulatoryDriver: [
-    { claimId: "C-007", instrument: "GAID 2025 Sch.3 ¶3(c)(i)" },
+    { claimId: "C-007", instrument: "GAID 2025 Sch.7 ¶3(c)(i)" },
     { claimId: "C-022", instrument: "GAID 2025 Art.10(14)" },
   ],
   owner: "Unassigned — see Q-009",
@@ -38,7 +38,7 @@ export const sectorsPublicSectorContent: SectorPage = {
 };
 
 export const publicSectorPage: SectorPageContent = {
-  badge: "PUBLIC SECTOR & MDAS — GAID 2025 SCH.3 ¶3(C)(I)",
+  badge: "PUBLIC SECTOR & MDAS — GAID 2025 SCH.7 ¶3(C)(I)",
   guidedLabels: {
     credential: "Licensed DPCO",
     sequence: "The engagement sequence",
@@ -79,7 +79,7 @@ export const publicSectorPage: SectorPageContent = {
     {
       number: "01",
       heading: "Does this apply to Ministries and Agencies?",
-      body: "GAID 2025 Schedule 3 lists MDAs of government as an EHL category. That is the regulatory starting point; the organisation's precise circumstances and filing position are confirmed during scoping.",
+      body: "GAID 2025 Schedule 7 lists MDAs of government as an EHL category. That is the regulatory starting point; the organisation's precise circumstances and filing position are confirmed during scoping.",
       cta: { label: "Check your category", href: "/am-i-covered" },
     },
     {
@@ -96,8 +96,8 @@ export const publicSectorPage: SectorPageContent = {
     {
       number: "03",
       heading: "Can a procurement team verify the licence?",
-      body: "Yes. The DPCO licence and the separate Data Controller/Processor registration are available to view directly. They are distinct credentials and are presented separately so the verification is clear.",
-      cta: { label: "Inspect the credentials", href: "/about#credentials" },
+      body: "Yes. The DPCO licence and the separate Data Controller/Processor registration are distinct credentials, verifiable independently through the NDPC's own public register; not something you have to take our word for. Details are also available on request.",
+      cta: { label: "Verify on NDPC", href: "/about#credentials" },
     },
     {
       number: "04",

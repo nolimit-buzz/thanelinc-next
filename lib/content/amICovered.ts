@@ -125,7 +125,7 @@ interface ResultCopy {
 export const resultCopy: Record<Category, ResultCopy> = {
   UHL: {
     headline: "You're in the UHL category — the NDPC's highest compliance tier.",
-    body: "Organisations like yours — high transaction volumes, sensitive data, or regulated sectors like banking, telecoms, fintech, and insurance — sit in the Upper High Level (UHL) category.",
+    body: "Organisations like yours — high transaction volumes, sensitive data, or regulated sectors like banking, telecoms, fintech, and insurance — sit in the Ultra-High Level (UHL) category.",
     whatThisMeans: [
       "You're required to file your annual Compliance Audit Returns (CAR) through a Data Protection Compliance Organization licensed by the NDPC. Thanelinc is one.",
     ],
@@ -135,7 +135,7 @@ export const resultCopy: Record<Category, ResultCopy> = {
   },
   EHL: {
     headline: "You're in the EHL category — and if you're a university, this applies by name, not by size.",
-    body: "Higher institutions sit in the Enhanced High Level (EHL) category under the NDPC's own schedule — every university, regardless of student numbers. Other organisations reach EHL by volume (1,000–4,999 people's data handled in six months), or fall into EHL categories such as MDAs, microfinance and mortgage banks, or hospitals providing tertiary or secondary care.",
+    body: "Higher institutions sit in the Extra-High Level (EHL) category under the NDPC's own schedule — every university, regardless of student numbers. Other organisations reach EHL by volume (1,000–4,999 people's data handled in six months), or fall into EHL categories such as MDAs, microfinance and mortgage banks, or hospitals providing tertiary or secondary care.",
     whatThisMeans: [
       "You're required to file your annual Compliance Audit Returns (CAR) through a Data Protection Compliance Organization licensed by the NDPC. Thanelinc is one.",
     ],
@@ -166,8 +166,8 @@ export const resultCopy: Record<Category, ResultCopy> = {
 };
 
 export const categoryDisplayName: Record<Category, string> = {
-  UHL: "UHL — Upper High Level",
-  EHL: "EHL — Enhanced High Level",
+  UHL: "UHL — Ultra-High Level",
+  EHL: "EHL — Extra-High Level",
   OHL: "OHL — Ordinary High Level",
   "not-of-major-importance": "Not of major importance",
 };

@@ -5,17 +5,27 @@ import { ScrollReveals } from "@/components/v5/ScrollReveals";
 import { ArticleSidebar } from "@/components/resources/ArticleSidebar";
 import { ResourceCards, type ResourceCardItem } from "@/components/resources/ResourceCards";
 import type { ResourceArticleContent } from "@/lib/cms/mapResourceArticle";
+import type { ResourceCardLabels } from "@/lib/cms/mapResources";
 import styles from "@/components/resources/resource-article.module.css";
 
-export function ResourceArticlePage({ content, related }: { content: ResourceArticleContent; related: ResourceCardItem[] }) {
-  const { article, cta, sidebar } = content;
+export function ResourceArticlePage({
+  content,
+  related,
+  cardLabels,
+}: {
+  content: ResourceArticleContent;
+  related: ResourceCardItem[];
+  /** From the library section, which owns the related cards' copy. */
+  cardLabels: ResourceCardLabels;
+}) {
+  const { article, cta, sidebar, chrome } = content;
 
   return (
     <>
       <main className={styles.page}>
         <header className={styles.hero}>
           <div className={`container ${styles.heroContainer}`}>
-            <Link href="/resources" className={styles.backLink}>Resources <span aria-hidden>›</span> {article.kind}</Link>
+            <Link href={chrome.backHref} className={styles.backLink}>{chrome.backLabel} <span aria-hidden>›</span> {article.kind}</Link>
             <div className={styles.heroGrid}>
               <p className={styles.kind}>{article.kind}</p>
               <h1>{article.title}</h1>
@@ -24,7 +34,7 @@ export function ResourceArticlePage({ content, related }: { content: ResourceArt
               </div>
               <div className={styles.heroDetails}>
                 <p className={styles.summary}>{article.summary}</p>
-                <div className={styles.meta}><span>Reviewed {article.lastReviewed}</span>{article.audience.map((item) => <span key={item}>{item}</span>)}</div>
+                <div className={styles.meta}><span>{chrome.reviewedLabel} {article.lastReviewed}</span>{article.audience.map((item) => <span key={item}>{item}</span>)}</div>
               </div>
             </div>
           </div>
@@ -51,7 +61,7 @@ export function ResourceArticlePage({ content, related }: { content: ResourceArt
                 <div><Link href={article.primaryCta.href} className="btn-architectural-cta"><span className="btn-arch-label">{article.primaryCta.label}</span><span className="btn-arch-arrow">→</span></Link><Link href={article.secondaryCta.href} className="mandate-link-check"><span>{article.secondaryCta.label}</span><ArrowRight aria-hidden /></Link></div>
               </section>
             </article>
-            <ArticleSidebar article={article} newsletter={sidebar} />
+            <ArticleSidebar article={article} sidebar={sidebar} />
           </div>
         </section>
 
@@ -61,7 +71,7 @@ export function ResourceArticlePage({ content, related }: { content: ResourceArt
           <section className={styles.relatedSection}>
             <div className="container">
               <div className={styles.relatedHeader}><p className={styles.kind}>{content.related.kindLabel}</p><h2>{content.related.heading}</h2><Link href={content.related.viewAllHref}>{content.related.viewAllLabel} <span aria-hidden>↗</span></Link></div>
-              <ResourceCards articles={related} compact />
+              <ResourceCards articles={related} compact readLabel={cardLabels.readLabel} reviewedLabel={cardLabels.reviewedLabel} />
             </div>
           </section>
         ) : null}
