@@ -9,6 +9,7 @@ import type { ServicesContent } from "@/components/v5/Services";
 import type { PreFooterContent } from "@/components/v5/PreFooter";
 import type { ResourcesHomeContent } from "@/lib/content/resources";
 import { withCloudinaryTransform } from "@/lib/cms/cloudinaryImage";
+import { sectorRoutes } from "@/lib/content/navigation";
 
 // Self-check trust items are gated per AGENTS.md rule 2 (never add an uncleared
 // client name) — only the names the Strapi field's own schema description lists
@@ -22,6 +23,27 @@ const ALLOWED_TRUST_ITEM_LABELS = new Set([
 function findSection(sections: StrapiSection[] | null, component: string): StrapiSection | undefined {
   return sections?.find((section) => section.__component === component);
 }
+
+/**
+ * Hero "The Mandate" slide CTA targets, keyed by the slide's `slideId`.
+ *
+ * The homepage has no fallback content, so an `ctaHref` mistyped in Strapi —
+ * or left behind by a route rename — ships a 404 with nothing to catch it.
+ * Resolving through `sectorRoutes` puts these on the same source of truth as
+ * the mega menu and footer instead of trusting an unvalidated CMS string.
+ *
+ * These reproduce the values Strapi holds today; none of them change a
+ * destination. Adding a slide means adding its `slideId` here — an unmapped
+ * one falls back to the CMS value rather than breaking the slide.
+ */
+const HERO_SLIDE_HREFS: Record<string, string> = {
+  "tertiary-institutions": sectorRoutes.tertiaryInstitutions,
+  "regulated-businesses": sectorRoutes.regulatedBusinesses,
+  // Hospitality reaches UHL by data volume, not by name — the same routing the
+  // menu's "Retail, Health & Logistics (Regulated Businesses)" row uses.
+  hospitality: sectorRoutes.regulatedBusinesses,
+  "healthcare-public-sector": sectorRoutes.publicSector,
+};
 
 export function mapHero(sections: StrapiSection[] | null): HomeHeroContent | null {
   const section = findSection(sections, "home.hero-section");
@@ -60,7 +82,7 @@ export function mapHero(sections: StrapiSection[] | null): HomeHeroContent | nul
         width: Number(slide.imageWidth) || 0,
         height: Number(slide.imageHeight) || 0,
       },
-      cta: { label: slide.ctaLabel, href: slide.ctaHref },
+      cta: { label: slide.ctaLabel, href: HERO_SLIDE_HREFS[slide.slideId] ?? slide.ctaHref },
     })),
   };
 }

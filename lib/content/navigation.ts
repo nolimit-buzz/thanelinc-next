@@ -104,6 +104,21 @@ export const servicesMenu: MegaMenu = {
 // Sectors
 // ---------------------------------------------------------------------------
 
+/**
+ * The four live sector routes, defined once. `sectorsMenu` below builds its
+ * links from these, the footer's "Priority Sectors" column derives from that,
+ * and `mapHero` in `lib/cms/mapHome.ts` resolves the homepage hero's CTA
+ * targets through them — so a route rename here reaches every surface and no
+ * link can drift out on its own. Keys are stable identifiers, not paths:
+ * renaming a path leaves the key (and every consumer) untouched.
+ */
+export const sectorRoutes = {
+  tertiaryInstitutions: "/sectors/tertiary-institutions",
+  publicSector: "/sectors/public-sector",
+  midSizeOrganisations: "/sectors/mid-size-organizations",
+  regulatedBusinesses: "/sectors/regulated-businesses",
+} as const;
+
 export const sectorsMenu: MegaMenu = {
   label: "Sectors",
   columns: [
@@ -116,28 +131,28 @@ export const sectorsMenu: MegaMenu = {
       items: [
         {
           label: "Tertiary Institutions",
-          href: "/sectors/tertiary-institutions",
+          href: sectorRoutes.tertiaryInstitutions,
           status: "live",
           description: "Universities, polytechnics and colleges — EHL by name, not by size.",
           icon: "graduation-cap",
         },
         {
           label: "Public Sector & MDAs",
-          href: "/sectors/public-sector",
+          href: sectorRoutes.publicSector,
           status: "live",
           description: "Federal and state ministries and agencies.",
           icon: "landmark",
         },
         {
           label: "Mid-Size Organisations & Financial Institutions (EHL)",
-          href: "/sectors/mid-size-organizations",
+          href: sectorRoutes.midSizeOrganisations,
           status: "live",
           description: "Hospitals, microfinance and mortgage banks, or SMEs by data volume.",
           icon: "layers",
         },
         {
           label: "Regulated Businesses (UHL)",
-          href: "/sectors/regulated-businesses",
+          href: sectorRoutes.regulatedBusinesses,
           status: "live",
           description: "Banks, telecoms, insurance and fintech, or SMEs by data volume.",
           icon: "building",
@@ -161,16 +176,20 @@ export const sectorsMenu: MegaMenu = {
     {
       eyebrow: "Who's Covered",
       items: [
-        { label: "Universities & Colleges (Tertiary Institutions)", href: "/sectors/tertiary-institutions", status: "live" },
-        { label: "Ministries & Agencies (Public Sector & MDAs)", href: "/sectors/public-sector#ministries-agencies", status: "live" },
+        { label: "Universities & Colleges (Tertiary Institutions)", href: sectorRoutes.tertiaryInstitutions, status: "live" },
         {
-          label: "Hospitals, Microfinance & Mortgage Banks (Mid-Size Organisations & Financial Institutions)",
-          href: "/sectors/mid-size-organizations",
+          label: "Ministries & Agencies (Public Sector & MDAs)",
+          href: `${sectorRoutes.publicSector}#ministries-agencies`,
           status: "live",
         },
-        { label: "Banks, Telecoms & Fintech (Regulated Businesses)", href: "/sectors/regulated-businesses", status: "live" },
-        { label: "Insurers & Oil and Gas (Regulated Businesses)", href: "/sectors/regulated-businesses", status: "live" },
-        { label: "Retail, Health & Logistics (Regulated Businesses)", href: "/sectors/regulated-businesses", status: "live" },
+        {
+          label: "Hospitals, Microfinance & Mortgage Banks (Mid-Size Organisations & Financial Institutions)",
+          href: sectorRoutes.midSizeOrganisations,
+          status: "live",
+        },
+        { label: "Banks, Telecoms & Fintech (Regulated Businesses)", href: sectorRoutes.regulatedBusinesses, status: "live" },
+        { label: "Insurers & Oil and Gas (Regulated Businesses)", href: sectorRoutes.regulatedBusinesses, status: "live" },
+        { label: "Retail, Health & Logistics (Regulated Businesses)", href: sectorRoutes.regulatedBusinesses, status: "live" },
       ],
     },
   ],

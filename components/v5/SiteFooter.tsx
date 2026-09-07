@@ -67,7 +67,7 @@ export function SiteFooter() {
                   </p>
                   <Link href="/about#credentials" className="footer-status-pill">
                     <span className="footer-status-dot"></span>
-                    <span>Licensed DPCO — Check the NDPC Register</span>
+                    <span>Licensed DPCO — About our credentials</span>
                   </Link>
                 </div>
 
