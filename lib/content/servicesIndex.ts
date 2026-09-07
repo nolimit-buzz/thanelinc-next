@@ -13,7 +13,7 @@ export const servicesIndexHero = {
   titleAccent: "One clear route forward.",
   subhead:
     "Every service ships with a stated deliverable and a confirmed turnaround, so you always know exactly what to expect.",
-  primaryCta: { label: "Find your category", href: "/am-i-covered" },
+  primaryCta: { label: "Find your category", href: "/am-i-required-to-register" },
   secondaryCta: { label: "Explore all services", href: "#service-directory" },
   metrics: [
     { value: "8", label: "defined compliance services" },
@@ -103,9 +103,9 @@ export const servicesIndexAudience = {
   ],
   selfCheck: {
     eyebrow: "Not sure which applies to you?",
-    title: "Am I Covered?",
+    title: "Am I required to register?",
     body: "Confirm your exact category and deadline in under two minutes — no commitment.",
-    href: "/am-i-covered",
+    href: "/am-i-required-to-register",
     cta: "Run the check",
   },
 };
@@ -270,5 +270,5 @@ export const servicesIndexIndustry = {
 export const servicesIndexClosing = {
   heading: "Not sure where to start?",
   body: "Find out your category first — six questions, two minutes, no commitment.",
-  primary: { label: "Find out your category", href: "/am-i-covered" },
+  primary: { label: "Find out your category", href: "/am-i-required-to-register" },
 };

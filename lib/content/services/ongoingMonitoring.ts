@@ -7,7 +7,7 @@ export const ongoingMonitoringContent: ServicePageContent = {
     eyebrow: "Ongoing Reviews",
     h1: "Ongoing Monitoring",
     subhead: "A gap assessment and policy suite are a snapshot. Your organisation, your vendors, and the regulation itself keep moving — ongoing monitoring keeps your compliance current instead of aging out.",
-    primaryCta: { label: "Run the self-check", href: "/am-i-covered" },
+    primaryCta: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondaryCta: { label: "Talk to us", href: "/contact" },
   },
   bannerHero: {
@@ -57,7 +57,7 @@ export const ongoingMonitoringContent: ServicePageContent = {
   closingCta: {
     heading: "Keep your compliance current as your organisation changes.",
     primary: { label: "Talk to us", href: "/contact" },
-    secondary: { label: "Run the self-check", href: "/am-i-covered" },
+    secondary: { label: "Run the self-check", href: "/am-i-required-to-register" },
     backgroundImage: "/services-banner-glass-architecture.jpg",
     cutoutImage: "/services-hero-cutout.png",
   },

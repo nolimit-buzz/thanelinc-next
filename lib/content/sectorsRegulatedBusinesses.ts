@@ -38,7 +38,7 @@ export const hero = {
   h1: "Are you actually in scope, or is this for bigger companies?",
   subhead:
     "Fintech, telecoms, and insurance businesses are named UHL categories under the NDPC's own schedule. Retail, health, and logistics join this tier once data volume crosses the threshold. Most companies asking this question already are. Find out in two minutes, no commitment.",
-  primaryCta: { label: "Check if you're in scope", href: "/am-i-covered" },
+  primaryCta: { label: "Check if you're in scope", href: "/am-i-required-to-register" },
   secondaryCta: { label: "Talk to us", href: "/contact" },
 };
 
@@ -82,7 +82,7 @@ export const reasons = [
 export const categorySection = {
   heading: "Are you UHL by category or by volume?",
   body: "Banks, telecoms, fintech and payments companies, insurers, and oil & gas companies are named UHL categories outright under GAID Schedule 7, the classification applies regardless of how many customer records you hold. Other companies reach UHL by volume: over 5,000 people's data handled in a rolling six months.\n\nEither way, UHL carries the same obligation: annual Compliance Audit Returns filed through an NDPC-licensed DPCO, due 31 March each year (or within 15 months of establishment, for newer entities).",
-  cta: { label: "Get your exact category", href: "/am-i-covered" },
+  cta: { label: "Get your exact category", href: "/am-i-required-to-register" },
 };
 
 export const dpoSection = {
@@ -104,6 +104,6 @@ export const proof = {
 
 export const closingCta = {
   h2: "How long would this take for a company like yours?",
-  primary: { label: "Run the self-check", detail: "category, obligation, and deadline in under two minutes", href: "/am-i-covered" },
+  primary: { label: "Run the self-check", detail: "category, obligation, and deadline in under two minutes", href: "/am-i-required-to-register" },
   secondary: { label: "Book a consultation", detail: "most first conversations run 20–30 minutes", href: "/contact" },
 };

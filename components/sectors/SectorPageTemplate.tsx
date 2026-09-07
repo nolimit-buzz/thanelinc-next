@@ -179,7 +179,7 @@ export function SectorPageTemplate({ content, viewId }: { content: SectorPageCon
               ))}
             </div>
             <div className="process-bottom-action reveal">
-              <Link href="/am-i-covered" className="mandate-link-check">
+              <Link href="/am-i-required-to-register" className="mandate-link-check">
                 <span>Confirm which of these applies to you</span>
                 <span>→</span>
               </Link>

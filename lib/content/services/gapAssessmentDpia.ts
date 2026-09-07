@@ -7,7 +7,7 @@ export const gapAssessmentDpiaContent: ServicePageContent = {
     eyebrow: "Risk Assessment",
     h1: "Gap Assessment & DPIA",
     subhead: "Two deliverables, two clear timelines: a Gap Assessment Report within 24 hours, and where new or high-risk processing is involved, a Data Protection Impact Assessment (DPIA) within 72 hours.",
-    primaryCta: { label: "Run the self-check", href: "/am-i-covered" },
+    primaryCta: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondaryCta: { label: "Talk to us", href: "/contact" },
   },
   bannerHero: {
@@ -55,7 +55,7 @@ export const gapAssessmentDpiaContent: ServicePageContent = {
   ],
   closingCta: {
     heading: "Ready to know exactly where your gaps are?",
-    primary: { label: "Run the self-check", href: "/am-i-covered" },
+    primary: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondary: { label: "Talk to us", href: "/contact" },
     backgroundImage: "/hero-portrait-sectors.jpg",
     cutoutImage: "/services-hero-cutout-bust.png",

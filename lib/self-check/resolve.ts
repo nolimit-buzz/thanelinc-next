@@ -1,5 +1,5 @@
 /**
- * Resolution logic for `/am-i-covered`, per
+ * Resolution logic for `/am-i-required-to-register`, per
  * Content/05-Self-Check-Tool-Spec.md (handover workspace) — "the part most
  * likely to be implemented wrongly. Do not resolve on volume first."
  *

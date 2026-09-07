@@ -7,7 +7,7 @@ export const outsourcedDpoContent: ServicePageContent = {
     eyebrow: "Oversight",
     h1: "Outsourced DPO",
     subhead: "Most organisations at this stage don't need a full-time Data Protection Officer — they need the role covered, credibly, without adding headcount.",
-    primaryCta: { label: "Run the self-check", href: "/am-i-covered" },
+    primaryCta: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondaryCta: { label: "Talk to us", href: "/contact" },
   },
   bannerHero: {
@@ -57,7 +57,7 @@ export const outsourcedDpoContent: ServicePageContent = {
   closingCta: {
     heading: "Need the DPO role covered without adding headcount?",
     primary: { label: "Talk to us", href: "/contact" },
-    secondary: { label: "Run the self-check", href: "/am-i-covered" },
+    secondary: { label: "Run the self-check", href: "/am-i-required-to-register" },
     backgroundImage: "/hero-portrait-audit.jpg",
     cutoutImage: "/regulated-businesses-cutout.png",
   },

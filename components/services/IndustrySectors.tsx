@@ -10,7 +10,7 @@
  * alone already drives it on the homepage too.
  *
  * Cards 3 and 4's CTAs pointed at `#check`, the homepage's in-page self-check
- * anchor, which doesn't exist on this route — routed to `/am-i-covered`
+ * anchor, which doesn't exist on this route — routed to `/am-i-required-to-register`
  * instead, same real destination the other two cards use.
  */
 
@@ -39,7 +39,7 @@ const CARDS = [
     alt: "Hospitality Industry Compliance",
     hook: "Hotels, resorts, and booking platforms holding guest records, passport copies, and payment credentials requiring strict data safeguards.",
     sublinks: ["Hotels & Resorts", "Booking Platforms", "Event Centres & Venues", "Restaurants & Chains"],
-    cta: { label: "Explore for Businesses", href: "/am-i-covered" },
+    cta: { label: "Explore for Businesses", href: "/am-i-required-to-register" },
   },
   {
     title: "Healthcare & Public Sector",
@@ -47,7 +47,7 @@ const CARDS = [
     alt: "Healthcare & Public Sector Compliance",
     hook: "Processing highly sensitive biometric, health, and civic data requiring strict EHL/UHL compliance audits.",
     sublinks: ["Federal & State MDAs", "Teaching Hospitals", "Private Clinics & Labs", "HMO Organizations"],
-    cta: { label: "Explore for Businesses", href: "/am-i-covered" },
+    cta: { label: "Explore for Businesses", href: "/am-i-required-to-register" },
   },
 ];
 
@@ -81,7 +81,7 @@ export function IndustrySectors() {
                 <p className="sector-drawer-hook">{card.hook}</p>
                 <div className="sector-sublinks-grid">
                   {card.sublinks.map((item) => (
-                    <a key={item} href="/am-i-covered" className="sector-sublink-item">
+                    <a key={item} href="/am-i-required-to-register" className="sector-sublink-item">
                       • {item} ↗
                     </a>
                   ))}

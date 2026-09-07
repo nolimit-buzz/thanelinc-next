@@ -5,7 +5,7 @@ export const sectorsIndexHero = {
   summary:
     "Every organisation with a filing obligation falls under EHL or UHL, but you shouldn't need to know that to find your page. Start with one of four routes built around what you actually do. Each sector page walks through why you're in scope, what to do first, and how Thanelinc's DPCO licence carries you through registration and filing.",
   primaryCta: { label: "Find your sector", href: "#sector-directory" },
-  secondaryCta: { label: "Run the self-check", href: "/am-i-covered" },
+  secondaryCta: { label: "Run the self-check", href: "/am-i-required-to-register" },
   metrics: [
     { value: "4", label: "approved sector routes" },
     { value: "EHL", label: "Institutions, Private orgs & SMEs" },
@@ -85,11 +85,11 @@ export const sectorsIndexCoverage = {
   h2: "Classification can follow your organisation type or your data volume.",
   body:
     "The quickest route is the category self-check. It applies the named categories before volume, then gives you the obligation and deadline that follow from your answers.",
-  cta: { label: "Check your category", href: "/am-i-covered" },
+  cta: { label: "Check your category", href: "/am-i-required-to-register" },
 };
 
 export const sectorsIndexClosing = {
   heading: "Know you're exposed? Not sure of the category?",
-  primary: { label: "Run the self-check", href: "/am-i-covered" },
+  primary: { label: "Run the self-check", href: "/am-i-required-to-register" },
   secondary: { label: "Get in touch", href: "/contact" },
 };

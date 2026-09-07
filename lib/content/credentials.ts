@@ -58,7 +58,7 @@ export const credentialsPageContent: CredentialsPageContent = {
   },
   closingCta: {
     heading: "Ready to establish your compliance position?",
-    primary: { label: "Run the self-check", href: "/am-i-covered" },
+    primary: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondary: { label: "Get in touch", href: "/contact" },
   },
 };

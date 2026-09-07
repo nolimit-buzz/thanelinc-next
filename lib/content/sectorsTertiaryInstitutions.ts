@@ -58,7 +58,7 @@ export const tertiaryInstitutionsPage: SectorPageContent = {
     h1: "Universities and tertiary institutions are Extra-High Level.",
     subhead:
       "Under the NDPC's own framework, every higher institution- university, polytechnic, or college- is classed Extra-High Level, regardless of student numbers. That means an annual filing obligation, and a legal requirement to file through a licensed Data Protection Compliance Organization.",
-    primaryCta: { label: "Check your exact filing deadline", href: "/am-i-covered" },
+    primaryCta: { label: "Check your exact filing deadline", href: "/am-i-required-to-register" },
     secondaryCta: { label: "Get in touch", href: "/contact" },
   },
   credentialBlock: {
@@ -108,7 +108,7 @@ export const tertiaryInstitutionsPage: SectorPageContent = {
       number: "01",
       heading: "Does this actually apply to us?",
       body: "Yes. Section 3(c)(iii) of the GAID 2025 Schedule 7 names Higher Institutions as an EHL category outright. This is not a volume threshold you might sit under — it is a category assignment by what your institution is. A 400-student college and a 40,000-student federal university are both EHL.\n\nThat means:\n• You're required to file annual Compliance Audit Returns (CAR) through an NDPC-licensed DPCO (GAID Art.10(14)). Thanelinc holds that licence.\n• If your institution was established before 12 June 2023, your CAR is due 31 March every year. If established after, it's due within 15 months of establishment, then annually.",
-      cta: { label: "Confirm your exact category and deadline", href: "/am-i-covered" },
+      cta: { label: "Confirm your exact category and deadline", href: "/am-i-required-to-register" },
     },
     {
       number: "02",
@@ -181,7 +181,7 @@ export const tertiaryInstitutionsPage: SectorPageContent = {
     headingLead: "Ready to find out exactly where",
     headingAccent: "your institution stands?",
     eyebrow: "Tertiary Institutions",
-    primary: { label: "Run the self-check", href: "/am-i-covered" },
+    primary: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondary: { label: "Get in touch", href: "/contact" },
     cutoutImage: "/services-hero-cutout.png",
   },

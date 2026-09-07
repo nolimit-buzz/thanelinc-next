@@ -111,7 +111,7 @@ export const hero = {
   lede:
     "Thanelinc is a Nigeria Data Protection Commission–licensed Data Protection Compliance Organization, licensed to file compliance audit returns on behalf of UHL and EHL organisations. If you're a university, bank, fintech, telecom, insurer, or MDA, that licence is what the NDPC requires you to use.",
   ctas: [
-    { label: "Am I Required to Register? — 2-Minute Check", href: "/am-i-covered", variant: "primary" },
+    { label: "Am I Required to Register? — 2-Minute Check", href: "/am-i-required-to-register", variant: "primary" },
     { label: "View Our DPCO Licence", href: "/about#credentials", variant: "secondary" },
   ] satisfies CtaLink[],
 } as const;
@@ -161,7 +161,7 @@ export const selfCheck = {
   heading: "Does the NDPC actually apply to you?",
   body:
     "Six questions. No jargon. Find out your NDPC compliance category, whether you're required to file through a licensed DPCO, and your exact deadline — free, right now.",
-  cta: { label: "Start the check", href: "/am-i-covered", variant: "primary" } satisfies CtaLink,
+  cta: { label: "Start the check", href: "/am-i-required-to-register", variant: "primary" } satisfies CtaLink,
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -313,13 +313,13 @@ export const nav = {
     { label: "Resources", href: "/resources" },
     { label: "Training", href: "/training" },
   ],
-  cta: { label: "Am I Covered?", href: "/am-i-covered", variant: "primary" } satisfies CtaLink,
+  cta: { label: "Am I required to register?", href: "/am-i-required-to-register", variant: "primary" } satisfies CtaLink,
 } as const;
 
 export const footer = {
   tagline: { lead: "Turning a compliance deadline into a", accent: "licensed", trail: "advantage." },
   ctas: [
-    { label: "Am I Required to Register? — 2-Minute Check", href: "/am-i-covered", variant: "primary" },
+    { label: "Am I Required to Register? — 2-Minute Check", href: "/am-i-required-to-register", variant: "primary" },
     { label: "View Our DPCO Licence", href: "/about#credentials", variant: "secondary" },
   ] satisfies CtaLink[],
   descriptor:

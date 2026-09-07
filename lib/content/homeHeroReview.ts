@@ -30,7 +30,7 @@ export const homeHeroReviewCopy = {
   headlineSecondary: "Compliance Edge.",
   lede:
     "We help high-impact organisations, from financial institutions and telecoms to universities and MDAs stay fully compliant. As a licensed DPCO, Thanelinc handles your end-to-end NDPC regulatory filings with zero friction.",
-  primaryCta: { label: "AM I COVERED?", href: "#check" },
+  primaryCta: { label: "AM I REQUIRED TO REGISTER?", href: "#check" },
   primaryCtaCaption: "2 minute check",
 } as const;
 

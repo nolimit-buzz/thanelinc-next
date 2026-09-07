@@ -89,7 +89,7 @@ export const resourceArticles: ResourceArticle[] = [
         paragraphs: ["This article describes how the categories work in general. Your own classification depends on your specific organisation type, volume, and processing activities."],
       },
     ],
-    primaryCta: { label: "Run the 2-minute self-check", href: "/am-i-covered" },
+    primaryCta: { label: "Run the 2-minute self-check", href: "/am-i-required-to-register" },
     secondaryCta: { label: "View NDPC registration support", href: "/services/ndpc-registration" },
   },
   {
@@ -138,7 +138,7 @@ export const resourceArticles: ResourceArticle[] = [
       },
     ],
     primaryCta: { label: "See how the full process works", href: "/how-we-work" },
-    secondaryCta: { label: "Run the self-check", href: "/am-i-covered" },
+    secondaryCta: { label: "Run the self-check", href: "/am-i-required-to-register" },
   },
   {
     slug: "vendor-due-diligence",
@@ -180,7 +180,7 @@ export const resourceArticles: ResourceArticle[] = [
       },
     ],
     primaryCta: { label: "See ongoing monitoring", href: "/services/ongoing-monitoring" },
-    secondaryCta: { label: "Run the self-check", href: "/am-i-covered" },
+    secondaryCta: { label: "Run the self-check", href: "/am-i-required-to-register" },
   },
 ];
 

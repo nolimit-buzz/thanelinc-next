@@ -49,7 +49,7 @@ export const legalDocuments: LegalDocumentContent[] = [
         title: "Information you may provide",
         paragraphs: [
           "When you submit a contact, consultation or call-back request, the production website will collect the fields you provide. These may include your name, organisation, email address, telephone number, reason for contacting us, preferred contact time and message.",
-          "The ‘Am I Covered?’ self-check calculates a result in your browser. If you choose to submit a follow-up request, the production website will send your six self-check answers and the category calculated from them, together with your phone number, email address and preferred contact time. This purpose is shown at the point of collection so Thanelinc can route and prepare for the requested conversation.",
+          "The ‘Am I required to register?’ self-check calculates a result in your browser. If you choose to submit a follow-up request, the production website will send your six self-check answers and the category calculated from them, together with your phone number, email address and preferred contact time. This purpose is shown at the point of collection so Thanelinc can route and prepare for the requested conversation.",
         ],
       },
       {

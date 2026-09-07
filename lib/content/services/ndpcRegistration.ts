@@ -11,7 +11,7 @@ export const ndpcRegistrationContent: ServicePageContent = {
     h1: "NDPC Registration",
     subhead:
       "Registering for the first time? This is the step that puts you on record with the NDPC.",
-    primaryCta: { label: "Run the self-check", href: "/am-i-covered" },
+    primaryCta: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondaryCta: { label: "Talk to us", href: "/contact" },
   },
   bannerHero: {
@@ -59,7 +59,7 @@ export const ndpcRegistrationContent: ServicePageContent = {
   ],
   closingCta: {
     heading: "Ready to get on record with the NDPC?",
-    primary: { label: "Run the self-check", href: "/am-i-covered" },
+    primary: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondary: { label: "Talk to us", href: "/contact" },
     // D2: rotated from the three cut-outs already in the repo. No new portrait
     // is introduced here — image provenance is an open launch gate.

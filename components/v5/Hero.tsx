@@ -95,7 +95,7 @@ export function Hero() {
       
                 <div className="hero-motion-item delay-cta">
                   <a href="#check" className="btn-architectural-cta">
-                    <span className="btn-arch-label">AM I COVERED?</span>
+                    <span className="btn-arch-label">AM I REQUIRED TO REGISTER?</span>
                     <span className="btn-arch-arrow">→</span>
                   </a>
                   <div className="cta-sub-caption">2 minute check</div>

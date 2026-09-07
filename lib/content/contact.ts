@@ -77,7 +77,7 @@ export const contact = {
     },
   ],
   breachNote: { label: "Go to breach response", href: "/services/breach-response" },
-  selfCheckCta: { label: "Run the self-check", href: "/am-i-covered" },
+  selfCheckCta: { label: "Run the self-check", href: "/am-i-required-to-register" },
   form: {
     heading: "Get in touch",
     intro: "Share enough context for a useful first conversation.",

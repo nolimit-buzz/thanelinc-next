@@ -7,7 +7,7 @@ export const policiesRemediationContent: ServicePageContent = {
     eyebrow: "Governance & Policy",
     h1: "Policies & Remediation",
     subhead: "Every gap the assessment found gets closed — a full policy suite, delivered within 96 hours.",
-    primaryCta: { label: "Run the self-check", href: "/am-i-covered" },
+    primaryCta: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondaryCta: { label: "Talk to us", href: "/contact" },
   },
   bannerHero: {
@@ -53,7 +53,7 @@ export const policiesRemediationContent: ServicePageContent = {
   ],
   closingCta: {
     heading: "Ready to turn every identified gap into a clear action?",
-    primary: { label: "Run the self-check", href: "/am-i-covered" },
+    primary: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondary: { label: "Talk to us", href: "/contact" },
     backgroundImage: "/hero-hologram.jpg",
     cutoutImage: "/services-hero-cutout.png",

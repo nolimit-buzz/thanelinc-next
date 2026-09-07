@@ -49,7 +49,7 @@ export const howWeWorkContent: HowWeWorkPageContent = {
     h1: "How we work, from first engagement",
     h1Accent: "to ongoing monitoring.",
     summary: "Six stages, from first engagement to ongoing monitoring. Whether you're checking what you're committing to, confirming how fast this moves, or simply trying to understand what NDPA compliance actually involves — this is the full sequence, as we run it.",
-    primaryCta: { label: "Check your category", href: "/am-i-covered" },
+    primaryCta: { label: "Check your category", href: "/am-i-required-to-register" },
     secondaryCta: { label: "Get in touch", href: "/contact" },
   },
   stages: [
@@ -123,7 +123,7 @@ export const howWeWorkContent: HowWeWorkPageContent = {
   },
   closingCta: {
     heading: "Ready to see which obligations apply to your organisation?",
-    primary: { label: "Run the self-check", href: "/am-i-covered" },
+    primary: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondary: { label: "Get in touch", href: "/contact" },
   },
   sectionNav: [

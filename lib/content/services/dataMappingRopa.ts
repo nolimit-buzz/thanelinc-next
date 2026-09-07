@@ -18,7 +18,7 @@ export const dataMappingRopaContent: ServicePageContent = {
     h1: "Data Mapping & ROPA",
     subhead:
       "You can't assess a risk you haven't mapped. This is the inventory everything else is built on — delivered within 24 hours.",
-    primaryCta: { label: "Run the self-check", href: "/am-i-covered" },
+    primaryCta: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondaryCta: { label: "Talk to us", href: "/contact" },
   },
   bannerHero: {
@@ -76,12 +76,12 @@ export const dataMappingRopaContent: ServicePageContent = {
     },
   ],
   whoThisIsFor: [
-    { label: "Any organisation registering or filing CAR", href: "/am-i-covered" },
+    { label: "Any organisation registering or filing CAR", href: "/am-i-required-to-register" },
     { label: "Universities with data across disconnected systems", href: "/sectors/tertiary-institutions" },
   ],
   closingCta: {
     heading: "Ready to see your complete data map?",
-    primary: { label: "Run the self-check", href: "/am-i-covered" },
+    primary: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondary: { label: "Talk to us", href: "/contact" },
     // D2 (prior plan): rotate existing assets, no new portrait — image
     // provenance is an open launch gate. Sectors' own background photo and

@@ -192,7 +192,7 @@ export function ServicesHeroCutout() {
           animation: "fade-in-up 0.6s var(--ease-out-cubic) 0.84s both, float-a 3.8s ease-in-out 1.5s infinite",
         }}
       >
-        Am I covered? →
+        Am I required to register? →
       </div>
 
       {/* Chip 4 — bottom-left, "location" style card with icon + action tag */}

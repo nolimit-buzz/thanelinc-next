@@ -52,7 +52,7 @@ export const midSizeOrganizationsPage: SectorPageContent = {
     h1: "You don't have to be a bank to be EHL.",
     subhead:
       "Microfinance banks and mortgage banks are named EHL categories outright. Other organisations, of any kind, reach EHL once processing crosses 1,000 data subjects in six months. Find out where you stand in two minutes, no commitment.",
-    primaryCta: { label: "Check your category", href: "/am-i-covered" },
+    primaryCta: { label: "Check your category", href: "/am-i-required-to-register" },
     secondaryCta: { label: "Talk to us", href: "/contact" },
   },
   credentialBlock: {
@@ -66,7 +66,7 @@ export const midSizeOrganizationsPage: SectorPageContent = {
     {
       title: "Two routes, one obligation",
       body: "Microfinance and mortgage banks are EHL by name, the classification applies regardless of size. Other organisations reach the same tier by data volume alone, often without realising it.",
-      cta: { label: "Check your category", href: "/am-i-covered" },
+      cta: { label: "Check your category", href: "/am-i-required-to-register" },
     },
     {
       title: "Penalty exposure",
@@ -99,13 +99,13 @@ export const midSizeOrganizationsPage: SectorPageContent = {
       number: "01",
       heading: "Are you EHL by name or by volume?",
       body: "Microfinance banks and mortgage banks are named EHL categories outright under GAID Schedule 7, the classification applies regardless of how many customer records you hold. Other organisations reach EHL by volume: over 1,000 people's data is handled in a rolling six-month period.\n\nEither way, EHL carries the same obligation: annual Compliance Audit Returns filed through an NDPC-licensed DPCO, due 31 March each year (or within 15 months of establishment, for newer entities).",
-      cta: { label: "Get your exact category", href: "/am-i-covered" },
+      cta: { label: "Get your exact category", href: "/am-i-required-to-register" },
     },
     {
       number: "02",
       heading: "We're growing fast: how do we know if we've crossed the threshold?",
       body: "Most organisations don't track data-subject counts until it matters. The 1,000-person threshold is measured on a rolling six-month basis, not a fixed annual count, so it's easy to cross without noticing. The self-check tool below gives you a fast answer; a proper data-mapping exercise gives you a defensible one.",
-      cta: { label: "Run the self-check", href: "/am-i-covered" },
+      cta: { label: "Run the self-check", href: "/am-i-required-to-register" },
     },
     {
       number: "03",
@@ -116,14 +116,14 @@ export const midSizeOrganizationsPage: SectorPageContent = {
       number: "04",
       heading: "What if we're not sure whether we're EHL or UHL?",
       body: "That's exactly what the self-check exists to resolve, most organisations asking this question are closer to an answer than they think. If you're right at the boundary, the exact figure (1,000 vs. 5,000 data subjects in six months) settles it.",
-      cta: { label: "Get your exact category", href: "/am-i-covered" },
+      cta: { label: "Get your exact category", href: "/am-i-required-to-register" },
     },
   ],
   closingCta: {
     headingLead: "Ready to find out exactly where",
     headingAccent: "your organisation stands?",
     eyebrow: "Mid-Size Organisations & Financial Institutions",
-    primary: { label: "Run the self-check", href: "/am-i-covered" },
+    primary: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondary: { label: "Get in touch", href: "/contact" },
     cutoutImage: "/services-hero-cutout.png",
   },

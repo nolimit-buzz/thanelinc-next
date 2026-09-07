@@ -62,7 +62,7 @@ export const publicSectorPage: SectorPageContent = {
     {
       title: "An EHL category by organisation type",
       body: "GAID 2025 lists MDAs of government as an EHL category. The organisation's position and filing circumstances should be confirmed at scoping, rather than assumed from a generic checklist.",
-      cta: { label: "Check your category", href: "/am-i-covered" },
+      cta: { label: "Check your category", href: "/am-i-required-to-register" },
     },
     {
       title: "A route that procurement can verify",
@@ -80,7 +80,7 @@ export const publicSectorPage: SectorPageContent = {
       number: "01",
       heading: "Does this apply to Ministries and Agencies?",
       body: "GAID 2025 Schedule 7 lists MDAs of government as an EHL category. That is the regulatory starting point; the organisation's precise circumstances and filing position are confirmed during scoping.",
-      cta: { label: "Check your category", href: "/am-i-covered" },
+      cta: { label: "Check your category", href: "/am-i-required-to-register" },
     },
     {
       number: "02",

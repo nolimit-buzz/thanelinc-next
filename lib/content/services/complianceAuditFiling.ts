@@ -7,7 +7,7 @@ export const complianceAuditFilingContent: ServicePageContent = {
     eyebrow: "Annual Filing",
     h1: "Compliance Audit & Filing",
     subhead: "If you're EHL or UHL, the NDPC requires your annual Compliance Audit Returns to be prepared and verified by a licensed DPCO before filing. Thanelinc holds that licence.",
-    primaryCta: { label: "Run the self-check", href: "/am-i-covered" },
+    primaryCta: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondaryCta: { label: "Talk to us", href: "/contact" },
   },
   bannerHero: {
@@ -47,7 +47,7 @@ export const complianceAuditFilingContent: ServicePageContent = {
         "OHL organisations renew registration annually and do not file CAR",
       ],
       links: [
-        { label: "Confirm which category applies", href: "/am-i-covered" },
+        { label: "Confirm which category applies", href: "/am-i-required-to-register" },
         { label: "See how we work", href: "/how-we-work" },
       ],
     },
@@ -58,7 +58,7 @@ export const complianceAuditFilingContent: ServicePageContent = {
   ],
   closingCta: {
     heading: "Know your category before the next filing deadline.",
-    primary: { label: "Run the self-check", href: "/am-i-covered" },
+    primary: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondary: { label: "Talk to us", href: "/contact" },
     backgroundImage: "/hero-hologram.jpg",
     cutoutImage: "/services-hero-cutout-bust.png",

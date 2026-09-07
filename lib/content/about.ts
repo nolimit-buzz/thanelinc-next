@@ -38,7 +38,7 @@ export const aboutPageContent: AboutPageContent = {
   },
   closingCta: {
     heading: "Ready to confirm what applies to your organisation?",
-    primary: { label: "Run the self-check", href: "/am-i-covered" },
+    primary: { label: "Run the self-check", href: "/am-i-required-to-register" },
     secondary: { label: "Get in touch", href: "/contact" },
   },
 };

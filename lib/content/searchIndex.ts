@@ -101,7 +101,7 @@ export const searchIndex: SearchEntry[] = [
   ...sectorEntries,
   ...resourceEntries,
   { id: "/", label: "Home", description: "Thanelinc — NDPC-licensed Data Protection Compliance Organization, handling end-to-end NDPC regulatory filings.", href: "/", status: "live", group: "Pages" },
-  { id: "/am-i-covered", label: "Am I Covered?", description: "Confirm your exact NDPA category, obligation and deadline in under two minutes.", href: "/am-i-covered", status: "live", group: "Pages" },
+  { id: "/am-i-required-to-register", label: "Am I required to register?", description: "Confirm your exact NDPA category, obligation and deadline in under two minutes.", href: "/am-i-required-to-register", status: "live", group: "Pages" },
   { id: "/sectors", label: "Who We Serve", description: `${sectorsIndexHero.title} ${sectorsIndexHero.titleAccent} ${sectorsIndexHero.summary}`, href: "/sectors", status: "live", group: "Pages" },
   { id: "/how-we-work", label: "How We Work", description: howWeWorkContent.summary, href: "/how-we-work", status: "live", group: "Pages" },
   { id: "/about", label: "About Thanelinc", description: aboutPageContent.summary, href: "/about", status: "live", group: "Pages" },

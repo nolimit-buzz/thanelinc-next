@@ -35,7 +35,7 @@ export function SiteFooter() {
                   Turning a compliance deadline into a <span className="text-teal-accent">licensed</span> advantage.
                 </h3>
                 <div className="footer-band-1-actions" style={{"display": "flex", "alignItems": "center", "gap": "24px", "flexWrap": "wrap"}}>
-                  <Link href="/am-i-covered" className="mandate-link-check" style={{"color": "#FFFFFF", "borderColor": "var(--color-teal-accent)", "textDecoration": "none"}}>
+                  <Link href="/am-i-required-to-register" className="mandate-link-check" style={{"color": "#FFFFFF", "borderColor": "var(--color-teal-accent)", "textDecoration": "none"}}>
                     <span>Am I Required to Register? — 2-Minute Check</span>
                     <span>↗</span>
                   </Link>

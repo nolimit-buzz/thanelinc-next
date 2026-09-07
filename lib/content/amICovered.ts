@@ -14,7 +14,7 @@ import type { OrgType, VolumeBand, YesNo, EstablishmentDate, Category } from "@/
  */
 
 export const hero = {
-  h1: "Am I covered by the NDPC?",
+  h1: "Am I required to register with the Nigeria Data Protection Commission [NDPC]",
   subhead:
     "Six questions. No jargon, no guessing. Find out your compliance category, whether you're required to file through a licensed DPCO, and your deadline — free, right now.",
   trustLine: "Thanelinc is a licensed Data Protection Compliance Organization.",

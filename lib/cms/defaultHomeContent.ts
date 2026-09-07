@@ -39,7 +39,7 @@ export const defaultSelfCheck: SelfCheckContent = {
   heading: "Does the NDPC actually apply to you?",
   body: "Six questions. No jargon. Find out your exact compliance category, if you must file through a licensed DPCO, and your legal deadline. Free, right now.",
   primaryCtaLabel: "Start the Check",
-  primaryCtaHref: "/am-i-covered",
+  primaryCtaHref: "/am-i-required-to-register",
   secondaryCtaLabel: "Book a Call",
   secondaryCtaHref: "#contact",
   diagnosticTitle: "NDPC Statutory Diagnostic",
