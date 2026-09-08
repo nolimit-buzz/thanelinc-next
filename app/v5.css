@@ -693,6 +693,21 @@
       color: #081719;
     }
 
+    /* Compact variant for the mega-menu featured card, whose rail is narrow and
+       whose labels run long ("Explore Learning & Development"). Sentence case and
+       tighter tracking keep the label on a single line without wrapping. */
+    .btn-architectural-cta-compact .btn-arch-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      padding: 10px 14px;
+      white-space: nowrap;
+    }
+
+    .btn-architectural-cta-compact .btn-arch-arrow {
+      padding: 10px 12px;
+    }
+
     .cta-sub-caption {
       font-family: var(--font-mono);
       font-size: 0.775rem;

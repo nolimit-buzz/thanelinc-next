@@ -6,6 +6,27 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-09-08 · Services mega-menu featured card now promotes Learning & Development
+
+The right-rail featured card in the **Services** dropdown promoted the NDPA self-check.
+Client copy change: it now promotes the Learning & Development unit instead, pointing at
+`/learning-and-development` (shipped 2026-09-07). Eyebrow "Learning & Development", title
+"Build skills that stick.", the workshops/technology-enabled-learning/Strategy Lab Retreats
+description with the 92% programme completion rate, and CTA "Explore Learning & Development".
+
+Single edit in `lib/content/navigation.ts` (`servicesMenu.featured`). The **Sectors** menu
+featured card keeps its self-check copy, so the self-check is still reachable from the nav,
+as well as from the homepage band and page CTAs. The arrow is not in the CTA string —
+`MegaMenu.tsx` already renders `btn-arch-arrow`.
+
+**The CTA had to stop wrapping.** "Explore Learning & Development" is roughly twice the
+length of "Run the check", and the shared `.btn-arch-label` is uppercase at 0.875rem with
+0.08em tracking — far too wide for the 260–320px right rail. Two changes keep it on one
+line: a new `.btn-architectural-cta-compact` modifier in `app/v5.css` (0.72rem, sentence
+case, 0.02em tracking, tighter padding, `white-space: nowrap`), and the mega-menu grid's
+rail column widened from `minmax(260px, 320px)` to `minmax(320px, 360px)`. The modifier is
+scoped to the featured card, so no other architectural CTA on the site changes.
+
 ## 2026-09-07 · New Learning & Development page, and homepage hero CTAs pinned to the sector routes
 
 **New standalone page `/learning-and-development`.** Built from the client's brief for the

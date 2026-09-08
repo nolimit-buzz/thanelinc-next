@@ -169,7 +169,7 @@ export function MegaMenuPanel({
           className="container mega-menu-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: `repeat(${data.columns.length}, minmax(200px, 1fr)) minmax(260px, 320px)`,
+            gridTemplateColumns: `repeat(${data.columns.length}, minmax(200px, 1fr)) minmax(320px, 360px)`,
             gap: "0",
             padding: "40px 0 32px",
           }}
@@ -252,8 +252,8 @@ export function MegaMenuPanel({
                 <Link
                   href={data.featured.href}
                   tabIndex={open ? 0 : -1}
-                  className="btn-architectural-cta btn-architectural-cta-light"
-                  style={{ fontSize: "0.8rem", padding: "8px 16px" }}
+                  className="btn-architectural-cta btn-architectural-cta-light btn-architectural-cta-compact"
+                  style={{ whiteSpace: "nowrap" }}
                 >
                   <span className="btn-arch-label">{data.featured.ctaLabel}</span>
                   <span className="btn-arch-arrow">→</span>

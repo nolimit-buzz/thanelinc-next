@@ -90,12 +90,13 @@ export const servicesMenu: MegaMenu = {
     },
   ],
   featured: {
-    eyebrow: "Self-Check",
-    title: "Am I required to register?",
-    description: "Confirm your exact category and deadline in under two minutes — no commitment.",
-    href: "/am-i-required-to-register",
+    eyebrow: "Learning & Development",
+    title: "Build skills that stick.",
+    description:
+      "Leadership, digital fluency, and execution capability — delivered through practical workshops, technology-enabled learning, and our Strategy Lab Retreats. 92% programme completion rate.",
+    href: "/learning-and-development",
     status: "live",
-    ctaLabel: "Run the check",
+    ctaLabel: "Explore Learning & Development",
   },
   viewAll: { label: "See all services", href: "/services", status: "live" },
 };
