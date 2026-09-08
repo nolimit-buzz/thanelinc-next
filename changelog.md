@@ -27,6 +27,12 @@ case, 0.02em tracking, tighter padding, `white-space: nowrap`), and the mega-men
 rail column widened from `minmax(260px, 320px)` to `minmax(320px, 360px)`. The modifier is
 scoped to the featured card, so no other architectural CTA on the site changes.
 
+**Footer credential pill held to one line.** `.footer-status-pill` ("Licensed DPCO — About
+our credentials") wrapped in the narrow brand column, splitting the label from the claim.
+Added `white-space: nowrap` plus `flex-shrink: 0` on the status dot, and a `max-width:
+400px` rule that trims the pill to 0.72rem / 14px padding so the single line still fits
+the container on the narrowest phones.
+
 ## 2026-09-07 · New Learning & Development page, and homepage hero CTAs pinned to the sector routes
 
 **New standalone page `/learning-and-development`.** Built from the client's brief for the

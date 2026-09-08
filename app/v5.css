@@ -3424,15 +3424,29 @@
       font-weight: 600;
       color: #E2E8F0;
       text-decoration: none;
+      /* "Licensed DPCO — About our credentials" reads as one credential
+         statement; wrapping it splits the label from the claim. */
+      white-space: nowrap;
       transition: var(--transition-base);
     }
 
     .footer-status-dot {
       width: 7px;
       height: 7px;
+      flex-shrink: 0;
       border-radius: 50%;
       background: var(--color-teal-accent);
       box-shadow: 0 0 8px var(--color-teal-accent);
+    }
+
+    /* Keep the single line intact on the narrowest phones, where the full-width
+       pill would otherwise run past the container. */
+    @media (max-width: 400px) {
+      .footer-status-pill {
+        font-size: 0.72rem;
+        padding: 8px 14px;
+        gap: 8px;
+      }
     }
 
     .footer-status-pill:hover {
