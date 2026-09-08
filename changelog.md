@@ -6,6 +6,56 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-09-07 · New Learning & Development page, and homepage hero CTAs pinned to the sector routes
+
+**New standalone page `/learning-and-development`.** Built from the client's brief for the
+Learning & Development business unit — one of three, alongside Assessment Services and Data
+Protection Compliance. Top-level route, not nested under `/services` or `/sectors`. Five
+sections: hero, a combined "How We Deliver" / "Our Impact" band, a "Who we have trained for"
+name strip, the ten numbered focus areas, and a closing CTA. Copy is the brief verbatim,
+British spellings intact.
+
+Content is CMS-backed like every other page: a new `learning-development` single type
+(`cms/src/api/learning-development/`) with its own components under
+`cms/src/components/learning-development/`, seeded by `seedLearningDevelopmentPage` in
+`cms/src/index.ts`, fetched via `fetchLearningDevelopmentSections` and mapped by
+`lib/cms/mapLearningDevelopment.ts`. All-or-nothing mapping with no fallback copy, matching
+`/services`.
+
+The page reuses `EditorialBannerHero` (the brief supplies only eyebrow, H1, subheading and
+one CTA, so the heavier `IndexSplitHero` would have needed marketing copy nobody approved),
+`ServiceFeatureGrid` for the ten focus areas, and `InnerPageCta` for the close. Two small new
+components — `DeliveryImpactBand` and `TrainedForStrip` — reuse the existing dark outcome
+band and page typography rather than introducing new treatments.
+
+**⚠️ Client-name override (AGENTS.md rule 2).** "Who we have trained for" publishes five
+names. Four were already in circulation on the site: Promasidor Nigeria Limited, Afriland
+Properties, Bank of Industry, Twelve 23 Projects. **"TT Dalk" was not** — it appears nowhere
+in the prior content modules, so under rule 2 it was not cleared. It is published here on the
+client's explicit instruction rather than from a clearance record. Flagged at the time and
+recorded here so the gap is visible; it should be reconciled against the client-permissions
+record in the handover workspace. Do not add a sixth name without one.
+
+**Nav.** The two "Training" entries (Resources mega-menu, footer Company column) pointed at
+`/training`, a page that never shipped, and rendered as muted `status: "planned"` text. Both
+are now "Learning & Development" → `/learning-and-development`, `status: "live"`. The
+mega-menu description is the new page's own approved meta copy, not new wording.
+
+**Homepage hero CTA targets pinned.** The four "The Mandate" hero slides took their `ctaHref`
+straight from Strapi, unvalidated — and the homepage has no fallback content, so a mistyped
+href or a route rename would have shipped a 404 with nothing to catch it. `mapHero` now
+resolves each slide's target through a `slideId` map keyed off the new `sectorRoutes` constant
+in `lib/content/navigation.ts`, the same source of truth the mega menu and footer already
+share. **No destination changed** — the map reproduces what Strapi holds today. `sectorsMenu`
+now builds its own hrefs from `sectorRoutes` too, so the four sector paths are defined once.
+
+**Known gap, unchanged.** Nothing in the repo grants Strapi permissions, so the new single
+type needs Public → `find` ticked in the admin per environment or the page 403s — the same
+reason `/sectors/mid-size-organizations` currently falls back to `ContentUnavailable`. A 403
+is not retryable in `lib/cms/client.ts`, so it fails on the first attempt. Also unchanged: the
+homepage pre-footer card is titled "Learning & Development" but its CTA still points at
+`#training`, a dead in-page anchor; that is a Strapi content value and was left alone.
+
 ## 2026-09-04 · Round-6 client copy: homepage widens from "high-exposure sectors" to every organisation in scope
 
 The client's marked-up copy document reframes the homepage's positioning. The page read as

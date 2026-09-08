@@ -1,0 +1,107 @@
+/*
+ * Only the bits the shared inner-page band cannot express. The band, its
+ * layout, label and body all come from `inner-page.module.css`
+ * (.outcomeSection/.outcomeBand/.outcomeLabel/.outcomeBody/.outcomeFacts) —
+ * these rules just size the impact figures, which are headline numbers rather
+ * than the small fact values that band was originally built for.
+ */
+
+/*
+ * The shared .outcomeBand is a three-column grid whose last column is
+ * `minmax(210px, 0.62fr)` — sized for the short "Deliverable / Turnaround"
+ * values it was built for. Headline figures need real width, or "9 in 10"
+ * breaks across three lines and the labels wrap one word per line. Two columns,
+ * with the metrics given roughly two fifths.
+ */
+.band {
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+}
+
+@media (max-width: 720px) {
+  .band {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/*
+ * .outcomeFact reserves a 26px first column for the icon the service pages put
+ * there. These metrics have no icon, so that column would squeeze every value
+ * and label into 26px — collapse it to a single column.
+ */
+.metricFact {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.metricValue {
+  color: #fff;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.metricLabel {
+  margin-top: 6px;
+  color: rgb(255 255 255 / 0.82);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.metricsHeading {
+  margin-bottom: 4px;
+  color: var(--color-teal-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+/* Client names strip */
+
+.clientsSection {
+  padding: 64px 0 8px;
+  background: var(--color-bg-light);
+}
+
+.clientsLabel {
+  margin-bottom: 18px;
+  color: var(--color-teal-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.clientsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 34px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgb(0 0 0 / 0.12);
+  padding-top: 22px;
+}
+
+.clientName {
+  color: var(--color-forest-dark, #10241d);
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  font-weight: 650;
+  letter-spacing: -0.005em;
+}
+
+/* Focus areas */
+
+.focusSection {
+  padding: 72px 0 24px;
+  background: var(--color-bg-light);
+}
+
+.focusLabel {
+  margin-bottom: 26px;
+  color: var(--color-teal-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}

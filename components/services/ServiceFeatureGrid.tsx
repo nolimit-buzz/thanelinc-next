@@ -10,7 +10,18 @@ export interface ServiceFeatureItem {
  * A continuous numbered rail. It caps each row at four columns, wraps larger
  * item sets, and uses only shared dividers rather than outlined cards.
  */
-export function ServiceFeatureGrid({ items }: { items: ServiceFeatureItem[] }) {
+export function ServiceFeatureGrid({
+  items,
+  titleAs: Title = "h2",
+}: {
+  items: ServiceFeatureItem[];
+  /**
+   * Heading level for each item title. Defaults to `h2` for the service pages,
+   * where the rail is the section's own top-level content. Pass `h3` when the
+   * rail sits under a section heading of its own, so the items rank below it.
+   */
+  titleAs?: "h2" | "h3";
+}) {
   if (items.length === 0) return null;
 
   const columnCount = Math.min(Math.max(items.length, 1), 4) as 1 | 2 | 3 | 4;
@@ -25,7 +36,7 @@ export function ServiceFeatureGrid({ items }: { items: ServiceFeatureItem[] }) {
           style={{ animationDelay: `${0.05 + i * 0.05}s` }}
         >
           <div className={styles.featureNumber}>{item.number}</div>
-          <h2 className={styles.featureTitle}>{item.title}</h2>
+          <Title className={styles.featureTitle}>{item.title}</Title>
           <p className={styles.featureBody}>{item.body}</p>
         </article>
       ))}

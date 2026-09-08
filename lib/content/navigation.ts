@@ -254,10 +254,13 @@ export const resourcesMenu: MegaMenu = {
           icon: "seal",
         },
         {
-          label: "Training",
-          href: "/training",
-          status: "planned",
-          description: "DPO certification, Privacy Champion, and staff awareness.",
+          label: "Learning & Development",
+          href: "/learning-and-development",
+          status: "live",
+          // Was a planned "Training" page at /training. Shipped as the Learning
+          // & Development business unit; description is the page's own approved
+          // meta copy, not new wording.
+          description: "Leadership, digital fluency, and execution capability.",
           icon: "graduation-cap",
         },
         { label: "Privacy Policy", href: "/privacy", status: "live", icon: "lock" },
@@ -324,7 +327,7 @@ export const footerColumns: { title: string; items: NavItem[] }[] = [
       { label: "Credentials", href: "/about#credentials", status: "live" },
       { label: "Team", href: "/about#team", status: "live" },
       { label: "How We Work", href: "/how-we-work", status: "live" },
-      { label: "Training", href: "/training", status: "planned" },
+      { label: "Learning & Development", href: "/learning-and-development", status: "live" },
       { label: "Contact", href: "/contact", status: "live" },
     ],
   },

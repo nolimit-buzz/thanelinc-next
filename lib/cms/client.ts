@@ -54,6 +54,18 @@ const SECTORS_POPULATE_QUERY = [
 
 // Resource library (/resources). `[populate]=*` on the cards picks up the nested
 // audience tags in one path; the categories are flat and only need `=true`.
+// Learning & Development (/learning-and-development). Newly authored components,
+// so every path uses `[populate]=*` rather than naming individual keys: naming a
+// field the deployed CMS does not have yet returns a 400, which is non-retryable
+// and would blank the whole page.
+const LEARNING_DEVELOPMENT_POPULATE_QUERY = [
+  "populate[sections][on][learning-development.hero-section][populate]=*",
+  "populate[sections][on][learning-development.delivery-section][populate][metrics][populate]=*",
+  "populate[sections][on][learning-development.clients-section][populate][clients][populate]=*",
+  "populate[sections][on][learning-development.focus-areas-section][populate][items][populate]=*",
+  "populate[sections][on][learning-development.closing-cta-section][populate]=*",
+].join("&");
+
 const RESOURCES_POPULATE_QUERY = [
   "populate[sections][on][resources.hero-section][populate]=*",
   "populate[sections][on][resources.library-section][populate][categories]=true",
@@ -174,6 +186,10 @@ export async function fetchHomeSections(): Promise<StrapiSection[] | null> {
 
 export async function fetchServicesSections(): Promise<StrapiSection[] | null> {
   return fetchSections("services", SERVICES_POPULATE_QUERY);
+}
+
+export async function fetchLearningDevelopmentSections(): Promise<StrapiSection[] | null> {
+  return fetchSections("learning-development", LEARNING_DEVELOPMENT_POPULATE_QUERY);
 }
 
 /**
