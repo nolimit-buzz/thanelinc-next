@@ -38,8 +38,8 @@ export function HowWeWorkPage({
         <div className={`container ${styles.readingWidth}`}>
           <div className={`${styles.sectionIntro} reveal`}>
             <div className={styles.eyebrow}>The full sequence</div>
-            <h2>Six stages, with the details still visible.</h2>
-            <p>Every granular deliverable and stated turnaround remains attached to the stage where it happens.</p>
+            <h2>Six stages, fully detailed.</h2>
+            <p>Every deliverable and turnaround time is listed against the exact stage it belongs to.</p>
           </div>
           <div className={styles.stages}>
             {content.stages.map((stage) => <JourneyStageGroup key={stage.number} {...stage} />)}

@@ -8,7 +8,7 @@ export interface ConsentBannerContent {
 }
 
 /**
- * Operational draft, same status as legalDocuments in lib/content/legal.ts —
+ * Operational draft, same status as the Cookie Policy content in Strapi —
  * review before treating as final. Necessary-only remains equally prominent
  * to accept; analytics defaults off and only turns on after an explicit choice.
  * Links both the Privacy Policy (how the site handles data generally) and the

@@ -327,3 +327,26 @@ export async function fetchHowWeWorkSections(): Promise<StrapiSection[] | null> 
 export async function fetchContactSections(): Promise<StrapiSection[] | null> {
   return fetchSections("contact", CONTACT_POPULATE_QUERY);
 }
+
+/**
+ * Privacy, Terms and Cookie Policy share an identical section shape — a
+ * `meta-section` plus a `sections-section` wrapping a repeatable list of
+ * section items — so one query builder covers all three, the same as the
+ * service and sector detail types above.
+ */
+// Unlike every other type in this file, `privacy`/`terms`/`cookie-policy` are
+// newly added content types — each needs Public → `find` ticked in the Strapi
+// admin (Settings → Roles → Public) per environment before this returns
+// anything but a 403.
+export type LegalSlug = "privacy" | "terms" | "cookie-policy";
+
+function legalPopulateQuery(namespace: LegalSlug) {
+  return [
+    `populate[sections][on][${namespace}.meta-section][populate]=*`,
+    `populate[sections][on][${namespace}.sections-section][populate][items][populate]=*`,
+  ].join("&");
+}
+
+export async function fetchLegalSections(slug: LegalSlug): Promise<StrapiSection[] | null> {
+  return fetchSections(slug, legalPopulateQuery(slug));
+}

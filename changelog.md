@@ -6,6 +6,38 @@ Format: `## YYYY-MM-DD · summary` then what changed and why.
 
 ---
 
+## 2026-09-11 · Privacy Policy, Terms and Cookie Policy moved to Strapi; Privacy copy approved
+
+All three legal pages now fetch their sections from Strapi instead of the static
+`lib/content/legal.ts` array, following the `/about` pattern: new single types `privacy`,
+`terms`, `cookie-policy` (each a `sections` dynamiczone of `<slug>.meta-section` +
+`<slug>.sections-section`, the latter wrapping a repeatable `<slug>.section-item` —
+`sectionId`/`label`/`title`/`paragraphs`/`bullets`/`links` — mirroring the `LegalSection`
+shape the frontend already used). New `lib/cms/mapLegal.ts` maps them; `fetchLegalSections`
+added to `lib/cms/client.ts` alongside a shared `legalPopulateQuery` builder, since all
+three types share one component shape (same convention as the service/sector detail
+queries). `components/legal/LegalDocument.tsx` no longer renders its own `SiteNav`/
+`SiteFooter` — that moved to each route file so `ContentUnavailable` renders inside the
+site chrome on a fetch failure, matching `/about`. Its "Legal pages" sidebar now reads
+`footerLegal` from `navigation.ts` instead of the old static array.
+
+**Privacy Policy's copy changed, CDPO/legal sign-off confirmed 2026-09-11.** The previous
+copy was an explicit operational draft (`docs/STRAPI_BACKEND_HANDOVER.md` §5 gates legal
+pages behind sign-off before going into a live-editable CMS workflow). The new approved
+text is present tense throughout (no more "the production website will collect..."), drops
+the draft-notice banner, and drops the NDPC DSAR link that sat under "05 — Your choices" —
+none of that carries forward. `LegalDocument` now only renders the draft-notice aside when
+`draftNotice` is non-empty. Terms and Cookie Policy are **not** signed off yet — their
+existing draft copy and `draftNotice` text moved into Strapi unchanged.
+
+`lib/content/legal.ts` is trimmed to `legalPageMeta` (`slug`/`navLabel`/`title`/`summary`
+only) — the part every CMS-migrated page keeps static, per `lib/content/about.ts`. Used by
+`searchIndex.ts` and each route's own `metadata` export.
+
+**Follow-up required before this is live:** the three new content types need Public →
+`find` ticked in the Strapi admin (Settings → Roles → Public) per environment, same gap as
+`/learning-and-development` — until then the pages 403 and fall back to `ContentUnavailable`.
+
 ## 2026-09-08 · Services mega-menu featured card now promotes Learning & Development
 
 The right-rail featured card in the **Services** dropdown promoted the NDPA self-check.
