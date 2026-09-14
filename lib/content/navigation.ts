@@ -248,7 +248,7 @@ export const resourcesMenu: MegaMenu = {
       eyebrow: "About",
       items: [
         {
-          label: "Credentials",
+          label: "About Thanelinc",
           href: "/about#credentials",
           status: "live",
           description: "Our NDPC Data Protection Compliance Organization licence.",
@@ -292,7 +292,6 @@ export const aboutMenu: MegaMenu = {
       eyebrow: "Thanelinc",
       items: [
         { label: "About Thanelinc", href: "/about", status: "live", description: "Our credential-led compliance position.", icon: "building" },
-        { label: "Credentials", href: "/about#credentials", status: "live", description: "View the DPCO licence and separate registration.", icon: "seal" },
         { label: "Team", href: "/about#team", status: "live", description: "The practitioners approved for public listing.", icon: "shield" },
       ],
     },

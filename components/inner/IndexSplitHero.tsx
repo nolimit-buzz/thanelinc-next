@@ -25,7 +25,7 @@ export interface IndexSplitHeroProps {
   image: { src: string; alt: string; width: number; height: number };
   floatingPanel: IndexHeroPanel;
   credentialPanel: IndexHeroPanel;
-  variant: "services" | "sectors";
+  variant: "services" | "sectors" | "learning-development";
 }
 
 export interface IndexHeroVisualProps {

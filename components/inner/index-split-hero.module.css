@@ -205,7 +205,8 @@
   filter: drop-shadow(0 28px 34px rgba(4, 14, 16, 0.34));
 }
 
-.sectors .portrait {
+.sectors .portrait,
+.learning-development .portrait {
   right: -30px;
   height: min(610px, 88%);
 }
@@ -313,7 +314,8 @@
   .visual { min-height: 530px; }
   .visualFrame { inset: 46px 0 28px; }
   .portrait { right: 8%; height: 520px; }
-  .sectors .portrait { right: 5%; height: 500px; }
+  .sectors .portrait,
+  .learning-development .portrait { right: 5%; height: 500px; }
   .floatingPanel { top: 82px; left: 20px; }
   .credentialPanel { right: 20px; bottom: 18px; }
 }
@@ -346,7 +348,8 @@
   .visual { min-height: 430px; }
   .visualFrame { inset: 34px 0 20px; }
   .portrait { right: -38px; height: 410px; }
-  .sectors .portrait { right: -42px; height: 405px; }
+  .sectors .portrait,
+  .learning-development .portrait { right: -42px; height: 405px; }
 
   .floatingPanel {
     top: 58px;

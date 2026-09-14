@@ -59,8 +59,8 @@ const SECTORS_POPULATE_QUERY = [
 // field the deployed CMS does not have yet returns a 400, which is non-retryable
 // and would blank the whole page.
 const LEARNING_DEVELOPMENT_POPULATE_QUERY = [
-  "populate[sections][on][learning-development.hero-section][populate]=*",
-  "populate[sections][on][learning-development.delivery-section][populate][metrics][populate]=*",
+  "populate[sections][on][learning-development.hero-section][populate]=metrics",
+  "populate[sections][on][learning-development.delivery-section][populate][cards][populate]=*",
   "populate[sections][on][learning-development.clients-section][populate][clients][populate]=*",
   "populate[sections][on][learning-development.focus-areas-section][populate][items][populate]=*",
   "populate[sections][on][learning-development.closing-cta-section][populate]=*",
