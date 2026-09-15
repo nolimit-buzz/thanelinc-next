@@ -104,6 +104,9 @@
 .directorySection {
   padding: 104px 0 116px;
   background: #fff;
+  /* Offsets the fixed SiteNav so #service-directory (and /learning-and-development's
+     #focus-areas, which reuses this class) don't land tucked behind it. */
+  scroll-margin-top: 112px;
 }
 
 .directoryIntro,

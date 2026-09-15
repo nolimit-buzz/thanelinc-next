@@ -57,7 +57,7 @@ export const midSizeOrganizationsPage: SectorPageContent = {
   },
   credentialBlock: {
     body: "Thanelinc is licensed by the NDPC as a Data Protection Compliance Organization. For EHL and UHL organisations, annual Compliance Audit Returns are filed through a DPCO licensed by the Commission, except as otherwise approved by the Commission.",
-    cta: { label: "Verify on NDPC", href: "/about/credentials" },
+    cta: { label: "See our credentials", href: "/about/credentials" },
     backgroundImage: "/hero-hologram.jpg",
   },
   reasonsId: "why-it-matters",

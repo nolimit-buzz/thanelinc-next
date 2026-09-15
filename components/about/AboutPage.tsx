@@ -31,6 +31,19 @@ export function AboutPage({
         bannerAlt={content.hero.bannerAlt}
       />
 
+      <section className={styles.companyOverviewSection}>
+        <div className="container">
+          <div className={`${styles.companyOverview} reveal`}>
+            <div className={styles.companyOverviewIntro}>
+              <h2>{content.companyOverview.heading}</h2>
+            </div>
+            <div>
+              {content.companyOverview.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className={styles.positioningSection}>
         <div className="container">
           <div className={`${styles.positioning} reveal`}>

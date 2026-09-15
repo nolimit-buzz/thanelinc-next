@@ -81,6 +81,7 @@ const RESOURCES_POPULATE_QUERY = [
 // link-out cards.
 const ABOUT_POPULATE_QUERY = [
   "populate[sections][on][about.hero-section][populate]=*",
+  "populate[sections][on][about.company-overview-section][populate]=*",
   "populate[sections][on][about.positioning-section][populate]=*",
   "populate[sections][on][about.process-section][populate]=*",
   "populate[sections][on][about.closing-cta-section][populate]=*",

@@ -1,6 +1,8 @@
 .directorySection {
   padding: 112px 0 124px;
   background: #fff;
+  /* Offsets the fixed SiteNav so #sector-directory doesn't land tucked behind it. */
+  scroll-margin-top: 112px;
 }
 
 .intro,

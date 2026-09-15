@@ -8,6 +8,7 @@
   text-transform: uppercase;
 }
 
+.companyOverviewSection,
 .positioningSection,
 .pathwaysSection,
 .credentialsSection,
@@ -16,6 +17,7 @@
 .credentialsSection,
 .teamSection { scroll-margin-top: 104px; }
 
+.companyOverview,
 .positioning {
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.25fr);
@@ -24,8 +26,10 @@
   padding: 0 0 clamp(54px, 7vw, 92px);
   border-bottom: 1px solid rgba(10, 28, 30, 0.14);
 }
+.companyOverviewIntro,
 .positioningIntro { min-width: 0; }
 
+.companyOverview h2,
 .positioning h2,
 .pathway h2,
 .processCard h2,
@@ -41,6 +45,7 @@
   line-height: 1.14;
 }
 
+.companyOverview p,
 .positioning p,
 .pathway p,
 .processCard p,
@@ -49,8 +54,11 @@
 .credentialCopy p,
 .memberCard p { color: var(--color-text-body); line-height: 1.7; }
 
+.companyOverview h2,
 .positioning h2 { max-width: 500px; margin-bottom: 0; font-size: clamp(2rem, 3.2vw, 3.35rem); font-weight: 800; letter-spacing: -0.045em; line-height: 1.04; }
+.companyOverview p,
 .positioning p { max-width: 720px; margin: 0; font-size: clamp(1rem, 1.5vw, 1.15rem); line-height: 1.7; }
+.companyOverview p + p { margin-top: 18px; }
 
 .pathways {
   display: grid;
@@ -161,9 +169,9 @@
 .clientProof :global(.logos-mask-right) { display: none; }
 
 @media (max-width: 760px) {
-  .positioningSection, .pathwaysSection, .credentialsSection, .teamSection { padding: 58px 0; }
+  .companyOverviewSection, .positioningSection, .pathwaysSection, .credentialsSection, .teamSection { padding: 58px 0; }
   .pathways, .credentialGrid { grid-template-columns: 1fr; }
-  .positioning { grid-template-columns: 1fr; gap: 22px; padding-bottom: 58px; }
+  .companyOverview, .positioning { grid-template-columns: 1fr; gap: 22px; padding-bottom: 58px; }
   .nextStepsSection { padding: 0 0 72px; }
   .nextStepsGrid { grid-template-columns: 1fr; }
   .nextStepsCard { min-height: 0; }

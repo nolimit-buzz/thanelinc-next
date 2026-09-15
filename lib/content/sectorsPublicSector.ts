@@ -97,7 +97,7 @@ export const publicSectorPage: SectorPageContent = {
       number: "03",
       heading: "Can a procurement team verify the licence?",
       body: "Yes. The DPCO licence and the separate Data Controller/Processor registration are distinct credentials, verifiable independently through the NDPC's own public register; not something you have to take our word for. Details are also available on request.",
-      cta: { label: "Verify on NDPC", href: "/about#credentials" },
+      cta: { label: "See our credentials", href: "/about#credentials" },
     },
     {
       number: "04",

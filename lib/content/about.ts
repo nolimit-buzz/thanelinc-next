@@ -9,6 +9,7 @@ export interface AboutPageContent {
     primaryCta: { label: string; href: string };
     secondaryCta: { label: string; href: string };
   };
+  companyOverview: { heading: string; body: string[] };
   positioning: { eyebrow: string; heading: string; body: string };
   process: { heading: string; body: string; href: string; ctaLabel: string };
   closingCta: { heading: string; primary: { label: string; href: string }; secondary: { label: string; href: string } };
@@ -24,6 +25,14 @@ export const aboutPageContent: AboutPageContent = {
     summary: "Thanelinc Nigeria Limited is an NDPC-licensed Data Protection Compliance Organization. This page is the route to the licence, the people approved for public listing, and the compliance work those credentials support.",
     primaryCta: { label: "See our credentials", href: "/about#credentials" },
     secondaryCta: { label: "How we work", href: "/how-we-work" },
+  },
+  companyOverview: {
+    heading: "Company Overview",
+    body: [
+      "Thanelinc Nigeria Limited helps organisations improve workforce capability, talent selection, business performance, and regulatory compliance through one integrated consulting brand. We work with public institutions, private companies, and growth-focused organisations to design and deliver practical interventions that strengthen people, processes, and performance.",
+      "Our operations are organised into three complementary business units: Data Protection Compliance, Learning & Development, and Assessment Services, enabling clients to access a single, coordinated partner for developing people, selecting talent, and meeting critical regulatory requirements.",
+      "Our approach combines diagnostic analysis, customised programme design, technology-enabled delivery, and measurable post-engagement outcomes to ensure that our interventions translate into practical business impact.",
+    ],
   },
   positioning: {
     eyebrow: "What the licence changes",

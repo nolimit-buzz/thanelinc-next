@@ -58,10 +58,11 @@ export interface SectorsPageContent {
   closing: SectorsClosingContent;
 }
 
-// `ServiceRowIcon`'s keys, narrowed to the three sector marks. `landmark` is
-// required here: the public sector card is seeded with it, and an icon outside
+// `ServiceRowIcon`'s keys, narrowed to the four sector marks. Each of
+// `landmark`/`layers` is required here: the public sector and mid-size
+// organisations cards are seeded with them respectively, and an icon outside
 // this list silently drops its card.
-const SECTOR_ICONS = ["graduation-cap", "building", "landmark"] as const;
+const SECTOR_ICONS = ["graduation-cap", "building", "landmark", "layers"] as const;
 type SectorIconName = (typeof SECTOR_ICONS)[number];
 
 function isOneOf<T extends readonly string[]>(allowed: T, value: unknown): value is T[number] {

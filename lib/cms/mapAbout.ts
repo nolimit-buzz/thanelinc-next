@@ -86,12 +86,25 @@ export function mapAboutPage(sections: StrapiSection[] | null): AboutSections | 
   const hero = mapHero(sections, "about.hero-section");
   const closingCta = mapClosingCta(sections, "about.closing-cta-section");
 
+  const companyOverviewSection = findSection(sections, "about.company-overview-section");
   const positioningSection = findSection(sections, "about.positioning-section");
   const processSection = findSection(sections, "about.process-section");
-  if (!hero || !closingCta || !positioningSection?.heading || !processSection?.heading) return null;
+  if (!hero || !closingCta || !companyOverviewSection?.heading || !positioningSection?.heading || !processSection?.heading) {
+    return null;
+  }
 
   return {
     hero,
+    companyOverview: {
+      heading: String(companyOverviewSection.heading),
+      // A single text field in the CMS but an array of paragraphs in the
+      // component, so blank lines are the paragraph break — same convention
+      // as `biography` in mapTeamPage.
+      body: String(companyOverviewSection.body ?? "")
+        .split(/\n\s*\n/)
+        .map((paragraph) => paragraph.trim())
+        .filter(Boolean),
+    },
     positioning: {
       eyebrow: String(positioningSection.eyebrow ?? ""),
       heading: String(positioningSection.heading),
