@@ -188,9 +188,13 @@ export const sectorsMenu: MegaMenu = {
           href: sectorRoutes.midSizeOrganisations,
           status: "live",
         },
-        { label: "Banks, Telecoms & Fintech (Regulated Businesses)", href: sectorRoutes.regulatedBusinesses, status: "live" },
-        { label: "Insurers & Oil and Gas (Regulated Businesses)", href: sectorRoutes.regulatedBusinesses, status: "live" },
-        { label: "Retail, Health & Logistics (Regulated Businesses)", href: sectorRoutes.regulatedBusinesses, status: "live" },
+        // All three land on the "Common Questions" band, whose first item
+        // ("Are you UHL by category or by volume?") is the one place on the
+        // page that actually names these categories — there's no separate
+        // section per category to link to individually.
+        { label: "Banks, Telecoms & Fintech (Regulated Businesses)", href: `${sectorRoutes.regulatedBusinesses}#questions`, status: "live" },
+        { label: "Insurers & Oil and Gas (Regulated Businesses)", href: `${sectorRoutes.regulatedBusinesses}#questions`, status: "live" },
+        { label: "Retail, Health & Logistics (Regulated Businesses)", href: `${sectorRoutes.regulatedBusinesses}#questions`, status: "live" },
       ],
     },
   ],

@@ -222,7 +222,7 @@ export const defaultServices: ServicesContent = {
         { label: "Major Importance Filing" },
       ],
       ctaLabel: "Start Registration",
-      ctaHref: "#contact",
+      ctaHref: "/contact",
       isDefaultOpen: false,
     },
     {
@@ -239,7 +239,7 @@ export const defaultServices: ServicesContent = {
         { label: "GAID Compliance Scoping" },
       ],
       ctaLabel: "Schedule Audit",
-      ctaHref: "#contact",
+      ctaHref: "/contact",
       isDefaultOpen: true,
     },
     {
@@ -256,7 +256,7 @@ export const defaultServices: ServicesContent = {
         { label: "Statutory Representation" },
       ],
       ctaLabel: "Retain a DPO",
-      ctaHref: "#contact",
+      ctaHref: "/contact",
       isDefaultOpen: false,
     },
     {
@@ -273,7 +273,7 @@ export const defaultServices: ServicesContent = {
         { label: "Post-Breach Remediation" },
       ],
       ctaLabel: "Report Incident",
-      ctaHref: "#contact",
+      ctaHref: "/contact",
       isDefaultOpen: false,
     },
   ],
