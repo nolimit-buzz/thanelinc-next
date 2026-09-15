@@ -17,12 +17,12 @@ export interface AboutPageContent {
 
 export const aboutPageContent: AboutPageContent = {
   title: "About Thanelinc",
-  summary: "Thanelinc is an NDPC-licensed Data Protection Compliance Organization, with credentials you can view directly.",
+  summary: "Thanelinc is an NDPC-licensed Data Protection Compliance Organization, with credentials you can independently verify.",
   hero: {
     eyebrow: "About Thanelinc",
-    h1: "Compliance support with",
-    h1Accent: "credentials you can verify.",
-    summary: "Thanelinc Nigeria Limited is an NDPC-licensed Data Protection Compliance Organization. This page is the route to the licence, the people approved for public listing, and the compliance work those credentials support.",
+    h1: "One firm.",
+    h1Accent: "Three ways we help you grow.",
+    summary: "Thanelinc Nigeria Limited brings people development, talent assessment, and regulatory compliance under one integrated consulting brand, backed by credentials you can independently verify.",
     primaryCta: { label: "See our credentials", href: "/about#credentials" },
     secondaryCta: { label: "How we work", href: "/how-we-work" },
   },

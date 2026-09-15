@@ -153,7 +153,7 @@ const LOGO_SVGS: Record<string, string> = {
 export const defaultTrackRecord: TrackRecordContent = {
   badge: "Proven Track Record",
   heading: "Who trusts us with regulated work",
-  body: "We've partnered with leading public and private institutions to drive workforce transformation and regulatory governance.",
+  body: "We've partnered with leading public and private institutions across compliance, workforce development and assessment — from regulatory governance to capability building and evaluation.",
   logos: Object.entries(LOGO_SVGS).map(([name, logoMarkup]) => ({ name, logoMarkup })),
 };
 
