@@ -328,7 +328,7 @@
   .hero::before { bottom: 38%; background-size: auto, 52px 52px, 52px 52px; }
 
   .copy { padding: 110px 0 58px; }
-  .copy h1 { margin-top: 18px; font-size: clamp(2.65rem, 13vw, 3.45rem); }
+  .copy h1 { margin-top: 18px; font-size: clamp(2rem, 8vw, 3.45rem); }
 
   .actions {
     align-items: stretch;

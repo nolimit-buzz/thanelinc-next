@@ -1008,6 +1008,21 @@
       }
     }
 
+    /* Standard mobile gutter (px-4 equivalent) below the md breakpoint, for
+       every `.container` instance sitewide. Longhand left/right only, so this
+       can't clobber a section's own vertical padding (e.g. the hero's mobile
+       nav-clearance padding-top above). Declared last among the rules that
+       touch `.container`/`.hero-main-layout` horizontal padding so it wins
+       the cascade tie-break by source order — this is also what corrects
+       `.hero-main-layout`'s unconditional `padding: 0 0 28px` (line ~445),
+       which otherwise zeroes the hero's mobile gutter entirely. */
+    @media (max-width: 767px) {
+      .container {
+        padding-left: var(--space-2);
+        padding-right: var(--space-2);
+      }
+    }
+
     /* ==========================================================================
        SECTION 2: THE PROBLEM (EXACT DESIGN SCREENSHOT 1 ARCHITECTURE)
        ========================================================================== */
@@ -1113,7 +1128,7 @@
       }
 
       .problem-editorial-h2 {
-        font-size: clamp(2rem, 10.5vw, 2.65rem);
+        font-size: clamp(2rem, 7.5vw, 2.65rem);
         line-height: 1.08;
         overflow-wrap: anywhere;
       }
@@ -1527,6 +1542,12 @@
       margin-bottom: 20px;
     }
 
+    @media (max-width: 600px) {
+      .micro-h2-title {
+        font-size: clamp(1.9rem, 7.5vw, 3.25rem);
+      }
+    }
+
     .micro-body-text {
       font-size: 1.15rem;
       color: #475569;
@@ -1725,6 +1746,12 @@
       letter-spacing: -0.035em;
       line-height: 1.15;
       margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .mandate-title {
+        font-size: clamp(1.9rem, 7.5vw, 2.75rem);
+      }
     }
 
     .mandate-subtext {
@@ -2298,6 +2325,12 @@
       letter-spacing: -0.035em;
       line-height: 1.15;
       margin-bottom: 18px;
+    }
+
+    @media (max-width: 600px) {
+      .services-h2-title {
+        font-size: clamp(1.9rem, 7.5vw, 3rem);
+      }
     }
 
     .services-h2-sub {

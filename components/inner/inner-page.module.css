@@ -453,7 +453,7 @@
 
 @media (max-width: 560px) {
   .heroSection { padding-top: 96px; }
-  .heroTitle { font-size: clamp(2.05rem, 12vw, 3.1rem); }
+  .heroTitle { font-size: clamp(2rem, 8vw, 3.1rem); }
   .heroActions, .ctaActions { align-items: stretch; flex-direction: column; }
   .heroActions > *, .ctaActions > * { width: 100%; justify-content: space-between; }
   .bannerImage { height: 260px; }
